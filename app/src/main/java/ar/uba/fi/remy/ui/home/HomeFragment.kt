@@ -17,24 +17,28 @@ import ar.uba.fi.remy.model.RecommendedItemAdapter
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
 
+        //Titulo de la pantalla
+        val textView: TextView = root.findViewById(R.id.text_home)
+        textView.text = getString(R.string.home_title)
+
+        //Obtengo las recetas desde la API y las inserto en el RecyclerView
+        cargarRecetas(root)
+
+        return root
+    }
+
+    private fun cargarRecetas(root: View) {
         val recyclerView:RecyclerView = root.findViewById(R.id.rv_recomendados)
         recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
+        //Reemplazar por el llamado a la API para obtener las recetas
         val recomendaciones = ArrayList<RecommendedItem>()
         recomendaciones.add(RecommendedItem("Recomendación 1", 10, 15, 20, 1))
         recomendaciones.add(RecommendedItem("Recomendación 2", 20, 25, 30, 1))
@@ -45,7 +49,5 @@ class HomeFragment : Fragment() {
 
         val adapter = RecommendedItemAdapter(recomendaciones)
         recyclerView.adapter = adapter
-
-        return root
     }
 }

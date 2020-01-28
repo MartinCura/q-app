@@ -3,4 +3,9 @@
     <string name="title_home">Remy</string>
     <string name="title_dashboard">Remy</string>
     <string name="title_notifications">Remy</string>
+
+
+    <!--  Pantalla Home  -->
+    <string name="home_title">¿Cocinamos algo?</string>
+
 </resources>
