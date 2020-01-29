@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">Remy</string>
-    <string name="title_home">Remy</string>
-    <string name="title_dashboard">Remy</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_dashboard">Explorar</string>
     <string name="title_notifications">Remy</string>
 
 
     <!--  Pantalla Home  -->
     <string name="home_title">¿Cocinamos algo?</string>
+
+    <!--  Pantalla Explorar  -->
+    <string name="dashboard_title">Explorar</string>
 
 </resources>
