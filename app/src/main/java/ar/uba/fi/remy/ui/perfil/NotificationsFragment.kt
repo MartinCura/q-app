@@ -1,4 +1,4 @@
-package ar.uba.fi.remy.ui.notifications
+package ar.uba.fi.remy.ui.perfil
 
 import android.os.Bundle
 import android.view.LayoutInflater

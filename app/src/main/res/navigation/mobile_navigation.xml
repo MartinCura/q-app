@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="ar.uba.fi.remy.ui.home.HomeFragment"
+        android:name="ar.uba.fi.remy.ui.inicio.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="ar.uba.fi.remy.ui.dashboard.DashboardFragment"
+        android:name="ar.uba.fi.remy.ui.explorar.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="ar.uba.fi.remy.ui.notifications.NotificationsFragment"
+        android:name="ar.uba.fi.remy.ui.perfil.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
