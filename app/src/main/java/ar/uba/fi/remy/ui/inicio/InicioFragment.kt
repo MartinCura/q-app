@@ -12,14 +12,14 @@ import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.RecommendedItem
 import ar.uba.fi.remy.model.RecommendedItemAdapter
 
-class HomeFragment : Fragment() {
+class InicioFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_inicio, container, false)
 
         //Titulo de la pantalla
         val textView: TextView = root.findViewById(R.id.text_home)
