@@ -52,33 +52,8 @@ class InicioFragment : Fragment() {
         recomendaciones.add(RecommendedItem("Recomendación 5", 10, 15, 20, 1))
         recomendaciones.add(RecommendedItem("Recomendación 6", 20, 25, 30, 1))
 
-        val queue = Volley.newRequestQueue(activity)
+ /*       val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/ingredients/"
-        /*
-        val url = "https://tpp-remy.herokuapp.com/api/v1/rest-auth/login/"
-
-        val params = HashMap<String,String>()
-        params["username"] = "Franco"
-        params["email"] = "franco@mail.com"
-        params["password"] = "agusputo"
-        val jsonObject = JSONObject(params)
-        var token = ""
-
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.POST,url,jsonObject,
-            Response.Listener { response ->
-                // Process the json
-                Log.i("API", "Response: %s".format(response.toString()))
-                token = response["key"].toString()
-                Log.i("API", "Token: $token")
-
-            }, Response.ErrorListener{error ->
-                // Error in request
-                Log.e("API", "Error en GET")
-
-            })
-
-        */
-
 
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -98,7 +73,7 @@ class InicioFragment : Fragment() {
         }
 
 
-        queue.add(jsonObjectRequest)
+        queue.add(jsonObjectRequest)*/
 
         val adapter = RecommendedItemAdapter(recomendaciones)
         recyclerView.adapter = adapter

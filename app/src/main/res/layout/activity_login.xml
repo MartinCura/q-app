@@ -21,6 +21,7 @@
             android:src="@drawable/ic_cafe"/>
 
         <EditText
+            android:id="@+id/login_txt_usuario"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
@@ -32,15 +33,18 @@
             android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
             android:padding="10dp"/>
 
         <EditText
+            android:id="@+id/login_txt_psw"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
             android:drawableStart="@drawable/ic_lock"
             android:background="@drawable/input_background"
             android:textColorHint="@color/white"
+            android:inputType="textPassword"
             android:drawablePadding="15dp"
             android:hint="Contraseña"
             android:textSize="20dp"
@@ -49,6 +53,7 @@
             android:padding="10dp"/>
 
         <TextView
+            android:id="@+id/login_btn_olvido_psw"
             android:layout_gravity="end"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -60,6 +65,7 @@
             android:padding="10dp" />
 
         <Button
+            android:id="@+id/login_btn_ingresar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -69,6 +75,7 @@
             android:text="INGRESAR"/>
 
         <Button
+            android:id="@+id/login_btn_nueva_cuenta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -78,6 +85,13 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:text="Crear nueva cuenta"/>
+
+        <ProgressBar
+            android:id="@+id/login_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
     </LinearLayout>
 

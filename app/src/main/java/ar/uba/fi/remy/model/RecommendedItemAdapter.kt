@@ -29,7 +29,7 @@ class  RecommendedItemAdapter(var listaRecetas:ArrayList<RecommendedItem>):Recyc
             val nombre:TextView = itemView.findViewById(R.id.title)
             val duracion:TextView = itemView.findViewById(R.id.minutos)
             val calorias:TextView = itemView.findViewById(R.id.calorias)
-            val foto:ImageView = itemView.findViewById(R.id.foto)
+/*            val foto:ImageView = itemView.findViewById(R.id.foto)*/
 
             nombre.text = data.nombre
             duracion.text = data.tiempo.toString()
