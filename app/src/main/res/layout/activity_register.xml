@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".RegisterActivity"
     android:background="@drawable/main_background2">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:src="@drawable/logo1"/>
 
         <EditText
-            android:id="@+id/login_txt_usuario"
+            android:id="@+id/register_txt_usuario"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
@@ -29,7 +29,7 @@
             android:background="@drawable/input_background"
             android:textColorHint="@color/white"
             android:drawablePadding="15dp"
-            android:hint="Usuario"
+            android:hint="Ingrese su usuario"
             android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,54 +37,62 @@
             android:padding="10dp"/>
 
         <EditText
-            android:id="@+id/login_txt_psw"
+            android:id="@+id/register_txt_email"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/ic_email"
+            android:background="@drawable/input_background"
+            android:textColorHint="@color/white"
+            android:drawablePadding="15dp"
+            android:hint="Ingrese su email"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"/>
+
+        <EditText
+            android:id="@+id/register_txt_psw1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
             android:drawableStart="@drawable/ic_lock"
             android:background="@drawable/input_background"
             android:textColorHint="@color/white"
             android:inputType="textPassword"
             android:drawablePadding="15dp"
-            android:hint="Contraseña"
+            android:hint="Ingresar contraseña"
             android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"/>
 
-        <TextView
-            android:id="@+id/login_btn_olvido_psw"
-            android:layout_gravity="end"
+        <EditText
+            android:id="@+id/register_txt_psw2"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/ic_lock"
+            android:background="@drawable/input_background"
+            android:textColorHint="@color/white"
+            android:inputType="textPassword"
+            android:drawablePadding="15dp"
+            android:hint="Repetir contraseña"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="¿Olvidó su contraseña?"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:padding="10dp" />
+            android:padding="10dp"/>
 
         <Button
-            android:id="@+id/login_btn_ingresar"
+            android:id="@+id/register_btn_crear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="INGRESAR"/>
-
-        <Button
-            android:id="@+id/login_btn_nueva_cuenta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/input_background"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:text="Crear nueva cuenta"/>
+            android:text="CREAR CUENTA"/>
 
     </LinearLayout>
 

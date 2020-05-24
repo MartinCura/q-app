@@ -43,6 +43,15 @@ class LoginActivity : AppCompatActivity() {
             iniciarSesion()
         })
 
+        login_btn_nueva_cuenta.setOnClickListener(View.OnClickListener {
+            goRegistro()
+        })
+
+    }
+
+    private fun goRegistro() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
     }
 
     private fun iniciarSesion() {
@@ -97,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun iniciarMain() {
         val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 }
