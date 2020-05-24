@@ -1,5 +1,7 @@
 package ar.uba.fi.remy
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +18,17 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Access sharedPreferences
+        val sharedPref = this.getSharedPreferences(
+            getString(R.string.preference_file), Context.MODE_PRIVATE)
+        /*val editor = sharedPref.edit()
+        editor.clear()
+        editor.apply()*/
+        val token = sharedPref.getString("TOKEN", "")
+        if(token !== ""){
+            iniciarMain()
+        }
 
         // Hide the status bar.
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -42,12 +55,19 @@ class LoginActivity : AppCompatActivity() {
             params["password"] = login_txt_psw.text.toString()
             val jsonObject = JSONObject(params)
 
-            Log.i("API", "Response: %s".format(jsonObject.toString()))
-
             val request = JsonObjectRequest(Request.Method.POST,url,jsonObject,
                 Response.Listener { response ->
                     // Process the json
-                    Log.i("API", "Response: %s".format(response.toString()))
+                    /*Log.i("API", "Response: %s".format(response.toString()))*/
+
+                    //Access sharedPreferences
+                    val sharedPref = this.getSharedPreferences(
+                        getString(R.string.preference_file), Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.putString("TOKEN", response["key"].toString())
+                    editor.apply()
+
+                    iniciarMain()
                 }, Response.ErrorListener{error ->
                     // Error in request
                     Log.e("API", "Response: %s".format(error.toString()))
@@ -73,5 +93,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    private fun iniciarMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

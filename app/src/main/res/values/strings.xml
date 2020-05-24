@@ -11,4 +11,7 @@
     <!--  Pantalla Explorar  -->
     <string name="dashboard_title">Explorar</string>
 
+    <!-- Shared Preference  -->
+    <string name="preference_file">sharedPreference</string>
+
 </resources>

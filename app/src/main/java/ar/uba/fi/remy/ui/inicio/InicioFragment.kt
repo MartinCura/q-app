@@ -1,5 +1,6 @@
 package ar.uba.fi.remy.ui.inicio
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -51,6 +52,12 @@ class InicioFragment : Fragment() {
         recomendaciones.add(RecommendedItem("Recomendación 4", 20, 25, 30, 1))
         recomendaciones.add(RecommendedItem("Recomendación 5", 10, 15, 20, 1))
         recomendaciones.add(RecommendedItem("Recomendación 6", 20, 25, 30, 1))
+
+        //Access sharedPreferences
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file), Context.MODE_PRIVATE)
+        val token = sharedPref?.getString("TOKEN", "")
+        Log.i("API", token)
 
  /*       val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/ingredients/"
