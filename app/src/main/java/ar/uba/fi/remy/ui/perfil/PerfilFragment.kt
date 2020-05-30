@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import ar.uba.fi.remy.InventoryActivity
 import ar.uba.fi.remy.LoginActivity
 import ar.uba.fi.remy.R
 import kotlinx.android.synthetic.main.fragment_perfil.*
@@ -48,7 +49,8 @@ class PerfilFragment : Fragment() {
     }
 
     private fun goInventario() {
-        Toast.makeText(activity, "Click Inventario", Toast.LENGTH_LONG).show()
+        val intent = Intent(activity, InventoryActivity::class.java)
+        startActivity(intent)
     }
 
     private fun goLogin() {
