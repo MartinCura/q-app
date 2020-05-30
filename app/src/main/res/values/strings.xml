@@ -6,7 +6,7 @@
 
 
     <!--  Pantalla Home  -->
-    <string name="home_title">¿Cocinamos algo?</string>
+    <string name="home_title">Ingredientes disponibles</string>
 
     <!--  Pantalla Explorar  -->
     <string name="dashboard_title">Explorar</string>

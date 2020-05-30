@@ -6,20 +6,41 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:textColor="#FFFFFF"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="20dp"/>
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/text_home"
+            android:textColor="#FFFFFF"
+            android:layout_weight="85"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:layout_width="0dp" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_weight="15"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="0dp"
+            android:textOff="NO"
+            android:textOn="SI"
+            app:showText="true">
+
+        </androidx.appcompat.widget.SwitchCompat>
+
+    </LinearLayout>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recomendados"

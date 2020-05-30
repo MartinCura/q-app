@@ -3,8 +3,14 @@ package ar.uba.fi.remy
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import ar.uba.fi.remy.model.VolleySingleton
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import kotlinx.android.synthetic.main.activity_register.*
+import org.json.JSONObject
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -28,10 +34,26 @@ class RegisterActivity : AppCompatActivity() {
     private fun crearCuenta() {
         if(validarCampos()){
             //Request API register
+            val url = "https://tpp-remy.herokuapp.com/api/v1/rest-auth/registration"
 
+            val params = HashMap<String,String>()
+            params["username"] = register_txt_usuario.text.toString()
+            params["email"] = register_txt_email.text.toString()
+            params["password1"] = register_txt_psw1.text.toString()
+            params["password2"] = register_txt_psw2.text.toString()
+            val jsonObject = JSONObject(params)
 
-            //Back to login activity
-            goLogin()
+            val request = JsonObjectRequest(Request.Method.POST,url,jsonObject,
+                Response.Listener { response ->
+                    // Process the json
+                    Log.i("API", "Response: %s".format(response.toString()))
+                    goLogin()
+                }, Response.ErrorListener{error ->
+                    // Error in request
+                    Log.e("API", "Response: %s".format(error.toString()))
+                })
+
+            VolleySingleton.getInstance(this).addToRequestQueue(request)
         }
     }
 
