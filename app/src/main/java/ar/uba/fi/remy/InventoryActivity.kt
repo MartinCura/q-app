@@ -21,6 +21,8 @@ class InventoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inventory)
 
+        getSupportActionBar()?.setTitle("Inventario");
+
         //Cambiar por llamada a la API
         inventario = "{\"inventario\": [{\"ingrediente\": \"Pan\", \"cantidad\": \"1kg\"}, {\"ingrediente\": \"Queso\", \"cantidad\": \"300g\"}]}"
 
