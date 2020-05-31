@@ -2,6 +2,7 @@ package ar.uba.fi.remy.model
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,4 +28,9 @@ class InventoryAdapter(private val context: Context, private val dataList: Array
         rowView.tag = position
         return rowView
     }
+
+/*    fun filter(text: String) {
+        val result = dataList.filter { it["ingrediente"]!!.startsWith(text.toString()) }
+        Log.i("API", result.toString())
+    }*/
 }
