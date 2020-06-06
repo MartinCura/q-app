@@ -7,13 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import ar.uba.fi.remy.InventoryActivity
 import ar.uba.fi.remy.LoginActivity
 import ar.uba.fi.remy.R
-import kotlinx.android.synthetic.main.fragment_perfil.*
 
 class PerfilFragment : Fragment() {
 
@@ -23,11 +19,6 @@ class PerfilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_perfil, container, false)
-
-        val cardInventario: CardView = root.findViewById(R.id.card_inventario)
-        cardInventario.setOnClickListener{
-            goInventario()
-        }
 
         val btnSalir: TextView = root.findViewById(R.id.perfil_salir)
         btnSalir.setOnClickListener(View.OnClickListener {
@@ -46,11 +37,6 @@ class PerfilFragment : Fragment() {
         editor?.apply()
 
         goLogin()
-    }
-
-    private fun goInventario() {
-        val intent = Intent(activity, InventoryActivity::class.java)
-        startActivity(intent)
     }
 
     private fun goLogin() {
