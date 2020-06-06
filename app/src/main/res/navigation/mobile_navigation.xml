@@ -6,6 +6,18 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
+        android:id="@+id/navigation_chango"
+        android:name="ar.uba.fi.remy.ui.chango.ChangoFragment"
+        android:label="@string/title_chango"
+        tools:layout="@layout/fragment_chango" />
+
+    <fragment
+        android:id="@+id/navigation_inventory"
+        android:name="ar.uba.fi.remy.ui.inventory.InventoryFragment"
+        android:label="@string/title_inventory"
+        tools:layout="@layout/fragment_inventory" />
+
+    <fragment
         android:id="@+id/navigation_home"
         android:name="ar.uba.fi.remy.ui.inicio.InicioFragment"
         android:label="@string/title_home"

@@ -3,6 +3,8 @@
     <string name="title_home">Inicio</string>
     <string name="title_dashboard">Explorar</string>
     <string name="title_notifications">Perfil</string>
+    <string name="title_chango">Carrito</string>
+    <string name="title_inventory">Inventario</string>
 
 
     <!--  Pantalla Home  -->
