@@ -61,7 +61,7 @@ class InventoryFragment : Fragment() {
 
         })
 
-        root.inventory_floating.setOnClickListener(View.OnClickListener {
+        root.inventory_floating_scan.setOnClickListener(View.OnClickListener {
             goScanner()
         })
 
