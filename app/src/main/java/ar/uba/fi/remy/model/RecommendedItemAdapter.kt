@@ -1,12 +1,12 @@
 package ar.uba.fi.remy.model
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import ar.uba.fi.remy.DetailRecipeActivity
 import ar.uba.fi.remy.R
 
 class  RecommendedItemAdapter(var listaRecetas:ArrayList<RecommendedItem>):RecyclerView.Adapter<RecommendedItemAdapter.ViewHolder>(){
@@ -36,7 +36,10 @@ class  RecommendedItemAdapter(var listaRecetas:ArrayList<RecommendedItem>):Recyc
             calorias.text = data.calorias.toString()
 
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, "Click ${data.nombre}", Toast.LENGTH_LONG).show()
+                val intent = Intent(itemView.context, DetailRecipeActivity::class.java)
+                // TO-DO: Cambiarlo por el ID de la receta para hacer un request a la API
+                intent.putExtra("id_receta", data.nombre)
+                itemView.context.startActivity(intent)
             }
 
         }

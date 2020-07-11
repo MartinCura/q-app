@@ -7,6 +7,7 @@
         android:id="@+id/chango_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
         android:queryHint="Buscar ingrediente..."
         />
 
