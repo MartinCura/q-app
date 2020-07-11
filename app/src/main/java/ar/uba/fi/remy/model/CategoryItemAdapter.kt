@@ -3,6 +3,7 @@ package ar.uba.fi.remy.model
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.R
 
@@ -23,7 +24,8 @@ class CategoryItemAdapter(var listaCategorias:Array<String>): RecyclerView.Adapt
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
 
         fun bindItems(data: String){
-
+            val categoria: TextView = itemView.findViewById(R.id.category_item_nombre)
+            categoria.text = data
         }
 
     }
