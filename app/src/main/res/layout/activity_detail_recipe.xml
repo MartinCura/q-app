@@ -14,7 +14,7 @@
         android:layout_height="200dp"
         android:src="@drawable/wrap"
         />
-    
+
     <TextView
         android:textSize="20sp"
         android:textStyle="bold"
@@ -150,5 +150,17 @@
             android:text="\t1. Paso numero 1 \n\t2. Paso numero 2 \n\t3. Paso numero 3\n\t..."/>
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_marginRight="25px"
+        android:layout_marginTop="20px"
+        android:id="@+id/detail_cocinar"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="COCINAR"
+        android:textColor="@color/white"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:background="@drawable/button_background"/>
 
 </LinearLayout>

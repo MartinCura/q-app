@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.DetailRecipeActivity
@@ -41,6 +42,16 @@ class  RecommendedItemAdapter(var listaRecetas:ArrayList<RecommendedItem>):Recyc
                 intent.putExtra("id_receta", data.nombre)
                 itemView.context.startActivity(intent)
             }
+
+            // Ocultar estrellas de difucultad de forma dinamica
+            val starTwo:ImageView = itemView.findViewById(R.id.starTwo)
+            val starThree:ImageView = itemView.findViewById(R.id.starThree)
+            val starFour:ImageView = itemView.findViewById(R.id.starFour)
+            val starFive:ImageView = itemView.findViewById(R.id.starFive)
+            if(data.dificultad < 5) starFive.visibility = View.GONE
+            if(data.dificultad < 4) starFour.visibility = View.GONE
+            if(data.dificultad < 3) starThree.visibility = View.GONE
+            if(data.dificultad < 2) starTwo.visibility = View.GONE
 
         }
 

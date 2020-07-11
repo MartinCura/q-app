@@ -46,12 +46,12 @@ class InicioFragment : Fragment() {
 
         //Reemplazar por el llamado a la API para obtener las recetas
         val recomendaciones = ArrayList<RecommendedItem>()
-        recomendaciones.add(RecommendedItem("Recomendación 1", 10, 15, 20, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 2", 20, 25, 30, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 3", 10, 15, 20, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 4", 20, 25, 30, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 5", 10, 15, 20, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 6", 20, 25, 30, 1))
+        recomendaciones.add(RecommendedItem("Recomendación 1", 1, 15, 20, 1))
+        recomendaciones.add(RecommendedItem("Recomendación 2", 2, 25, 30, 1))
+        recomendaciones.add(RecommendedItem("Recomendación 3", 1, 15, 20, 1))
+        recomendaciones.add(RecommendedItem("Recomendación 4", 3, 25, 30, 1))
+        recomendaciones.add(RecommendedItem("Recomendación 5", 4, 15, 20, 1))
+        recomendaciones.add(RecommendedItem("Recomendación 6", 5, 25, 30, 1))
 
         //Access sharedPreferences
         val sharedPref = activity?.getSharedPreferences(
