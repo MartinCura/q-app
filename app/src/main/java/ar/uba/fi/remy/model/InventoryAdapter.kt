@@ -29,6 +29,11 @@ class InventoryAdapter(private val context: FragmentActivity?, private val dataL
         return rowView
     }
 
+    fun addData(data: HashMap<String, String>) {
+        dataList.add(data)
+        notifyDataSetChanged()
+    }
+
 /*    fun filter(text: String) {
         val result = dataList.filter { it["ingrediente"]!!.startsWith(text.toString()) }
         Log.i("API", result.toString())

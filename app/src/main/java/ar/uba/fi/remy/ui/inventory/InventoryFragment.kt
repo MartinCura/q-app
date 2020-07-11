@@ -103,7 +103,13 @@ class InventoryFragment : Fragment() {
             dataList.add(map)
         }
 
-        inventoryList.adapter = InventoryAdapter(activity, dataList)
+        val adapter = InventoryAdapter(activity, dataList);
+        inventoryList.adapter = adapter
+
+        val map = HashMap<String, String>()
+        map["ingrediente"] = "ingrediente"
+        map["cantidad"] = "cantidad"
+        adapter.addData(map)
     }
 
 
