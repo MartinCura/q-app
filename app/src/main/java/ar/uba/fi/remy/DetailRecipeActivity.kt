@@ -10,7 +10,7 @@ class DetailRecipeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_recipe)
 
-        val profileName= intent.getStringExtra("id_receta")
-        Log.i("API", profileName)
+/*        val profileName= intent.getStringExtra("id_receta")
+        Log.i("API", profileName)*/
     }
 }
