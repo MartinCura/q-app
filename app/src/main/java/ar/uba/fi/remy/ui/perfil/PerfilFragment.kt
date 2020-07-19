@@ -10,6 +10,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.LoginActivity
 import ar.uba.fi.remy.R
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
+import com.google.android.material.chip.ChipGroup
+import kotlinx.android.synthetic.main.fragment_perfil.*
 
 class PerfilFragment : Fragment() {
 
@@ -25,7 +29,20 @@ class PerfilFragment : Fragment() {
             cerrarSesion()
         })
 
+        cargarIngredientesProhibidos(root)
+
         return root
+    }
+
+    private fun cargarIngredientesProhibidos(root: View) {
+        val chipGroup: ChipGroup = root.findViewById(R.id.perfil_chipgroup)
+        val chip = Chip(context)
+        chip.text = "Chip"
+        val drawable = context?.let { ChipDrawable.createFromAttributes(it, null, 0, R.style.Widget_MaterialComponents_Chip_Entry) }
+        drawable?.let { chip.setChipDrawable(it) }
+        chip.chipEndPadding = 20F
+        chipGroup.addView(chip)
+        chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
     }
 
     private fun cerrarSesion() {
