@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:padding="80px"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar nuevo ingrediente"
+        android:textSize="20sp"
+        android:layout_marginBottom="30px"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginBottom="30px"
+        android:id="@+id/dialog_add_ingredient_ingrediente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="clear_text"
+        android:hint="Ingrediente">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:weightSum="100"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:paddingRight="40px"
+            android:layout_marginBottom="30px"
+            android:id="@+id/dialog_add_ingredient_cantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            app:endIconMode="clear_text"
+            android:hint="Cantidad">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="60"
+            android:hint="Unidad">
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/dialog_add_ingredient_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_marginRight="40px"
+            android:id="@+id/dialog_add_ingredient_cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cacelar"
+            android:layout_gravity="right"
+            />
+
+        <Button
+            android:id="@+id/dialog_add_ingredient_agregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar"
+            android:layout_gravity="right"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

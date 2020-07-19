@@ -1,14 +1,16 @@
 package ar.uba.fi.remy.ui.inventory
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
-import android.widget.Toast
+import android.view.Window
+import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.R
@@ -65,7 +67,34 @@ class InventoryFragment : Fragment() {
             goScanner()
         })
 
+        root.inventory_floating_add.setOnClickListener(View.OnClickListener {
+            goAddManually()
+        })
+
         return root
+    }
+
+    private fun goAddManually() {
+        val dialog = Dialog(activity)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_add_ingredient)
+        /*val body = dialog.findViewById(R.id.body) as TextView
+        body.text = title*/
+        val confirmBtn = dialog.findViewById(R.id.dialog_add_ingredient_agregar) as Button
+        val cancelBtn = dialog.findViewById(R.id.dialog_add_ingredient_cancelar) as Button
+        cancelBtn.setBackgroundColor(Color.GRAY)
+        confirmBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        cancelBtn.setOnClickListener { dialog.dismiss() }
+        val items = listOf("g", "kg", "u", "l")
+        val adapter = ArrayAdapter(activity, R.layout.list_item, items)
+        val dropdown = dialog.findViewById(R.id.dialog_add_ingredient_dropdown) as AutoCompleteTextView
+        dropdown.setAdapter(adapter)
+        dropdown.keyListener = null
+        dialog.show()
+        dialog.window.setLayout(1000,900)
     }
 
     private fun goScanner() {
