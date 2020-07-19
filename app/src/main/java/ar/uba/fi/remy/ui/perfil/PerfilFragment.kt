@@ -35,14 +35,21 @@ class PerfilFragment : Fragment() {
     }
 
     private fun cargarIngredientesProhibidos(root: View) {
-        val chipGroup: ChipGroup = root.findViewById(R.id.perfil_chipgroup)
-        val chip = Chip(context)
-        chip.text = "Chip"
-        val drawable = context?.let { ChipDrawable.createFromAttributes(it, null, 0, R.style.Widget_MaterialComponents_Chip_Entry) }
-        drawable?.let { chip.setChipDrawable(it) }
-        chip.chipEndPadding = 20F
-        chipGroup.addView(chip)
-        chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
+        // TO-DO: hacer llamada a la api
+
+        // Respuesta simulada:
+        val ingredientes = arrayOf("Dulce de leche", "Azucar", "Harina")
+
+        for (ingrediente in ingredientes) {
+            val chipGroup: ChipGroup = root.findViewById(R.id.perfil_chipgroup)
+            val chip = Chip(context)
+            chip.text = ingrediente
+            val drawable = context?.let { ChipDrawable.createFromAttributes(it, null, 0, R.style.Widget_MaterialComponents_Chip_Entry) }
+            drawable?.let { chip.setChipDrawable(it) }
+            chip.chipEndPadding = 20F
+            chipGroup.addView(chip)
+            chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
+        }
     }
 
     private fun cerrarSesion() {
