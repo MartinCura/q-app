@@ -14,9 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents">
         <activity
+            android:name=".ContactsActivity"
+            android:theme="@style/LoginPage"/>
+        <activity
             android:name=".EventsActivity"
-            android:theme="@style/LoginPage"
-            />
+            android:theme="@style/LoginPage" />
         <activity
             android:name=".DetailRecipeActivity"
             android:theme="@style/LoginPage" />

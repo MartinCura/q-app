@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import ar.uba.fi.remy.ContactsActivity
 import ar.uba.fi.remy.EventsActivity
 import ar.uba.fi.remy.LoginActivity
 import ar.uba.fi.remy.R
@@ -32,9 +33,13 @@ class PerfilFragment : Fragment() {
         })
 
         val btnEventos: Button = root.findViewById(R.id.perfil_btn_eventos)
-
         btnEventos.setOnClickListener(View.OnClickListener {
             goEvents()
+        })
+
+        val btnContacts: Button = root.findViewById(R.id.perfil_btn_contactos)
+        btnContacts.setOnClickListener(View.OnClickListener {
+            goContacts()
         })
 
         cargarIngredientesProhibidos(root)
@@ -80,6 +85,11 @@ class PerfilFragment : Fragment() {
 
     private fun goEvents() {
         val intent = Intent(activity, EventsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goContacts() {
+        val intent = Intent(activity, ContactsActivity::class.java)
         startActivity(intent)
     }
 }
