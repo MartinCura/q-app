@@ -80,6 +80,21 @@
 
     </com.google.android.material.chip.ChipGroup>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/perfil_btn_contactos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contactos"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/perfil_btn_eventos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eventos"
+        />
+
+
     <TextView
         android:layout_marginTop="50px"
         android:id="@+id/perfil_salir"

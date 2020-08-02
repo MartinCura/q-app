@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import ar.uba.fi.remy.EventsActivity
 import ar.uba.fi.remy.LoginActivity
 import ar.uba.fi.remy.R
 import com.google.android.material.chip.Chip
@@ -27,6 +29,12 @@ class PerfilFragment : Fragment() {
         val btnSalir: TextView = root.findViewById(R.id.perfil_salir)
         btnSalir.setOnClickListener(View.OnClickListener {
             cerrarSesion()
+        })
+
+        val btnEventos: Button = root.findViewById(R.id.perfil_btn_eventos)
+
+        btnEventos.setOnClickListener(View.OnClickListener {
+            goEvents()
         })
 
         cargarIngredientesProhibidos(root)
@@ -68,5 +76,10 @@ class PerfilFragment : Fragment() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         getActivity()?.finish()
+    }
+
+    private fun goEvents() {
+        val intent = Intent(activity, EventsActivity::class.java)
+        startActivity(intent)
     }
 }
