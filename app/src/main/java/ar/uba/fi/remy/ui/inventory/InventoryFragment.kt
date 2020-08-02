@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
+import com.google.android.material.textfield.TextInputLayout
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_inventory.view.*
 import org.json.JSONArray
@@ -68,23 +69,27 @@ class InventoryFragment : Fragment() {
         })
 
         root.inventory_floating_add.setOnClickListener(View.OnClickListener {
-            goAddManually()
+            goAddManually(root.inventory_list)
         })
 
         return root
     }
 
-    private fun goAddManually() {
+    private fun goAddManually(inventoryList: ListView) {
         val dialog = Dialog(activity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_add_ingredient)
-        /*val body = dialog.findViewById(R.id.body) as TextView
-        body.text = title*/
+
         val confirmBtn = dialog.findViewById(R.id.dialog_add_ingredient_agregar) as Button
         val cancelBtn = dialog.findViewById(R.id.dialog_add_ingredient_cancelar) as Button
+        val textIngrediente = dialog.findViewById(R.id.dialog_add_ingredient_ingrediente) as TextInputLayout
+        val textCantidad = dialog.findViewById(R.id.dialog_add_ingredient_cantidad) as TextInputLayout
+        val textUnidad = dialog.findViewById(R.id.dialog_add_ingredient_unidad) as TextInputLayout
+
         cancelBtn.setBackgroundColor(Color.GRAY)
         confirmBtn.setOnClickListener {
+            agregarIngrediente(textIngrediente.editText?.text.toString(), textCantidad.editText?.text.toString(), textUnidad.editText?.text.toString(), inventoryList)
             dialog.dismiss()
         }
         cancelBtn.setOnClickListener { dialog.dismiss() }
@@ -132,12 +137,16 @@ class InventoryFragment : Fragment() {
             dataList.add(map)
         }
 
-        val adapter = InventoryAdapter(activity, dataList);
+        agregarIngrediente("Ingrediente", "Cantidad", "Unidad", inventoryList)
+    }
+
+    private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String, inventoryList: ListView) {
+        val adapter = InventoryAdapter(activity, dataList)
         inventoryList.adapter = adapter
 
         val map = HashMap<String, String>()
-        map["ingrediente"] = "ingrediente"
-        map["cantidad"] = "cantidad"
+        map["ingrediente"] = ingrediente
+        map["cantidad"] = cantidad + unidad
         adapter.addData(map)
     }
 

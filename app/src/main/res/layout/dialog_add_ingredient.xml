@@ -55,6 +55,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:id="@+id/dialog_add_ingredient_unidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="60"
