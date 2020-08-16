@@ -2,6 +2,7 @@ package ar.uba.fi.remy.ui.inventory
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -15,6 +16,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.textfield.TextInputLayout
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_inventory.view.*
@@ -38,6 +43,8 @@ class InventoryFragment : Fragment() {
         //Cambiar por llamada a la API
         inventario = "{\"inventario\": [{\"ingrediente\": \"Pan\", \"cantidad\": \"1kg\"}, {\"ingrediente\": \"Queso\", \"cantidad\": \"300g\"}]}"
 
+        obtenerInventario()
+        Log.i("API", "Cargando inventario...")
         cargarInventario(inventario, root.inventory_list)
 
         root.inventory_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
@@ -73,6 +80,37 @@ class InventoryFragment : Fragment() {
         })
 
         return root
+    }
+
+    private fun obtenerInventario() {
+        //Access sharedPreferences
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file), Context.MODE_PRIVATE)
+        val token = sharedPref?.getString("TOKEN", "")
+
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/"
+        Log.i("API", "Hasta acá va bien...")
+
+        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Va bien...")
+                Log.i("API", "Response: %s".format(response.toString()))
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     private fun goAddManually(inventoryList: ListView) {
