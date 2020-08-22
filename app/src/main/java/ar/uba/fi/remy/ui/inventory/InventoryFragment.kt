@@ -40,12 +40,7 @@ class InventoryFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_inventory, container, false)
 
-        //Cambiar por llamada a la API
-        inventario = "{\"inventario\": [{\"ingrediente\": \"Pan\", \"cantidad\": \"1kg\"}, {\"ingrediente\": \"Queso\", \"cantidad\": \"300g\"}]}"
-
-        obtenerInventario()
-        Log.i("API", "Cargando inventario...")
-        cargarInventario(inventario, root.inventory_list)
+        obtenerInventario(root.inventory_list)
 
         root.inventory_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
@@ -55,17 +50,17 @@ class InventoryFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val jsonObj = JSONObject(inventario)
-                val ingredientes = jsonObj.getJSONArray("inventario")
+                val ingredientes = jsonObj.getJSONArray("results")
                 val ingredientesFiltrados = JSONArray()
 
                 for (i in 0 until ingredientes.length()) {
                     val ingrediente = ingredientes.getJSONObject(i)
-                    if(ingrediente.getString("ingrediente").toUpperCase().startsWith(newText.toString().toUpperCase())){
+                    if(ingrediente.getString("product").toUpperCase().startsWith(newText.toString().toUpperCase())){
                         ingredientesFiltrados.put(ingrediente)
                     }
                 }
 
-                cargarInventario("{\"inventario\": " + ingredientesFiltrados.toString() + "}", root.inventory_list)
+                cargarInventario(root.inventory_list, "{\"results\": " + ingredientesFiltrados.toString() + "}")
                 return true
             }
 
@@ -82,7 +77,7 @@ class InventoryFragment : Fragment() {
         return root
     }
 
-    private fun obtenerInventario() {
+    private fun obtenerInventario(inventoryList: ListView) {
         //Access sharedPreferences
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.preference_file), Context.MODE_PRIVATE)
@@ -90,12 +85,12 @@ class InventoryFragment : Fragment() {
 
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/"
-        Log.i("API", "Hasta acá va bien...")
 
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
-                Log.i("API", "Va bien...")
                 Log.i("API", "Response: %s".format(response.toString()))
+                inventario = response.toString()
+                cargarInventario(inventoryList, null)
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -153,7 +148,6 @@ class InventoryFragment : Fragment() {
                     Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
-                    Log.i("API", result.contents)
                 }
             } else {
                 super.onActivityResult(requestCode, resultCode, data)
@@ -161,21 +155,22 @@ class InventoryFragment : Fragment() {
         }
     }
 
-    private fun cargarInventario(inventario: String, inventoryList: ListView) {
-        val jsonObj = JSONObject(inventario)
-        val ingredientes = jsonObj.getJSONArray("inventario")
+    private fun cargarInventario(inventoryList: ListView, inventarioFiltrado: String?) {
+        var jsonObj = JSONObject()
+        if(inventarioFiltrado !== null) {
+            jsonObj = JSONObject(inventarioFiltrado)
+        } else {
+            jsonObj = JSONObject(inventario)
+        }
+        val ingredientes = jsonObj.getJSONArray("results")
 
         dataList.clear()
         for (i in 0 until ingredientes.length()) {
             val ingrediente = ingredientes.getJSONObject(i)
 
-            val map = HashMap<String, String>()
-            map["ingrediente"] = ingrediente.getString("ingrediente")
-            map["cantidad"] = ingrediente.getString("cantidad")
-            dataList.add(map)
+            agregarIngrediente(ingrediente.getString("product"), ingrediente.getJSONObject("amount").getString("quantity"), ingrediente.getJSONObject("amount").getString("unit"), inventoryList)
         }
 
-        agregarIngrediente("Ingrediente", "Cantidad", "Unidad", inventoryList)
     }
 
     private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String, inventoryList: ListView) {
@@ -188,45 +183,4 @@ class InventoryFragment : Fragment() {
         adapter.addData(map)
     }
 
-
-
-/*    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.inventory_menu, menu)
-        val searchView = menu.findItem(R.id.inventory_menu_search).actionView as SearchView
-        searchView.queryHint = "Ingrese el ingrediente a buscar..."
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                val jsonObj = JSONObject(inventario)
-                val ingredientes = jsonObj.getJSONArray("inventario")
-                val ingredientesFiltrados = JSONArray()
-
-                for (i in 0 until ingredientes.length()) {
-                    val ingrediente = ingredientes.getJSONObject(i)
-                    if(ingrediente.getString("ingrediente").toUpperCase().startsWith(newText.toString().toUpperCase())){
-                        ingredientesFiltrados.put(ingrediente)
-                    }
-                }
-
-                cargarInventario("{\"inventario\": " + ingredientesFiltrados.toString() + "}")
-                return true
-            }
-
-        })
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
-            R.id.inventory_menu_search -> {
-                Log.i("API", "Click Search")
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }*/
 }
