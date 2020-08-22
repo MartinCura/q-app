@@ -133,19 +133,62 @@ class InventoryFragment : Fragment() {
         val textCantidad = dialog.findViewById(R.id.dialog_add_ingredient_cantidad) as TextInputLayout
         val textUnidad = dialog.findViewById(R.id.dialog_add_ingredient_unidad) as TextInputLayout
 
+        //Cambiar por llamado a la API
+        val listaIngredientes = arrayOf("Azucar", "Sal", "Frutillas", "Manzana", "Carne", "Queso", "Jamón")
+
         cancelBtn.setBackgroundColor(Color.GRAY)
         confirmBtn.setOnClickListener {
-            agregarIngrediente(textIngrediente.editText?.text.toString(), textCantidad.editText?.text.toString(), textUnidad.editText?.text.toString(), inventoryList)
-            dialog.dismiss()
+
+            //Valido que esten completos los campos
+            val txtIngrediente = textIngrediente.editText?.text.toString()
+            val txtCantidad = textCantidad.editText?.text.toString()
+            val txtUnidad = textUnidad.editText?.text.toString()
+
+            var error = false
+
+            if(txtCantidad.isBlank()) {
+                textCantidad.error = "Indicar cantidad"
+                error = true
+            } else {
+                textCantidad.error = ""
+            }
+            if(txtUnidad.isBlank()) {
+                textUnidad.error = "Indicar unidad"
+                error = true
+            } else {
+                textUnidad.error = ""
+            }
+
+            if(txtIngrediente.isBlank()) {
+                textIngrediente.error = "Indicar ingrediente"
+                error = true
+            } else if(listaIngredientes.indexOf(txtIngrediente) < 0) {
+                textIngrediente.error = "Ingrediente no existente"
+                error = true
+            } else {
+                textIngrediente.error = ""
+            }
+
+            if(!error) {
+                agregarIngrediente(txtIngrediente, txtCantidad, txtUnidad, inventoryList)
+                dialog.dismiss()
+            }
         }
         cancelBtn.setOnClickListener { dialog.dismiss() }
+        //Sete unidades
         val items = listOf("g", "kg", "u", "l")
         val adapter = ArrayAdapter(activity, R.layout.list_item, items)
-        val dropdown = dialog.findViewById(R.id.dialog_add_ingredient_dropdown) as AutoCompleteTextView
+        val dropdown = dialog.findViewById(R.id.dialog_add_ingredient_unit_dropdown) as AutoCompleteTextView
         dropdown.setAdapter(adapter)
         dropdown.keyListener = null
+
+        //Seteo ingredientes
+        val adapterIngredientes = ArrayAdapter(activity, R.layout.list_item, listaIngredientes)
+        val dropdownIngredientes = dialog.findViewById(R.id.dialog_add_ingredient_dropdown) as AutoCompleteTextView
+        dropdownIngredientes.setAdapter(adapterIngredientes)
+
         dialog.show()
-        dialog.window.setLayout(1000,900)
+        dialog.window.setLayout(1000,950)
     }
 
     private fun goScanner() {
