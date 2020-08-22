@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import android.view.Window
 import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
 import com.android.volley.Request
@@ -32,6 +34,8 @@ class InventoryFragment : Fragment() {
 
     var dataList = ArrayList<HashMap<String, String>>()
     var inventario = ""
+    private lateinit var dialogLoading: Dialog
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +44,7 @@ class InventoryFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_inventory, container, false)
 
+        showLoading()
         obtenerInventario(root.inventory_list)
 
         root.inventory_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
@@ -75,6 +80,14 @@ class InventoryFragment : Fragment() {
         })
 
         return root
+    }
+
+    private fun showLoading() {
+        dialogLoading = Dialog(activity)
+        dialogLoading.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialogLoading.setCancelable(false)
+        dialogLoading.setContentView(R.layout.custom_loading)
+        dialogLoading.show()
     }
 
     private fun obtenerInventario(inventoryList: ListView) {
@@ -171,6 +184,7 @@ class InventoryFragment : Fragment() {
             agregarIngrediente(ingrediente.getString("product"), ingrediente.getJSONObject("amount").getString("quantity"), ingrediente.getJSONObject("amount").getString("unit"), inventoryList)
         }
 
+        dialogLoading.dismiss()
     }
 
     private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String, inventoryList: ListView) {
