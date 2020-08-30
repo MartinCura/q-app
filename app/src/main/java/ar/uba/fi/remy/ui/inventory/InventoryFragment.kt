@@ -35,6 +35,7 @@ class InventoryFragment : Fragment() {
     var dataList = ArrayList<HashMap<String, String>>()
     var inventario = ""
     private lateinit var dialogLoading: Dialog
+    lateinit var inventoryList: ListView
 
 
     override fun onCreateView(
@@ -45,7 +46,8 @@ class InventoryFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_inventory, container, false)
 
         showLoading()
-        obtenerInventario(root.inventory_list)
+        inventoryList = root.inventory_list
+        obtenerInventario()
 
         root.inventory_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
@@ -65,7 +67,7 @@ class InventoryFragment : Fragment() {
                     }
                 }
 
-                cargarInventario(root.inventory_list, "{\"results\": " + ingredientesFiltrados.toString() + "}")
+                cargarInventario("{\"results\": " + ingredientesFiltrados.toString() + "}")
                 return true
             }
 
@@ -76,7 +78,7 @@ class InventoryFragment : Fragment() {
         })
 
         root.inventory_floating_add.setOnClickListener(View.OnClickListener {
-            goAddManually(root.inventory_list)
+            goAddManually()
         })
 
         return root
@@ -90,7 +92,7 @@ class InventoryFragment : Fragment() {
         dialogLoading.show()
     }
 
-    private fun obtenerInventario(inventoryList: ListView) {
+    private fun obtenerInventario() {
         //Access sharedPreferences
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.preference_file), Context.MODE_PRIVATE)
@@ -103,7 +105,40 @@ class InventoryFragment : Fragment() {
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
                 inventario = response.toString()
-                cargarInventario(inventoryList, null)
+                cargarInventario(null)
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
+    }
+    private fun loadNewProducts(ingredientes: JSONArray) {
+        val body = JSONObject()
+        body.put("items",ingredientes)
+
+        Log.i("API", "Nuevos productos: %s".format(body.toString()))
+
+        //Access sharedPreferences
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file), Context.MODE_PRIVATE)
+        val token = sharedPref?.getString("TOKEN", "")
+
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/add_items/"
+
+        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.POST, url, body,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -121,7 +156,46 @@ class InventoryFragment : Fragment() {
         queue.add(jsonObjectRequest)
     }
 
-    private fun goAddManually(inventoryList: ListView) {
+    private fun getQR(url: String) {
+        //Access sharedPreferences
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file), Context.MODE_PRIVATE)
+        val token = sharedPref?.getString("TOKEN", "")
+
+        val queue = Volley.newRequestQueue(activity)
+
+        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                val jsonObj = JSONObject(response.toString())
+                val ingredientes = jsonObj.getJSONArray("items")
+                val url = jsonObj.getString("url")
+
+                loadNewProducts(ingredientes)
+
+                for (i in 0 until ingredientes.length()) {
+                    val ingrediente = ingredientes.getJSONObject(i)
+
+                    agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"))
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
+    }
+
+    private fun goAddManually() {
         val dialog = Dialog(activity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
@@ -170,7 +244,7 @@ class InventoryFragment : Fragment() {
             }
 
             if(!error) {
-                agregarIngrediente(txtIngrediente, txtCantidad, txtUnidad, inventoryList)
+                agregarIngrediente(txtIngrediente, txtCantidad, txtUnidad)
                 dialog.dismiss()
             }
         }
@@ -204,6 +278,7 @@ class InventoryFragment : Fragment() {
                     Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+                    getQR(result.contents.toString())
                 }
             } else {
                 super.onActivityResult(requestCode, resultCode, data)
@@ -211,7 +286,7 @@ class InventoryFragment : Fragment() {
         }
     }
 
-    private fun cargarInventario(inventoryList: ListView, inventarioFiltrado: String?) {
+    private fun cargarInventario(inventarioFiltrado: String?) {
         var jsonObj = JSONObject()
         if(inventarioFiltrado !== null) {
             jsonObj = JSONObject(inventarioFiltrado)
@@ -224,13 +299,13 @@ class InventoryFragment : Fragment() {
         for (i in 0 until ingredientes.length()) {
             val ingrediente = ingredientes.getJSONObject(i)
 
-            agregarIngrediente(ingrediente.getString("product"), ingrediente.getJSONObject("amount").getString("quantity"), ingrediente.getJSONObject("amount").getString("unit"), inventoryList)
+            agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"))
         }
 
         dialogLoading.dismiss()
     }
 
-    private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String, inventoryList: ListView) {
+    private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String) {
         val adapter = InventoryAdapter(activity, dataList)
         inventoryList.adapter = adapter
 
