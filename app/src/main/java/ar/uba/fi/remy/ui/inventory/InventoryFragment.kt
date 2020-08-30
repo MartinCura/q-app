@@ -36,6 +36,7 @@ class InventoryFragment : Fragment() {
     var inventario = ""
     private lateinit var dialogLoading: Dialog
     lateinit var inventoryList: ListView
+    lateinit var token: String
 
 
     override fun onCreateView(
@@ -44,6 +45,11 @@ class InventoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_inventory, container, false)
+
+        //Obtener token
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file), Context.MODE_PRIVATE)
+        token = sharedPref?.getString("TOKEN", "")!!
 
         showLoading()
         inventoryList = root.inventory_list
@@ -93,11 +99,6 @@ class InventoryFragment : Fragment() {
     }
 
     private fun obtenerInventario() {
-        //Access sharedPreferences
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.preference_file), Context.MODE_PRIVATE)
-        val token = sharedPref?.getString("TOKEN", "")
-
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/"
 
@@ -128,11 +129,6 @@ class InventoryFragment : Fragment() {
 
         Log.i("API", "Nuevos productos: %s".format(body.toString()))
 
-        //Access sharedPreferences
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.preference_file), Context.MODE_PRIVATE)
-        val token = sharedPref?.getString("TOKEN", "")
-
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/add_items/"
 
@@ -157,11 +153,6 @@ class InventoryFragment : Fragment() {
     }
 
     private fun getQR(url: String) {
-        //Access sharedPreferences
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.preference_file), Context.MODE_PRIVATE)
-        val token = sharedPref?.getString("TOKEN", "")
-
         val queue = Volley.newRequestQueue(activity)
 
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
