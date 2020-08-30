@@ -44,9 +44,6 @@ class ExplorarFragment : Fragment() {
         val recyclerView: RecyclerView = root.findViewById(R.id.rv_categorias)
         recyclerView.layoutManager = GridLayoutManager(activity, 4)
 
-        //Reemplazar por el llamado a la API para obtener las recetas
-        //val categorias = arrayOf("Categoria 1", "Categoria 2", "Categoria 3", "Categoria 4", "Categoria 5")
-
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/dishlabels/"
 
