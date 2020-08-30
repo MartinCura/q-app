@@ -13,6 +13,14 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_events.*
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+
 
 class EventsActivity : AppCompatActivity() {
 
@@ -42,10 +50,12 @@ class EventsActivity : AppCompatActivity() {
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
+                Log.i("API", "Response: $response")
                 val eventosArray = response.getJSONArray("results")
                 for (i in 0 until eventosArray.length()) {
                     var evento = eventosArray.getJSONObject(i)
-                    eventos.add(EventItem(evento.getString("name"), evento.getJSONArray("attendees").length(), 10))
+                    var fecha = evento.getString("starting_datetime")
+                    eventos.add(EventItem(evento.getString("name"), evento.getJSONArray("attendees").length(), 10, formatDate(fecha)))
                 }
                 val adapter = EventItemAdapter(eventos)
                 recyclerView.adapter = adapter
@@ -64,5 +74,13 @@ class EventsActivity : AppCompatActivity() {
         }
 
         queue.add(jsonObjectRequest)
+    }
+
+    private fun formatDate(fecha: String?): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale("es", "ES"))
+        val outputFormat = SimpleDateFormat("EEEE dd-MM-yyyy", Locale("es", "ES"))
+        val date = inputFormat.parse(fecha)
+        val formattedDate = outputFormat.format(date)
+        return formattedDate.capitalize()
     }
 }
