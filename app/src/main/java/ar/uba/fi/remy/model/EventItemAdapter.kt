@@ -29,11 +29,11 @@ class EventItemAdapter(var listaEventos:ArrayList<EventItem>):RecyclerView.Adapt
         fun bindItems(data:EventItem){
             val nombre:TextView = itemView.findViewById(R.id.title)
             val asistentes:TextView = itemView.findViewById(R.id.asistentes)
-            val invitados:TextView = itemView.findViewById(R.id.invitados)
+            /*val invitados:TextView = itemView.findViewById(R.id.invitados)*/
             val fecha:TextView = itemView.findViewById(R.id.date)
 
             nombre.text = data.nombre
-            invitados.text = data.invitados.toString()
+            /*invitados.text = data.invitados.toString()*/
             asistentes.text = data.asistentes.toString()
             fecha.text = data.fecha
 

@@ -6,6 +6,7 @@
     <string name="title_notifications">Perfil</string>
     <string name="title_chango">Carrito</string>
     <string name="title_inventory">Inventario</string>
+    <string name="loading">Cargando...</string>
 
     <!--  Pantalla Home  -->
     <string name="home_title">Ingredientes disponibles</string>
