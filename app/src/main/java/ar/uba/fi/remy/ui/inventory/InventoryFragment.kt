@@ -33,10 +33,10 @@ import kotlin.collections.HashMap
 class InventoryFragment : Fragment() {
 
     var dataList = ArrayList<HashMap<String, String>>()
-    var inventario = ""
     private lateinit var dialogLoading: Dialog
     lateinit var inventoryList: ListView
     lateinit var token: String
+    lateinit var adapter: InventoryAdapter
 
 
     override fun onCreateView(
@@ -51,6 +51,8 @@ class InventoryFragment : Fragment() {
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
 
+        adapter = InventoryAdapter(activity, dataList)
+
         showLoading()
         inventoryList = root.inventory_list
         obtenerInventario()
@@ -62,18 +64,9 @@ class InventoryFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val jsonObj = JSONObject(inventario)
-                val ingredientes = jsonObj.getJSONArray("results")
-                val ingredientesFiltrados = JSONArray()
-
-                for (i in 0 until ingredientes.length()) {
-                    val ingrediente = ingredientes.getJSONObject(i)
-                    if(ingrediente.getString("product").toUpperCase().contains(newText.toString().toUpperCase())){
-                        ingredientesFiltrados.put(ingrediente)
-                    }
+                if (newText != null) {
+                    adapter.getFilter().filter(newText)
                 }
-
-                cargarInventario("{\"results\": " + ingredientesFiltrados.toString() + "}")
                 return true
             }
 
@@ -105,8 +98,8 @@ class InventoryFragment : Fragment() {
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
-                inventario = response.toString()
-                cargarInventario(null)
+                var inventario = response.toString()
+                cargarInventario(inventario)
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -277,13 +270,8 @@ class InventoryFragment : Fragment() {
         }
     }
 
-    private fun cargarInventario(inventarioFiltrado: String?) {
-        var jsonObj = JSONObject()
-        if(inventarioFiltrado !== null) {
-            jsonObj = JSONObject(inventarioFiltrado)
-        } else {
-            jsonObj = JSONObject(inventario)
-        }
+    private fun cargarInventario(inventario: String) {
+        var jsonObj = JSONObject(inventario)
         val ingredientes = jsonObj.getJSONArray("results")
 
         dataList.clear()
@@ -297,7 +285,6 @@ class InventoryFragment : Fragment() {
     }
 
     private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String) {
-        val adapter = InventoryAdapter(activity, dataList)
         inventoryList.adapter = adapter
 
         val map = HashMap<String, String>()

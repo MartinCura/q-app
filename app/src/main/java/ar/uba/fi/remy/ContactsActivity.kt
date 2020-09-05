@@ -11,7 +11,6 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_contacts.*
-import org.json.JSONArray
 import org.json.JSONObject
 
 class ContactsActivity : AppCompatActivity() {

@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import ar.uba.fi.remy.R
 
 
-class InventoryAdapter(private val context: FragmentActivity?, private val dataList: ArrayList<HashMap<String, String>>) : BaseAdapter() {
+class InventoryAdapter(private val context: FragmentActivity?, private var dataList: ArrayList<HashMap<String, String>>) : BaseAdapter(), Filterable {
 
     private val inflater: LayoutInflater = this.context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     override fun getCount(): Int { return dataList.size }
     override fun getItem(position: Int): Int { return position }
     override fun getItemId(position: Int): Long { return position.toLong() }
+    private val mFilter = ItemFilter()
+    private var originalData : List<HashMap<String, String>> = dataList
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var dataitem = dataList[position]
@@ -34,8 +38,40 @@ class InventoryAdapter(private val context: FragmentActivity?, private val dataL
         notifyDataSetChanged()
     }
 
-/*    fun filter(text: String) {
-        val result = dataList.filter { it["ingrediente"]!!.startsWith(text.toString()) }
-        Log.i("API", result.toString())
-    }*/
+    override fun getFilter(): Filter {
+        return mFilter
+    }
+
+    private inner class ItemFilter : Filter() {
+        override fun performFiltering(constraint: CharSequence): Filter.FilterResults {
+
+            val filterString = constraint.toString().toLowerCase()
+
+            val results = Filter.FilterResults()
+
+            val list = originalData
+
+            val count = list.size
+            val nlist = ArrayList<HashMap<String, String>>(count)
+
+            var filterableString: String
+            for (i in 0 until count) {
+                filterableString = list[i]["ingrediente"].toString()
+                if (filterableString.toLowerCase().contains(filterString)) {
+                    nlist.add(list[i])
+                }
+            }
+
+            results.values = nlist
+            results.count = nlist.size
+
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence, results: Filter.FilterResults) {
+            dataList = results.values as ArrayList<HashMap<String, String>>
+            notifyDataSetChanged()
+        }
+
+    }
 }
