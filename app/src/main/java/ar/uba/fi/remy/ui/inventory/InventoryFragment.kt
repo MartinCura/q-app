@@ -68,7 +68,7 @@ class InventoryFragment : Fragment() {
 
                 for (i in 0 until ingredientes.length()) {
                     val ingrediente = ingredientes.getJSONObject(i)
-                    if(ingrediente.getString("product").toUpperCase().startsWith(newText.toString().toUpperCase())){
+                    if(ingrediente.getString("product").toUpperCase().contains(newText.toString().toUpperCase())){
                         ingredientesFiltrados.put(ingrediente)
                     }
                 }

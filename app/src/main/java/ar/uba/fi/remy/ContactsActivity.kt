@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.widget.SearchView
 import ar.uba.fi.remy.model.ContactAdapter
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_contacts.*
+import org.json.JSONArray
 import org.json.JSONObject
 
 class ContactsActivity : AppCompatActivity() {
@@ -31,7 +33,27 @@ class ContactsActivity : AppCompatActivity() {
         adapter = ContactAdapter(this, dataList)
         contact_list.adapter = adapter
 
+        //Configuro filtro de contactos
+        setFilter()
+
         cargarContactos()
+    }
+
+    private fun setFilter() {
+        contact_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    adapter.getFilter().filter(newText)
+                }
+                return true
+            }
+
+        })
     }
 
     private fun cargarContactos() {
@@ -74,5 +96,12 @@ class ContactsActivity : AppCompatActivity() {
         }
 
         adapter.addData(map)
+
+        val map2 = HashMap<String, String>()
+        map2["name"] = "Martin Cura"
+        map2["username"] = "Martin"
+        map2["email"] = "martin@mail.com"
+        adapter.addData(map2)
+
     }
 }
