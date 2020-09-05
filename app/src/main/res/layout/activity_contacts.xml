@@ -8,7 +8,7 @@
         android:id="@+id/contact_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Buscar contacto..."
+        android:queryHint="@string/ac_contacts_buscar_contacto"
         android:layoutDirection="rtl"
         />
 

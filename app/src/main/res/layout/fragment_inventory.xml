@@ -7,7 +7,7 @@
         android:id="@+id/inventory_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Buscar ingrediente..."
+        android:queryHint="@string/f_buscar_ingrediente"
         android:layoutDirection="rtl"
         />
 

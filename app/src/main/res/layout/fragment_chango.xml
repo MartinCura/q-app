@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutDirection="rtl"
-        android:queryHint="Buscar ingrediente..."
+        android:queryHint="@string/f_buscar_ingrediente"
         />
 
     <ListView

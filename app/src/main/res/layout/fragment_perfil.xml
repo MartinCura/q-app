@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Perfil alimenticio"
+        android:text="@string/f_perfil_alimenticio"
         android:layout_marginBottom="20px"
         android:textSize="18sp"
         />
@@ -84,14 +84,14 @@
         android:id="@+id/perfil_btn_contactos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contactos"
+        android:text="@string/f_perfil_Contactos"
         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/perfil_btn_eventos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Eventos"
+        android:text="@string/f_perfil_eventos"
         />
 
 
@@ -100,7 +100,7 @@
         android:id="@+id/perfil_salir"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:text="CERRAR SESIÓN"
+        android:text="@string/cerrar_sesion"
         android:textColor="@color/white"
         android:layout_gravity="center_horizontal"
         android:gravity="center"

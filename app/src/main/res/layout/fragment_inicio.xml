@@ -32,8 +32,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_width="0dp"
-            android:textOff="NO"
-            android:textOn="SI"
+            android:textOff="@string/f_inicio_no"
+            android:textOn="@string/f_inicio_si"
             app:showText="true">
 
         </androidx.appcompat.widget.SwitchCompat>

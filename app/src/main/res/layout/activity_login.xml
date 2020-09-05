@@ -29,7 +29,7 @@
             android:background="@drawable/input_background"
             android:textColorHint="@color/white"
             android:drawablePadding="15dp"
-            android:hint="Usuario"
+            android:hint="@string/ac_login_usuario"
             android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:textColorHint="@color/white"
             android:inputType="textPassword"
             android:drawablePadding="15dp"
-            android:hint="Contraseña"
+            android:hint="@string/ac_login_password"
             android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:layout_marginEnd="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¿Olvidó su contraseña?"
+            android:text="@string/ac_login_olvido_password"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:padding="10dp" />
@@ -72,7 +72,7 @@
             android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="INGRESAR"/>
+            android:text="@string/ac_login_ingresar"/>
 
         <Button
             android:id="@+id/login_btn_nueva_cuenta"
@@ -84,7 +84,7 @@
             android:background="@drawable/input_background"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="Crear nueva cuenta"/>
+            android:text="@string/ac_login_nueva_cuenta"/>
 
     </LinearLayout>
 

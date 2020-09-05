@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agregar nuevo ingrediente"
+        android:text="@string/d_ingredient_agregar"
         android:textSize="20sp"
         android:layout_marginBottom="30px"
         />
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:endIconMode="clear_text"
-        android:hint="Ingrediente">
+        android:hint="@string/d_ingredient_ingrediente_agregar">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/dialog_add_ingredient_dropdown"
@@ -29,14 +29,6 @@
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-<!--    <AutoCompleteTextView
-        android:id="@+id/dialog_add_ingredient_ingrediente"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese el nombre del ingrediente..."
-        android:layout_marginBottom="30px"
-        />-->
 
     <LinearLayout
         android:weightSum="100"
@@ -52,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="40"
             app:endIconMode="clear_text"
-            android:hint="Cantidad">
+            android:hint="@string/d_ingredient_cantidad">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -68,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="60"
-            android:hint="Unidad">
+            android:hint="@string/d_ingredient_unidad">
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/dialog_add_ingredient_unit_dropdown"
@@ -78,7 +70,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -92,7 +83,7 @@
             android:id="@+id/dialog_add_ingredient_cancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cacelar"
+            android:text="@string/d_ingredient_cancelar"
             android:layout_gravity="right"
             />
 
@@ -100,7 +91,7 @@
             android:id="@+id/dialog_add_ingredient_agregar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Agregar"
+            android:text="@string/d_ingredient_agregar"
             android:layout_gravity="right"
             />
 

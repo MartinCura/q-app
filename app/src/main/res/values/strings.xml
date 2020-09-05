@@ -1,11 +1,11 @@
 <resources>
+    <!-- GENERAL -->
     <string name="app_name">Remy</string>
     <string name="title_home">Inicio</string>
     <string name="title_dashboard">Explorar</string>
     <string name="title_notifications">Perfil</string>
     <string name="title_chango">Carrito</string>
     <string name="title_inventory">Inventario</string>
-
 
     <!--  Pantalla Home  -->
     <string name="home_title">Ingredientes disponibles</string>
@@ -15,5 +15,63 @@
 
     <!-- Shared Preference  -->
     <string name="preference_file">sharedPreference</string>
+
+
+    <!-- Layout -->
+
+    <!-- activity_contacts -->
+    <string name="ac_contacts_buscar_contacto">Buscar contacto...</string>
+
+    <!-- activity_detail_recipe -->
+    <string name="ac_d_recipe_categoria">Categoria</string>
+    <string name="ac_d_recipe_tiempo">Tiempo</string>
+    <string name="ac_d_recipe_ingredientes">Ingredientes</string>
+    <string name="ac_d_recipe_instrucciones">Instrucciones</string>
+    <string name="ac_d_recipe_cocinar">COCINAR</string>
+
+    <!-- activity_login -->
+    <string name="ac_login_usuario">Usuario</string>
+    <string name="ac_login_password">Contraseña</string>
+    <string name="ac_login_olvido_password">¿Olvidó su contraseña?</string>
+    <string name="ac_login_ingresar">INGRESAR</string>
+    <string name="ac_login_nueva_cuenta">Crear nueva cuenta</string>
+
+
+    <!-- activity_register -->
+    <string name="ac_register_usuario">Ingrese su usuario</string>
+    <string name="ac_register_email">Ingrese su email</string>
+    <string name="ac_register_password">Ingresar contraseña</string>
+    <string name="ac_register_password_2">Repetir contraseña</string>
+    <string name="ac_register_crear_cuenta">CREAR CUENTA</string>
+
+
+    <!-- dialog_add_ingredient -->
+    <string name="d_ingredient_ingrediente_agregar">Agregar nuevo ingrediente</string>
+    <string name="d_ingredient">Ingrediente</string>
+    <string name="d_ingredient_cantidad">Cantidad</string>
+    <string name="d_ingredient_unidad">Unidad</string>
+    <string name="d_ingredient_cancelar">Cancelar</string>
+    <string name="d_ingredient_agregar">Agregar</string>
+
+    <!-- event_item -->
+    <string name="i_event_asistentes">Asistentes</string>
+
+    <!-- fragment_chango | fragment_inventoru-->
+    <string name="f_buscar_ingrediente">Buscar ingrediente...</string>
+
+    <!-- fragment_inicio -->
+    <string name="f_inicio_si">SI</string>
+    <string name="f_inicio_no">NO</string>
+
+    <!-- fragment_perfil -->
+    <string name="f_perfil_alimenticio">Perfil alimenticio</string>
+    <string name="f_perfil_Contactos">Contactos</string>
+    <string name="f_perfil_eventos">Eventos</string>
+    <string name="cerrar_sesion">CERRAR SESIÓN</string>
+
+    <!-- recommended_item -->
+    <string name="i_recommended_minutos">Minutos</string>
+    <string name="i_recommended_calorias">Calorías</string>
+
 
 </resources>

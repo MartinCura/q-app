@@ -106,7 +106,7 @@
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:textSize="14dp"
-                            android:text="Minutos"
+                            android:text="@string/i_recommended_minutos"
                             android:layout_height="wrap_content">
 
                         </TextView>
@@ -133,7 +133,7 @@
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:textSize="14dp"
-                            android:text="Calorías"
+                            android:text="@string/i_recommended_calorias"
                             android:layout_height="wrap_content">
 
                         </TextView>
