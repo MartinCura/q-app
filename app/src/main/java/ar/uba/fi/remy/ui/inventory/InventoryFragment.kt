@@ -151,7 +151,12 @@ class InventoryFragment : Fragment() {
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
-                val jsonObj = JSONObject(response.toString())
+
+                val intent = Intent(context, InventoryConfirmActivity::class.java)
+                intent.putExtra("Ingredients", response.toString())
+                startActivity(intent)
+
+                /*val jsonObj = JSONObject(response.toString())
                 val ingredientes = jsonObj.getJSONArray("items")
                 val url = jsonObj.getString("url")
 
@@ -161,7 +166,7 @@ class InventoryFragment : Fragment() {
                     val ingrediente = ingredientes.getJSONObject(i)
 
                     agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"))
-                }
+                }*/
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -262,6 +267,7 @@ class InventoryFragment : Fragment() {
                     Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+                    Log.e("API", "Scanned: " + result.contents)
                     getQR(result.contents.toString())
                 }
             } else {

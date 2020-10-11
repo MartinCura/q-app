@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents">
+        <activity android:name=".ui.inventory.InventoryConfirmActivity"></activity>
         <activity
             android:name=".ContactsActivity"
-            android:theme="@style/LoginPage"/>
+            android:theme="@style/LoginPage" />
         <activity
             android:name=".EventsActivity"
             android:theme="@style/LoginPage" />
