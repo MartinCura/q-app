@@ -1,11 +1,13 @@
 package ar.uba.fi.remy.model
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import ar.uba.fi.remy.CategoryDishes
 import ar.uba.fi.remy.R
 
 class CategoryItemAdapter(var listaCategorias:Array<Category>): RecyclerView.Adapter<CategoryItemAdapter.ViewHolder>(){
@@ -29,7 +31,10 @@ class CategoryItemAdapter(var listaCategorias:Array<Category>): RecyclerView.Ada
             categoria.text = data.nombre
 
             itemView.setOnClickListener {
-                Log.i("API", data.id.toString() + " - " + data.nombre)
+                val intent = Intent(itemView.context, CategoryDishes::class.java)
+                Log.i("API", "ID: " + data.id)
+                intent.putExtra("idCategory", data.id)
+                itemView.context.startActivity(intent)
             }
         }
 
