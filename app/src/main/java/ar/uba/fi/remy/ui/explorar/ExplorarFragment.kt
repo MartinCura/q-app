@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.R
+import ar.uba.fi.remy.model.Category
 import ar.uba.fi.remy.model.CategoryItemAdapter
 import com.android.volley.Request
 import com.android.volley.Response
@@ -51,9 +52,13 @@ class ExplorarFragment : Fragment() {
             Request.Method.GET, url, null,
             Response.Listener { response ->
                 val categoriasArray = response.getJSONArray("results")
-                var categorias: Array<String> = emptyArray()
+                Log.i("API", categoriasArray.toString())
+                var categorias: Array<Category> = emptyArray()
                 for (i in 0 until categoriasArray.length()) {
-                    categorias = append(categorias, categoriasArray.getJSONObject(i).getString("name"))
+                    val nombre = categoriasArray.getJSONObject(i).getString("name")
+                    val id = categoriasArray.getJSONObject(i).getString("id")
+                    val categoriaNueva = Category(nombre, id.toInt())
+                    categorias = append(categorias, categoriaNueva)
                 }
                 val adapter = CategoryItemAdapter(categorias)
                 recyclerView.adapter = adapter
@@ -74,8 +79,8 @@ class ExplorarFragment : Fragment() {
         queue.add(jsonObjectRequest)
     }
 
-    fun append(arr: Array<String>, element: String): Array<String> {
-        val list: MutableList<String> = arr.toMutableList()
+    fun append(arr: Array<Category>, element: Category): Array<Category> {
+        val list: MutableList<Category> = arr.toMutableList()
         list.add(element)
         return list.toTypedArray()
     }
