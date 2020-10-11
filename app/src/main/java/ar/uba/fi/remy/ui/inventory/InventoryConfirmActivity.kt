@@ -68,6 +68,7 @@ class InventoryConfirmActivity : AppCompatActivity() {
             Request.Method.POST, url, body,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                finish()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")

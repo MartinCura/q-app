@@ -16,6 +16,7 @@ import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
 import com.android.volley.Request
@@ -38,6 +39,11 @@ class InventoryFragment : Fragment() {
     lateinit var token: String
     lateinit var adapter: InventoryAdapter
 
+    override fun onResume() {
+        super.onResume()
+        showLoading()
+        obtenerInventario()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,9 +59,9 @@ class InventoryFragment : Fragment() {
 
         adapter = InventoryAdapter(activity, dataList)
 
-        showLoading()
+        /*showLoading()*/
         inventoryList = root.inventory_list
-        obtenerInventario()
+        /*obtenerInventario()*/
 
         root.inventory_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
