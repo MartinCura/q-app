@@ -44,8 +44,8 @@ class DetailEventActivity : AppCompatActivity() {
 
 
         val amigos = ArrayList<Friend>()
-        amigos.add(Friend(1,"Franco","Etcheverri","franverri", "fran@mail.com"))
-        amigos.add(Friend(1,"Franco2","Etcheverri2","franverri2", "fran2@mail.com"))
+        /*amigos.add(Friend(1,"Franco","Etcheverri","franverri", "fran@mail.com"))
+        amigos.add(Friend(1,"Franco2","Etcheverri2","franverri2", "fran2@mail.com"))*/
 
 
         val queue = Volley.newRequestQueue(this)
@@ -55,6 +55,16 @@ class DetailEventActivity : AppCompatActivity() {
             Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: $response")
+
+                for (i in 0 until response.length()) {
+                    val item = response.getJSONObject(i)
+                    val amigo = Friend(item.getInt("id"),
+                        item.getString("first_name"),
+                        item.getString("last_name"),
+                        item.getString("username"),
+                        item.getString("email"))
+                    amigos.add(amigo)
+                }
                 showDialog(amigos)
             },
             Response.ErrorListener { error ->
