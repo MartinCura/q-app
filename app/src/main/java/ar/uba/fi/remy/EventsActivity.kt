@@ -55,7 +55,7 @@ class EventsActivity : AppCompatActivity() {
                 for (i in 0 until eventosArray.length()) {
                     var evento = eventosArray.getJSONObject(i)
                     var fecha = evento.getString("starting_datetime")
-                    eventos.add(EventItem(evento.getString("name"), evento.getJSONArray("attendees").length(), 10, formatDate(fecha)))
+                    eventos.add(EventItem(evento.getInt("id"), evento.getString("name"), evento.getJSONArray("attendees").length(), 10, formatDate(fecha)))
                 }
                 val adapter = EventItemAdapter(eventos)
                 recyclerView.adapter = adapter

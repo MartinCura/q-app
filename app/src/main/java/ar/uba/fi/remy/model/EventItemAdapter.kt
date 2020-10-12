@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import ar.uba.fi.remy.DetailEventActivity
 import ar.uba.fi.remy.DetailRecipeActivity
 import ar.uba.fi.remy.R
 
@@ -37,12 +38,12 @@ class EventItemAdapter(var listaEventos:ArrayList<EventItem>):RecyclerView.Adapt
             asistentes.text = data.asistentes.toString()
             fecha.text = data.fecha
 
-/*            itemView.setOnClickListener {
+            itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailEventActivity::class.java)
                 // TO-DO: Cambiarlo por el ID de la receta para hacer un request a la API
-                intent.putExtra("id_receta", data.nombre)
+                intent.putExtra("id_evento", data.id)
                 itemView.context.startActivity(intent)
-            }*/
+            }
 
         }
 
