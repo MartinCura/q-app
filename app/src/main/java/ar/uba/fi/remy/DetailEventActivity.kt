@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.dialog_list_friends.*
 
 class DetailEventActivity : AppCompatActivity() {
     lateinit var token: String
+    lateinit var adapter: FriendAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +45,8 @@ class DetailEventActivity : AppCompatActivity() {
 
 
         val amigos = ArrayList<Friend>()
-        /*amigos.add(Friend(1,"Franco","Etcheverri","franverri", "fran@mail.com"))
-        amigos.add(Friend(1,"Franco2","Etcheverri2","franverri2", "fran2@mail.com"))*/
+        amigos.add(Friend(1,"Franco","Etcheverri","franverri", "fran@mail.com", false))
+        amigos.add(Friend(2,"Franco2","Etcheverri2","franverri2", "fran2@mail.com", false))
 
 
         val queue = Volley.newRequestQueue(this)
@@ -62,7 +63,8 @@ class DetailEventActivity : AppCompatActivity() {
                         item.getString("first_name"),
                         item.getString("last_name"),
                         item.getString("username"),
-                        item.getString("email"))
+                        item.getString("email"),
+                        false)
                     amigos.add(amigo)
                 }
                 showDialog(amigos)
@@ -88,10 +90,18 @@ class DetailEventActivity : AppCompatActivity() {
         dialog.setContentView(R.layout.dialog_list_friends)
         dialog.show()
 
+        dialog.add_friend_floating_add.setOnClickListener(View.OnClickListener {
+            var array = adapter.getFriends()
+            for (i in array.indices) {
+                Log.i("API",  "Checked: " + array[i].first_name + " " + array[i].checked)
+            }
+            //Agregar friends al evento
+        })
+
         val recyclerView:RecyclerView = dialog.findViewById(R.id.rv_add_friends)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        val adapter = FriendAdapter(amigos)
+        adapter = FriendAdapter(amigos)
         recyclerView.adapter = adapter
     }
 

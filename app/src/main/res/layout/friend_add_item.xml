@@ -59,6 +59,7 @@
         </LinearLayout>
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_add_friend"
             android:layout_width="0dp"
             android:layout_weight="10"
             android:layout_height="130px"
