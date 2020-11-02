@@ -46,12 +46,12 @@ class InicioFragment : Fragment() {
 
         //Reemplazar por el llamado a la API para obtener las recetas
         val recomendaciones = ArrayList<RecommendedItem>()
-        recomendaciones.add(RecommendedItem("Recomendación 1", 1, 15, 20, 1))
+/*        recomendaciones.add(RecommendedItem("Recomendación 1", 1, 15, 20, 1))
         recomendaciones.add(RecommendedItem("Recomendación 2", 2, 25, 30, 1))
         recomendaciones.add(RecommendedItem("Recomendación 3", 1, 15, 20, 1))
         recomendaciones.add(RecommendedItem("Recomendación 4", 3, 25, 30, 1))
         recomendaciones.add(RecommendedItem("Recomendación 5", 4, 15, 20, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 6", 5, 25, 30, 1))
+        recomendaciones.add(RecommendedItem("Recomendación 6", 5, 25, 30, 1))*/
 
         //Access sharedPreferences
         val sharedPref = activity?.getSharedPreferences(
@@ -59,12 +59,21 @@ class InicioFragment : Fragment() {
         val token = sharedPref?.getString("TOKEN", "")
         Log.i("API", token)
 
- /*       val queue = Volley.newRequestQueue(activity)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/ingredients/"
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/my_recommendations/"
 
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                var recomendacionesArray = response.getJSONArray("results")
+                for (i in 0 until recomendacionesArray.length()) {
+                    var recomendacion = recomendacionesArray.getJSONObject(i)
+                    var title = recomendacion.getJSONObject("recipe").getString("title")
+                    recomendaciones.add(RecommendedItem(title, 2, 15,  20, 1))
+
+                    val adapter = RecommendedItemAdapter(recomendaciones)
+                    recyclerView.adapter = adapter
+                }
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -80,9 +89,6 @@ class InicioFragment : Fragment() {
         }
 
 
-        queue.add(jsonObjectRequest)*/
-
-        val adapter = RecommendedItemAdapter(recomendaciones)
-        recyclerView.adapter = adapter
+        queue.add(jsonObjectRequest)
     }
 }

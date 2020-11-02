@@ -140,4 +140,9 @@
         android:src="@drawable/ic_add"
         />
 
+    <include layout="@layout/recommended_item" />
+
+    <include layout="@layout/recommended_item" />
+
+
 </LinearLayout>
