@@ -10,18 +10,22 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ar.uba.fi.remy.MainActivity
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.RecommendedItem
 import ar.uba.fi.remy.model.RecommendedItemAdapter
 import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONObject
+
+
 
 class InicioFragment : Fragment() {
+    var urlNext:String = ""
+    var loadingMore = false
+    val recomendaciones = ArrayList<RecommendedItem>()
+    lateinit var recyclerView:RecyclerView
+    lateinit var rvAdapter:RecommendedItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,24 +38,37 @@ class InicioFragment : Fragment() {
         val textView: TextView = root.findViewById(R.id.text_home)
         textView.text = getString(R.string.home_title)
 
+        setupRecycler(root)
+
         //Obtengo las recetas desde la API y las inserto en el RecyclerView
-        cargarRecetas(root)
+        cargarRecetas()
 
         return root
     }
 
-    private fun cargarRecetas(root: View) {
+    private fun setupRecycler(root: View) {
         val recyclerView:RecyclerView = root.findViewById(R.id.rv_recomendados)
         recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        //Reemplazar por el llamado a la API para obtener las recetas
-        val recomendaciones = ArrayList<RecommendedItem>()
-/*        recomendaciones.add(RecommendedItem("Recomendación 1", 1, 15, 20, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 2", 2, 25, 30, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 3", 1, 15, 20, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 4", 3, 25, 30, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 5", 4, 15, 20, 1))
-        recomendaciones.add(RecommendedItem("Recomendación 6", 5, 25, 30, 1))*/
+        rvAdapter = RecommendedItemAdapter(recomendaciones)
+        recyclerView.adapter = rvAdapter
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    if(!loadingMore && urlNext != "null") {
+                        cargarRecetas()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun cargarRecetas() {
+        loadingMore = true
+
 
         //Access sharedPreferences
         val sharedPref = activity?.getSharedPreferences(
@@ -60,19 +77,22 @@ class InicioFragment : Fragment() {
         Log.i("API", token)
 
         val queue = Volley.newRequestQueue(activity)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/my_recommendations/"
+        var url = urlNext
+        if(url.isBlank()) {
+            url = "https://tpp-remy.herokuapp.com/api/v1/my_recommendations/"
+        }
 
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
                 var recomendacionesArray = response.getJSONArray("results")
+                loadingMore = false
+                urlNext = response.getString("next")
                 for (i in 0 until recomendacionesArray.length()) {
                     var recomendacion = recomendacionesArray.getJSONObject(i)
                     var title = recomendacion.getJSONObject("recipe").getString("title")
                     recomendaciones.add(RecommendedItem(title, 2, 15,  20, 1))
-
-                    val adapter = RecommendedItemAdapter(recomendaciones)
-                    recyclerView.adapter = adapter
+                    rvAdapter.notifyDataSetChanged()
                 }
             },
             Response.ErrorListener { error ->
