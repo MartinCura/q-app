@@ -37,8 +37,8 @@ class InventoryFragment : Fragment() {
     lateinit var inventoryList: ListView
     lateinit var token: String
     lateinit var adapter: InventoryAdapter
-    var listaIngredientes = ArrayList<String>()
     lateinit var adapterIngredientes: ArrayAdapter<String>
+    lateinit var dropdownIngredientes: AutoCompleteTextView
 
     override fun onResume() {
         super.onResume()
@@ -199,13 +199,12 @@ class InventoryFragment : Fragment() {
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
                 val ingredientes = response.getJSONArray("results")
-                listaIngredientes.clear()
+                adapterIngredientes.clear()
                 for(i in 0 until ingredientes.length()) {
                     val ingrediente = ingredientes.getJSONObject(i)
-                    listaIngredientes.add(ingrediente.getString("name"))
+                    adapterIngredientes.add(ingrediente.getString("name"))
                 }
                 adapterIngredientes.notifyDataSetChanged()
-                Log.i("API", listaIngredientes.toString())
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -261,7 +260,7 @@ class InventoryFragment : Fragment() {
             if(txtIngrediente.isBlank()) {
                 textIngrediente.error = "Indicar ingrediente"
                 error = true
-            } else if(listaIngredientes.indexOf(txtIngrediente) < 0) {
+            } else if(adapterIngredientes.getPosition(txtIngrediente) < 0) {
                 textIngrediente.error = "Ingrediente no existente"
                 error = true
             } else {
@@ -282,8 +281,8 @@ class InventoryFragment : Fragment() {
         dropdown.keyListener = null
 
         //Seteo ingredientes
-        adapterIngredientes = ArrayAdapter(activity, R.layout.list_item, listaIngredientes)
-        val dropdownIngredientes = dialog.findViewById(R.id.dialog_add_ingredient_dropdown) as AutoCompleteTextView
+        adapterIngredientes = ArrayAdapter(activity, R.layout.list_item)
+        dropdownIngredientes = dialog.findViewById(R.id.dialog_add_ingredient_dropdown) as AutoCompleteTextView
         dropdownIngredientes.setAdapter(adapterIngredientes)
 
         dropdownIngredientes.addTextChangedListener(object: TextWatcher {
