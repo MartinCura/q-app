@@ -5,8 +5,9 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.AsyncTask
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +16,6 @@ import android.view.Window
 import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
 import com.android.volley.Request
@@ -38,6 +37,8 @@ class InventoryFragment : Fragment() {
     lateinit var inventoryList: ListView
     lateinit var token: String
     lateinit var adapter: InventoryAdapter
+    var listaIngredientes = ArrayList<String>()
+    lateinit var adapterIngredientes: ArrayAdapter<String>
 
     override fun onResume() {
         super.onResume()
@@ -190,6 +191,38 @@ class InventoryFragment : Fragment() {
         queue.add(jsonObjectRequest)
     }
 
+    private fun getIngredientes(query: String) {
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/products/?search=" + query
+
+        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                val ingredientes = response.getJSONArray("results")
+                listaIngredientes.clear()
+                for(i in 0 until ingredientes.length()) {
+                    val ingrediente = ingredientes.getJSONObject(i)
+                    listaIngredientes.add(ingrediente.getString("name"))
+                }
+                adapterIngredientes.notifyDataSetChanged()
+                Log.i("API", listaIngredientes.toString())
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
+    }
+
     private fun goAddManually() {
         val dialog = Dialog(activity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -201,9 +234,6 @@ class InventoryFragment : Fragment() {
         val textIngrediente = dialog.findViewById(R.id.dialog_add_ingredient_ingrediente) as TextInputLayout
         val textCantidad = dialog.findViewById(R.id.dialog_add_ingredient_cantidad) as TextInputLayout
         val textUnidad = dialog.findViewById(R.id.dialog_add_ingredient_unidad) as TextInputLayout
-
-        //Cambiar por llamado a la API
-        val listaIngredientes = arrayOf("Azucar", "Sal", "Frutillas", "Manzana", "Carne", "Queso", "Jamón")
 
         cancelBtn.setBackgroundColor(Color.GRAY)
         confirmBtn.setOnClickListener {
@@ -252,9 +282,27 @@ class InventoryFragment : Fragment() {
         dropdown.keyListener = null
 
         //Seteo ingredientes
-        val adapterIngredientes = ArrayAdapter(activity, R.layout.list_item, listaIngredientes)
+        adapterIngredientes = ArrayAdapter(activity, R.layout.list_item, listaIngredientes)
         val dropdownIngredientes = dialog.findViewById(R.id.dialog_add_ingredient_dropdown) as AutoCompleteTextView
         dropdownIngredientes.setAdapter(adapterIngredientes)
+
+        dropdownIngredientes.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.i("API", count.toString())
+                Log.i("API", textIngrediente.editText?.text.toString())
+                if(count >= 2) {
+                    getIngredientes(textIngrediente.editText?.text.toString())
+                }
+            }
+        })
 
         dialog.show()
         dialog.window.setLayout(1000,950)
