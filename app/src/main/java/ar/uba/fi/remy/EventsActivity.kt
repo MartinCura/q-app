@@ -27,6 +27,11 @@ class EventsActivity : AppCompatActivity() {
 
     lateinit var token: String
 
+    override fun onResume() {
+        super.onResume()
+        cargarEventos()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_events)
