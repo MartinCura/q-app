@@ -68,14 +68,15 @@ class NewEventActivity : AppCompatActivity() {
             var formattedDate = ""
             formattedDate = splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0]
             var finalDate = formattedDate + "T" + hour +":00"
-            Log.i("API", finalDate)
+            var sharedInventory = new_event_shared_inventory.isChecked
+
 
             val body = JSONObject()
             body.put("attendees_id",JSONArray())
             body.put("name", name)
             body.put("starting_datetime", finalDate)
             body.put("finishing_datetime", finalDate)
-            body.put("only_host_inventory", true)
+            body.put("only_host_inventory", sharedInventory)
 
             val queue = Volley.newRequestQueue(this)
             val url = "https://tpp-remy.herokuapp.com/api/v1/events/"
