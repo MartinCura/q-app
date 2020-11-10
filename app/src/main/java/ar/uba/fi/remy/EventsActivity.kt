@@ -1,6 +1,7 @@
 package ar.uba.fi.remy
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -36,6 +37,15 @@ class EventsActivity : AppCompatActivity() {
         token = sharedPref?.getString("TOKEN", "")!!
 
         cargarEventos()
+
+        configAddBtn()
+    }
+
+    private fun configAddBtn() {
+        inventory_floating_add.setOnClickListener {
+            val intent = Intent(this, NewEventActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun cargarEventos() {

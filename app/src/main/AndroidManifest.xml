@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents">
-        <activity android:name=".DetailEventActivity"></activity>
+        <activity android:name=".NewEventActivity"></activity>
+        <activity android:name=".DetailEventActivity" />
         <activity android:name=".CategoryDishes" />
         <activity android:name=".ui.inventory.InventoryConfirmActivity" />
         <activity
