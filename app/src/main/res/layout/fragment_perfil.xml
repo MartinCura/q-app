@@ -1,109 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="25px"
-    android:weightSum="10">
+    >
+    <LinearLayout
 
-
-    <TextView
-        android:layout_weight="1"
-        android:id="@+id/text_home"
-        android:text="PERFIL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="20dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/f_perfil_alimenticio"
-        android:layout_marginBottom="20px"
-        android:textSize="18sp"
-        />
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Vegetariano"
-        />
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Vegano"
-        />
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Celiaco"
-        />
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Diabético"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="25px"
+        android:weightSum="10">
 
 
-    <View
-        android:layout_marginTop="20px"
-        android:layout_marginBottom="20px"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/text_home"
+            android:text="PERFIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="20dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Alimentos prohibidos"
-        android:layout_marginBottom="20px"
-        android:textSize="18sp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/f_perfil_alimenticio"
+            android:layout_marginBottom="20px"
+            android:textSize="18sp"
+            />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/perfil_chipgroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vegetariano"
+            />
 
-    </com.google.android.material.chip.ChipGroup>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vegano"
+            />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/perfil_btn_contactos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/f_perfil_Contactos"
-        />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Celiaco"
+            />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/perfil_btn_eventos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/f_perfil_eventos"
-        />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diabético"
+            />
 
 
-    <TextView
-        android:layout_marginTop="50px"
-        android:id="@+id/perfil_salir"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:text="@string/cerrar_sesion"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:background="@drawable/button_background"/>
+        <View
+            android:layout_marginTop="20px"
+            android:layout_marginBottom="20px"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alimentos prohibidos"
+            android:layout_marginBottom="20px"
+            android:textSize="18sp"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/perfil_forbidden"
+                android:layout_width="0dp"
+                android:layout_weight="90"
+                android:layout_height="wrap_content"
+                android:hint="Ingresar nuevo alumento prohibido"
+                />
+
+            <ImageButton
+                android:id="@+id/perfil_add_forbidden"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add"
+                />
+        </LinearLayout>
+
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/perfil_chipgroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/perfil_btn_contactos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/f_perfil_Contactos"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/perfil_btn_eventos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/f_perfil_eventos"
+            />
+
+
+        <TextView
+            android:layout_marginTop="50px"
+            android:id="@+id/perfil_salir"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="@string/cerrar_sesion"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:background="@drawable/button_background"/>
+
+    </LinearLayout>
+</ScrollView>
+

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.ContactsActivity
@@ -19,6 +20,7 @@ import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.fragment_perfil.*
 
 class PerfilFragment : Fragment() {
+    lateinit var chipGroup:ChipGroup
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,26 +44,42 @@ class PerfilFragment : Fragment() {
             goContacts()
         })
 
-        cargarIngredientesProhibidos(root)
+        chipGroup = root.findViewById(R.id.perfil_chipgroup)
+        cargarIngredientesProhibidos()
+
+        configAddForbidden(root)
 
         return root
     }
 
-    private fun cargarIngredientesProhibidos(root: View) {
+    private fun configAddForbidden(root: View) {
+        var btnAddForbidden = root.findViewById<ImageButton>(R.id.perfil_add_forbidden)
+        btnAddForbidden.setOnClickListener {
+            var txtIngredient = perfil_forbidden.text
+            if(!txtIngredient.isNullOrEmpty()) {
+                addChip(txtIngredient.toString())
+            }
+        }
+    }
+
+    private fun addChip(ingredient: String) {
+        val chip = Chip(context)
+        chip.text = ingredient
+        val drawable = context?.let { ChipDrawable.createFromAttributes(it, null, 0, R.style.Widget_MaterialComponents_Chip_Entry) }
+        drawable?.let { chip.setChipDrawable(it) }
+        chip.chipEndPadding = 20F
+        chipGroup.addView(chip)
+        chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
+    }
+
+    private fun cargarIngredientesProhibidos() {
         // TO-DO: hacer llamada a la api
 
         // Respuesta simulada:
         val ingredientes = arrayOf("Dulce de leche", "Azucar", "Harina")
 
         for (ingrediente in ingredientes) {
-            val chipGroup: ChipGroup = root.findViewById(R.id.perfil_chipgroup)
-            val chip = Chip(context)
-            chip.text = ingrediente
-            val drawable = context?.let { ChipDrawable.createFromAttributes(it, null, 0, R.style.Widget_MaterialComponents_Chip_Entry) }
-            drawable?.let { chip.setChipDrawable(it) }
-            chip.chipEndPadding = 20F
-            chipGroup.addView(chip)
-            chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
+            addChip(ingrediente)
         }
     }
 
