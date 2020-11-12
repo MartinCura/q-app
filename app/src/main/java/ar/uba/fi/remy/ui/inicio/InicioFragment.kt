@@ -90,8 +90,10 @@ class InicioFragment : Fragment() {
                 urlNext = response.getString("next")
                 for (i in 0 until recomendacionesArray.length()) {
                     var recomendacion = recomendacionesArray.getJSONObject(i)
-                    var title = recomendacion.getJSONObject("recipe").getString("title")
-                    recomendaciones.add(RecommendedItem(title, 2, 15,  20, 1))
+                    var recipe = recomendacion.getJSONObject("recipe")
+                    var title = recipe.getString("title")
+                    var id = recipe.getInt("id")
+                    recomendaciones.add(RecommendedItem(id, title, 2, 15,  20, 1))
                     rvAdapter.notifyDataSetChanged()
                 }
             },

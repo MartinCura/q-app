@@ -39,7 +39,7 @@ class  RecommendedItemAdapter(var listaRecetas:ArrayList<RecommendedItem>):Recyc
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailRecipeActivity::class.java)
                 // TO-DO: Cambiarlo por el ID de la receta para hacer un request a la API
-                intent.putExtra("id_receta", data.nombre)
+                intent.putExtra("id_receta", data.id)
                 itemView.context.startActivity(intent)
             }
 
