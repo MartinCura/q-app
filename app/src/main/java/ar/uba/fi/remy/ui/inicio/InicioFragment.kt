@@ -17,7 +17,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-
+import java.lang.Math.round
 
 
 class InicioFragment : Fragment() {
@@ -90,10 +90,10 @@ class InicioFragment : Fragment() {
                 urlNext = response.getString("next")
                 for (i in 0 until recomendacionesArray.length()) {
                     var recomendacion = recomendacionesArray.getJSONObject(i)
-                    var recipe = recomendacion.getJSONObject("recipe")
-                    var title = recipe.getString("title")
-                    var id = recipe.getInt("id")
-                    recomendaciones.add(RecommendedItem(id, title, 2, 15,  20, 1))
+                    var title = recomendacion.getString("recipe_title")
+                    var id = recomendacion.getInt("recipe_id")
+                    var score = round(recomendacion.getString("score").toDouble() / 2)
+                    recomendaciones.add(RecommendedItem(id, title, score.toInt(), 15,  20, 1))
                     rvAdapter.notifyDataSetChanged()
                 }
             },

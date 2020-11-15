@@ -12,8 +12,41 @@
         android:layoutDirection="rtl"
         />
 
-    <ListView
+    <TextView
+        android:text="Solicitudes de amistad"
+        android:textColor="@color/white"
+        android:id="@+id/contact_title_invites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/contact_search"
+        />
+
+    <ListView
+        android:id="@+id/contact_pending_invites"
+        android:layout_below="@+id/contact_title_invites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+
+    <TableRow
+        android:id="@+id/hr"
+        android:layout_below="@+id/contact_pending_invites"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#444"></TableRow>
+
+    <TextView
+        android:text="Solicitudes de amistad"
+        android:textColor="@color/white"
+        android:id="@+id/contact_title_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hr"
+        />
+
+    <ListView
+        android:layout_below="@+id/contact_title_contacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/contact_list"

@@ -16,8 +16,10 @@ import org.json.JSONObject
 class ContactsActivity : AppCompatActivity() {
 
     var dataList = ArrayList<HashMap<String, String>>()
+    var pendingInvites = ArrayList<HashMap<String, String>>()
     lateinit var token: String
     lateinit var adapter: ContactAdapter
+    lateinit var adapterInvites: ContactAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +34,26 @@ class ContactsActivity : AppCompatActivity() {
         adapter = ContactAdapter(this, dataList)
         contact_list.adapter = adapter
 
+        //Configuro adapter invites
+        adapterInvites = ContactAdapter(this, pendingInvites)
+        contact_pending_invites.adapter = adapterInvites
+
         //Configuro filtro de contactos
         setFilter()
 
         cargarContactos()
+
+        cargarInvites()
+    }
+
+    private fun cargarInvites() {
+        val map = HashMap<String, String>()
+
+        map["name"] = "Prueba"
+        map["username"] = "username"
+        map["email"] = "mail@a.com"
+
+        adapterInvites.addData(map)
     }
 
     private fun setFilter() {
