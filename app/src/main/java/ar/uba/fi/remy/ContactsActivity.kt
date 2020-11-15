@@ -12,6 +12,14 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_contacts.*
 import org.json.JSONObject
+import androidx.core.os.HandlerCompat.postDelayed
+import android.view.MotionEvent
+import android.view.View.OnTouchListener
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.View
+
 
 class ContactsActivity : AppCompatActivity() {
 
@@ -44,6 +52,21 @@ class ContactsActivity : AppCompatActivity() {
         cargarContactos()
 
         cargarInvites()
+
+        configHideInvites()
+    }
+
+    private fun configHideInvites() {
+        contact_title_invites.setOnTouchListener { view, motionEvent ->
+            if(motionEvent.action === MotionEvent.ACTION_DOWN) {
+                if(contact_pending_invites.visibility === View.VISIBLE) {
+                    contact_pending_invites.visibility = View.GONE
+                } else {
+                    contact_pending_invites.visibility = View.VISIBLE
+                }
+            }
+            true
+        }
     }
 
     private fun cargarInvites() {
