@@ -19,6 +19,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
+import ar.uba.fi.remy.model.ContactRequestAdapter
 
 
 class ContactsActivity : AppCompatActivity() {
@@ -27,7 +28,7 @@ class ContactsActivity : AppCompatActivity() {
     var pendingInvites = ArrayList<HashMap<String, String>>()
     lateinit var token: String
     lateinit var adapter: ContactAdapter
-    lateinit var adapterInvites: ContactAdapter
+    lateinit var adapterInvites: ContactRequestAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,7 @@ class ContactsActivity : AppCompatActivity() {
         contact_list.adapter = adapter
 
         //Configuro adapter invites
-        adapterInvites = ContactAdapter(this, pendingInvites)
+        adapterInvites = ContactRequestAdapter(this, pendingInvites)
         contact_pending_invites.adapter = adapterInvites
 
         //Configuro filtro de contactos
