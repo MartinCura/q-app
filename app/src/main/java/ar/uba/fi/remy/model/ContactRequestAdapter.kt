@@ -30,11 +30,11 @@ class ContactRequestAdapter(private val context: Activity?, private var dataList
         val btnDecline = rowView.findViewById<ImageButton>(R.id.contact_decline)
 
         btnAccept.setOnClickListener {
-            Log.i("API", "Acepta")
+            Log.i("API", "Acepta solicitud " + dataitem.get("idRequest"))
         }
 
         btnDecline.setOnClickListener {
-            Log.i("API","Rechaza")
+            Log.i("API","Rechaza solicitud "  + dataitem.get("idRequest"))
         }
 
         rowView.tag = position

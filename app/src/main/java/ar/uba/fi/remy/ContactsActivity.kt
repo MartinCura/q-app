@@ -106,13 +106,14 @@ class ContactsActivity : AppCompatActivity() {
         queue.add(jsonObjectRequest)
     }
 
-    private fun agregarSolicitud(solicitud: JSONObject?) {
+    private fun agregarSolicitud(solicitud: JSONObject) {
         val map = HashMap<String, String>()
 
         /*map["name"] = contacto.getString("first_name") + " " + contacto.getString("last_name")
         map["username"] = contacto.getString("username")
         map["email"] = contacto.getString("email")*/
 
+        map["idRequest"] = solicitud.getInt("id").toString()
         map["name"] = "Nombre hardcodeado"
         map["username"] = "Username"
         map["email"] = "Mail@mail.com"
