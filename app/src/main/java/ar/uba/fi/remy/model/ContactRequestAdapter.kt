@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import ar.uba.fi.remy.ContactsActivity
 import ar.uba.fi.remy.R
 import com.android.volley.Request
 import com.android.volley.Response
@@ -59,6 +60,9 @@ class ContactRequestAdapter(private val context: Activity?, private var dataList
             Request.Method.POST, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                val activity = context as ContactsActivity
+                activity.cargarInvites()
+                activity.cargarContactos()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")

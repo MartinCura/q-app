@@ -71,11 +71,12 @@ class ContactsActivity : AppCompatActivity() {
         }
     }
 
-    private fun cargarInvites() {
+    public fun cargarInvites() {
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/friendship/"
 
         pendingInvites.clear()
+        adapterInvites.notifyDataSetChanged()
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -84,7 +85,6 @@ class ContactsActivity : AppCompatActivity() {
                 for (i in 0 until results.length()) {
                     val solicitud = results.getJSONObject(i)
                     if(solicitud.getString("status") == "REQUESTED") {
-                        Log.i("API", "ENTRAAA")
                         agregarSolicitud(solicitud)
                     }
 
@@ -118,8 +118,8 @@ class ContactsActivity : AppCompatActivity() {
         map["username"] = "Username"
         map["email"] = "Mail@mail.com"
 
-
-        adapterInvites.addData(map)
+        pendingInvites.add(map)
+        adapterInvites.notifyDataSetChanged()
     }
 
     private fun setFilter() {
@@ -139,11 +139,12 @@ class ContactsActivity : AppCompatActivity() {
         })
     }
 
-    private fun cargarContactos() {
+    public fun cargarContactos() {
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/friends/"
 
         dataList.clear()
+        adapter.notifyDataSetChanged()
         val jsonArrayRequest = object: JsonArrayRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -178,7 +179,8 @@ class ContactsActivity : AppCompatActivity() {
             map["email"] = contacto.getString("email")
         }
 
-        adapter.addData(map)
+        dataList.add(map)
+        adapter.notifyDataSetChanged()
 
     }
 }
