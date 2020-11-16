@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
 import ar.uba.fi.remy.model.ContactRequestAdapter
+import com.android.volley.toolbox.JsonObjectRequest
 
 
 class ContactsActivity : AppCompatActivity() {
@@ -71,11 +72,51 @@ class ContactsActivity : AppCompatActivity() {
     }
 
     private fun cargarInvites() {
+        val queue = Volley.newRequestQueue(this)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/friendship/"
+
+        pendingInvites.clear()
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                var results = response.getJSONArray("results")
+                for (i in 0 until results.length()) {
+                    val solicitud = results.getJSONObject(i)
+                    if(solicitud.getString("status") == "REQUESTED") {
+                        Log.i("API", "ENTRAAA")
+                        agregarSolicitud(solicitud)
+                    }
+
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
+    }
+
+    private fun agregarSolicitud(solicitud: JSONObject?) {
         val map = HashMap<String, String>()
 
-        map["name"] = "Prueba"
-        map["username"] = "username"
-        map["email"] = "mail@a.com"
+        /*map["name"] = contacto.getString("first_name") + " " + contacto.getString("last_name")
+        map["username"] = contacto.getString("username")
+        map["email"] = contacto.getString("email")*/
+
+        map["name"] = "Nombre hardcodeado"
+        map["username"] = "Username"
+        map["email"] = "Mail@mail.com"
+
 
         adapterInvites.addData(map)
     }
@@ -137,12 +178,6 @@ class ContactsActivity : AppCompatActivity() {
         }
 
         adapter.addData(map)
-
-        val map2 = HashMap<String, String>()
-        map2["name"] = "Martin Cura"
-        map2["username"] = "Martin"
-        map2["email"] = "martin@mail.com"
-        adapter.addData(map2)
 
     }
 }
