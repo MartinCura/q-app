@@ -45,7 +45,7 @@ class ContactsActivity : AppCompatActivity() {
         contact_list.adapter = adapter
 
         //Configuro adapter invites
-        adapterInvites = ContactRequestAdapter(this, pendingInvites)
+        adapterInvites = ContactRequestAdapter(this, pendingInvites, token)
         contact_pending_invites.adapter = adapterInvites
 
         //Configuro filtro de contactos
