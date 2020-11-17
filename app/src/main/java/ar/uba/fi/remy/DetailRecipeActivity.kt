@@ -1,6 +1,7 @@
 package ar.uba.fi.remy
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,15 @@ class DetailRecipeActivity : AppCompatActivity() {
         Log.i("API", idRecipe.toString())
 
         loadRecipe(idRecipe)
+
+        configCookBtn()
+    }
+
+    private fun configCookBtn() {
+        detail_recipe_cook.setOnClickListener {
+            val intent = Intent(this, StepsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loadRecipe(idRecipe: Int) {
