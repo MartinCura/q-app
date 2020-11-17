@@ -1,6 +1,7 @@
 package ar.uba.fi.remy
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -56,6 +57,15 @@ class ContactsActivity : AppCompatActivity() {
         cargarInvites()
 
         configHideInvites()
+
+        configAddFriend()
+    }
+
+    private fun configAddFriend() {
+        contact_floating_add.setOnClickListener {
+            val intent = Intent(this, NewContactActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun configHideInvites() {
