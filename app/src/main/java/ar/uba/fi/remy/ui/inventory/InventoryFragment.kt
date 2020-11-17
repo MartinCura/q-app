@@ -30,6 +30,7 @@ import org.json.JSONObject
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class InventoryFragment : Fragment() {
 
     var dataList = ArrayList<HashMap<String, String>>()
