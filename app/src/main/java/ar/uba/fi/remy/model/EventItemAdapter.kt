@@ -4,11 +4,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.DetailEventActivity
-import ar.uba.fi.remy.DetailRecipeActivity
 import ar.uba.fi.remy.R
 
 class EventItemAdapter(var listaEventos:ArrayList<EventItem>):RecyclerView.Adapter<EventItemAdapter.ViewHolder>(){

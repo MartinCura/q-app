@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
 import kotlinx.android.synthetic.main.fragment_chango.view.*
-import kotlinx.android.synthetic.main.fragment_inventory.*
-import kotlinx.android.synthetic.main.fragment_inventory.view.*
 import org.json.JSONArray
 import org.json.JSONObject
 

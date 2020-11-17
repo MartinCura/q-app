@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
-    android:id="@+id/cv_event_item"
     android:layout_margin="15dp">
 
     <LinearLayout
@@ -106,7 +105,6 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/foto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

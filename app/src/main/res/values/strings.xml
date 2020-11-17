@@ -12,7 +12,6 @@
     <string name="home_title">Ingredientes disponibles</string>
 
     <!--  Pantalla Explorar  -->
-    <string name="dashboard_title">Explorar</string>
 
     <!-- Shared Preference  -->
     <string name="preference_file">sharedPreference</string>
@@ -27,7 +26,6 @@
     <string name="ac_d_recipe_categoria">Categoria</string>
     <string name="ac_d_recipe_tiempo">Tiempo</string>
     <string name="ac_d_recipe_ingredientes">Ingredientes</string>
-    <string name="ac_d_recipe_instrucciones">Instrucciones</string>
     <string name="ac_d_recipe_cocinar">COCINAR</string>
 
     <!-- activity_login -->
@@ -48,7 +46,6 @@
 
     <!-- dialog_add_ingredient -->
     <string name="d_ingredient_ingrediente_agregar">Agregar nuevo ingrediente</string>
-    <string name="d_ingredient">Ingrediente</string>
     <string name="d_ingredient_cantidad">Cantidad</string>
     <string name="d_ingredient_unidad">Unidad</string>
     <string name="d_ingredient_cancelar">Cancelar</string>
@@ -72,7 +69,6 @@
 
     <!-- recommended_item -->
     <string name="i_recommended_minutos">Minutos</string>
-    <string name="i_recommended_calorias">Calorías</string>
 
 
 </resources>

@@ -13,12 +13,7 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_contacts.*
 import org.json.JSONObject
-import androidx.core.os.HandlerCompat.postDelayed
 import android.view.MotionEvent
-import android.view.View.OnTouchListener
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
 import ar.uba.fi.remy.model.ContactRequestAdapter
 import com.android.volley.toolbox.JsonObjectRequest
