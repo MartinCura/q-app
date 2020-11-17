@@ -64,9 +64,9 @@ class ContactsActivity : AppCompatActivity() {
     }
 
     private fun configHideInvites() {
-        contact_title_invites.setOnTouchListener { view, motionEvent ->
-            if(motionEvent.action === MotionEvent.ACTION_DOWN) {
-                if(contact_pending_invites.visibility === View.VISIBLE) {
+        contact_title_invites.setOnTouchListener { _, motionEvent ->
+            if(motionEvent.action == MotionEvent.ACTION_DOWN) {
+                if(contact_pending_invites.visibility == View.VISIBLE) {
                     contact_pending_invites.visibility = View.GONE
                 } else {
                     contact_pending_invites.visibility = View.VISIBLE

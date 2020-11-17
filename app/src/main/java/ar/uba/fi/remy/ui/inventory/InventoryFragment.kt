@@ -304,7 +304,7 @@ class InventoryFragment : Fragment() {
         })
 
         dialog.show()
-        dialog.window.setLayout(1000,950)
+        dialog.window?.setLayout(1000,950)
     }
 
     private fun goScanner() {

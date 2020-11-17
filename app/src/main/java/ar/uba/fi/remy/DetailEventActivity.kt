@@ -144,7 +144,7 @@ class DetailEventActivity : AppCompatActivity() {
 
     private fun addPerson(idEvento: Int, idFriend: Int) {
         val queue = Volley.newRequestQueue(this)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/events/" + idEvento + "/add_attendee/?attendee_id=" + "10"
+        val url = "https://tpp-remy.herokuapp.com/api/v1/events/" + idEvento + "/add_attendee/?attendee_id=" + idFriend
 
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.POST, url, null,

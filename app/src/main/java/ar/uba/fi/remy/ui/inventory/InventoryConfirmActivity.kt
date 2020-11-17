@@ -27,7 +27,7 @@ class InventoryConfirmActivity : AppCompatActivity() {
         setContentView(R.layout.activity_inventory_confirm)
 
         //Obtener token
-        val sharedPref = this?.getSharedPreferences(
+        val sharedPref = this.getSharedPreferences(
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
 

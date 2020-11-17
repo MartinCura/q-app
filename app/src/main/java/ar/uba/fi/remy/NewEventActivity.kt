@@ -26,7 +26,7 @@ class NewEventActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_event)
 
         //Obtener token
-        val sharedPref = this?.getSharedPreferences(
+        val sharedPref = this.getSharedPreferences(
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
 
@@ -55,6 +55,7 @@ class NewEventActivity : AppCompatActivity() {
                 val minuteStr = if (minute < 10) "0${minute}" else "${minute}"
                 val finalText = hourStr + ":" + minuteStr
                 new_event_time.setText(finalText)
+                new_event_time.setText(finalText)
             }
         })
     }
@@ -65,7 +66,7 @@ class NewEventActivity : AppCompatActivity() {
             var date = new_event_date.text.toString()
             var hour = new_event_time.text.toString()
             var splitDate = date.split(" / ");
-            var formattedDate = ""
+            var formattedDate: String
             formattedDate = splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0]
             var finalDate = formattedDate + "T" + hour +":00"
             var sharedInventory = new_event_shared_inventory.isChecked

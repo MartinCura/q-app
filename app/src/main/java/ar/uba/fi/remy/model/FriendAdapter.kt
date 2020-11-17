@@ -24,7 +24,7 @@ class  FriendAdapter(var friendList:ArrayList<Friend>):RecyclerView.Adapter<Frie
     }
 
     fun getFriends(): List<Friend> {
-        return friendList.filter { friend -> friend.checked === true }
+        return friendList.filter { friend -> friend.checked }
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
