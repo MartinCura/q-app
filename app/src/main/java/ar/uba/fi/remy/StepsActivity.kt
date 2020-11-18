@@ -1,5 +1,6 @@
 package ar.uba.fi.remy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -53,6 +54,10 @@ class StepsActivity : AppCompatActivity() {
     }
 
     fun finishCooking(view: View) {
-        Log.i("API", "TERMINE DE COCINAR!")
+        // TO-DO: Confirmar ingredientes usados para quitar y removeerlos del inventario
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
     }
 }
