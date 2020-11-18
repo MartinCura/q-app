@@ -10,10 +10,13 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_detail_recipe.*
+import org.json.JSONArray
 import org.json.JSONObject
 
 class DetailRecipeActivity : AppCompatActivity() {
     lateinit var token: String
+    var idRecipe: Int = 0
+    var steps: JSONArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +27,7 @@ class DetailRecipeActivity : AppCompatActivity() {
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
 
-        val idRecipe= intent.getIntExtra("id_receta", 0)
+        idRecipe= intent.getIntExtra("id_receta", 0)
         Log.i("API", idRecipe.toString())
 
         loadRecipe(idRecipe)
@@ -35,6 +38,8 @@ class DetailRecipeActivity : AppCompatActivity() {
     private fun configCookBtn() {
         detail_recipe_cook.setOnClickListener {
             val intent = Intent(this, StepsActivity::class.java)
+            intent.putExtra("id_receta", idRecipe)
+            intent.putExtra("steps", steps.toString())
             startActivity(intent)
         }
     }
@@ -81,5 +86,8 @@ class DetailRecipeActivity : AppCompatActivity() {
             txtIngredients += (i+1).toString() + ". " + itemName + " " + itemQantity + " " + itemUnit + "\n"
         }
         detail_recipe_ingredients.text = txtIngredients
+
+        steps = recipe?.getJSONArray("instructions")
+        Log.i("API", steps.toString())
     }
 }

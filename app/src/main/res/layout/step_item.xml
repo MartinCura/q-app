@@ -27,4 +27,15 @@
         android:textSize="20sp"
         />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/step_btn_end"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FINALIZAR"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80sp"
+        />
+
 </RelativeLayout>

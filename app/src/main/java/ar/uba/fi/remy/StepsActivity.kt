@@ -5,9 +5,13 @@ import android.os.Bundle
 import ar.uba.fi.remy.model.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_steps.*
 import me.relex.circleindicator.CircleIndicator3
+import org.json.JSONArray
+import org.json.JSONException
+
+
+
 
 class StepsActivity : AppCompatActivity() {
-
     private var titlesList = mutableListOf<String>()
     private var stepsList = mutableListOf<String>()
 
@@ -15,12 +19,17 @@ class StepsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steps)
 
-        loadData()
+        var idRecipe = intent.getIntExtra("id_receta", 0)
+        var steps = intent.getStringExtra("steps")
+
+        loadData(steps)
 
         view_pager2.adapter = ViewPagerAdapter(titlesList, stepsList)
 
         val indicator = findViewById<CircleIndicator3>(R.id.indicator)
         indicator.setViewPager(view_pager2)
+
+
     }
 
     private fun addToList(title: String, instruction: String) {
@@ -28,10 +37,16 @@ class StepsActivity : AppCompatActivity() {
         stepsList.add(instruction)
     }
 
-    private fun loadData() {
-        // TO-DO: Request to API
-        for (i in 1..5) {
-            addToList("Paso $i", "Bla bla bla bla bla bla")
+    private fun loadData(steps: String) {
+        var array: JSONArray = JSONArray()
+        try {
+            array = JSONArray(steps)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        for (i in 0 until array.length()) {
+            addToList("Paso ${(i+1)}", array.getString(i))
         }
     }
 }
