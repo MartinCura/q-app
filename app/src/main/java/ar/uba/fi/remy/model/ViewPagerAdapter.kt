@@ -31,9 +31,6 @@ class ViewPagerAdapter(private var title: List<String>, private var steps: List<
     override fun onBindViewHolder(holder: ViewPagerAdapter.Pager2ViewHolder, position: Int) {
         holder.itemTitle.text = title[position]
         holder.itemInstructions.text = steps[position]
-        Log.i("API", "Item Count: " + itemCount)
-        Log.i("API", "Position: " + position)
-        Log.i("API", "Paso: " + title[position])
         if(itemCount - 1 == position) {
             holder.itemBtn.visibility = View.VISIBLE
         } else {

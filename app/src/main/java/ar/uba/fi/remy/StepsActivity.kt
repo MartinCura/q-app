@@ -2,6 +2,8 @@ package ar.uba.fi.remy
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import ar.uba.fi.remy.model.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_steps.*
 import me.relex.circleindicator.CircleIndicator3
@@ -48,5 +50,9 @@ class StepsActivity : AppCompatActivity() {
         for (i in 0 until array.length()) {
             addToList("Paso ${(i+1)}", array.getString(i))
         }
+    }
+
+    fun finishCooking(view: View) {
+        Log.i("API", "TERMINE DE COCINAR!")
     }
 }
