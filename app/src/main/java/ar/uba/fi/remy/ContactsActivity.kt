@@ -114,14 +114,11 @@ class ContactsActivity : AppCompatActivity() {
     private fun agregarSolicitud(solicitud: JSONObject) {
         val map = HashMap<String, String>()
 
-        /*map["name"] = contacto.getString("first_name") + " " + contacto.getString("last_name")
-        map["username"] = contacto.getString("username")
-        map["email"] = contacto.getString("email")*/
-
         map["idRequest"] = solicitud.getInt("id").toString()
-        map["name"] = "Nombre hardcodeado"
-        map["username"] = "Username"
-        map["email"] = "Mail@mail.com"
+        val contact = solicitud.getJSONObject("profile_requesting")
+        map["name"] = contact.getString("first_name") + " " + contact.getString("last_name")
+        map["username"] = contact.getString("username")
+        map["email"] = contact.getString("email")
 
         pendingInvites.add(map)
         adapterInvites.notifyDataSetChanged()
