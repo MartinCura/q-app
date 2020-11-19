@@ -11,6 +11,7 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import ar.uba.fi.remy.R
+import java.text.Normalizer
 
 
 class InventoryAdapter(private val context: FragmentActivity?, private var dataList: ArrayList<HashMap<String, String>>) : BaseAdapter(), Filterable {
@@ -42,6 +43,13 @@ class InventoryAdapter(private val context: FragmentActivity?, private var dataL
         return mFilter
     }
 
+    private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
+
+    fun CharSequence.unaccent(): String {
+        val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
+        return REGEX_UNACCENT.replace(temp, "")
+    }
+
     private inner class ItemFilter : Filter() {
         override fun performFiltering(constraint: CharSequence): Filter.FilterResults {
 
@@ -57,7 +65,7 @@ class InventoryAdapter(private val context: FragmentActivity?, private var dataL
             var filterableString: String
             for (i in 0 until count) {
                 filterableString = list[i]["ingrediente"].toString()
-                if (filterableString.toLowerCase().contains(filterString)) {
+                if (filterableString.toLowerCase().unaccent().contains(filterString)) {
                     nlist.add(list[i])
                 }
             }
