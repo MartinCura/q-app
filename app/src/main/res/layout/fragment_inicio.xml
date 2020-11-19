@@ -25,6 +25,7 @@
             android:layout_width="0dp" />
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_ingredients"
             android:layout_weight="15"
             android:layout_height="wrap_content"
             android:checked="true"

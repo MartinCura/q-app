@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,8 +24,8 @@ import java.lang.Math.round
 class InicioFragment : Fragment() {
     var urlNext:String = ""
     var loadingMore = false
+    var allIngredients = true
     val recomendaciones = ArrayList<RecommendedItem>()
-    lateinit var recyclerView:RecyclerView
     lateinit var rvAdapter:RecommendedItemAdapter
 
     override fun onCreateView(
@@ -40,10 +41,23 @@ class InicioFragment : Fragment() {
 
         setupRecycler(root)
 
+        configSwitch(root)
+
         //Obtengo las recetas desde la API y las inserto en el RecyclerView
         cargarRecetas()
 
         return root
+    }
+
+    private fun configSwitch(root: View) {
+        val switch: SwitchCompat = root.findViewById(R.id.switch_ingredients)
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            allIngredients = isChecked
+            urlNext = ""
+            recomendaciones.clear()
+            rvAdapter.notifyDataSetChanged()
+            cargarRecetas()
+        }
     }
 
     private fun setupRecycler(root: View) {
@@ -68,8 +82,6 @@ class InicioFragment : Fragment() {
 
     private fun cargarRecetas() {
         loadingMore = true
-
-
         //Access sharedPreferences
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.preference_file), Context.MODE_PRIVATE)
@@ -79,9 +91,9 @@ class InicioFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         var url = urlNext
         if(url.isBlank()) {
-            url = "https://tpp-remy.herokuapp.com/api/v1/my_recommendations/"
+            url = "https://tpp-remy.herokuapp.com/api/v1/my_recommendations/?all_ingredients=" + allIngredients
         }
-
+        Log.i("API", url)
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
