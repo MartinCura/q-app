@@ -8,10 +8,19 @@
     tools:context=".NewContactActivity">
 
     <SearchView
+        android:id="@+id/new_contact_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Ingrese el nombre/usuario de la persona..."
         android:layoutDirection="rtl"
+        />
+
+    <ListView
+        android:id="@+id/new_contact_list"
+        android:layout_below="@+id/new_contact_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
         />
 
 </RelativeLayout>
