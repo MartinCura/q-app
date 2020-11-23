@@ -3,13 +3,12 @@ package ar.uba.fi.remy.model
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
+import android.widget.*
+import ar.uba.fi.remy.NewContactActivity
 import ar.uba.fi.remy.R
 
 
@@ -25,10 +24,25 @@ class ContactAdapter(private val context: Activity?, private var dataList: Array
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var dataitem = dataList[position]
 
-        val rowView = inflater.inflate(R.layout.contact_item, parent, false)
+        var rowView: View
+        rowView = if(context.toString().contains("ar.uba.fi.remy.NewContactActivity")) {
+            inflater.inflate(R.layout.contact_add_item, parent, false)
+        } else {
+            inflater.inflate(R.layout.contact_item, parent, false)
+        }
+
         rowView.findViewById<TextView>(R.id.contact_name).text = dataitem.get("name")
         rowView.findViewById<TextView>(R.id.contact_username).text = dataitem.get("username")
         rowView.findViewById<TextView>(R.id.contact_email).text = dataitem.get("email")
+
+        if(context.toString().contains("ar.uba.fi.remy.NewContactActivity")) {
+            val contactadd = rowView.findViewById<ImageButton>(R.id.contact_add)
+            if(contactadd != null) {
+                contactadd.setOnClickListener {
+                    Log.i("API", "Click" + dataitem.get("username"))
+                }
+            }
+        }
 
         rowView.tag = position
         return rowView

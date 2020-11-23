@@ -93,7 +93,7 @@ class InicioFragment : Fragment() {
         if(url.isBlank()) {
             url = "https://tpp-remy.herokuapp.com/api/v1/my_recommendations/?all_ingredients=" + allIngredients
         }
-
+        Log.i("API", url)
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
