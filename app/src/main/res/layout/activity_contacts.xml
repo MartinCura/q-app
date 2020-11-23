@@ -37,7 +37,7 @@
         android:background="#444"></TableRow>
 
     <TextView
-        android:text="Solicitudes de amistad"
+        android:text="Contactos"
         android:textColor="@color/white"
         android:id="@+id/contact_title_contacts"
         android:layout_width="match_parent"
