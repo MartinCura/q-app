@@ -37,7 +37,7 @@ class ContactsActivity : AppCompatActivity() {
         token = sharedPref?.getString("TOKEN", "")!!
 
         //Configuro adapter
-        adapter = ContactAdapter(this, dataList)
+        adapter = ContactAdapter(this, dataList, token)
         contact_list.adapter = adapter
 
         //Configuro adapter invites

@@ -29,7 +29,7 @@ class NewContactActivity : AppCompatActivity() {
         token = sharedPref?.getString("TOKEN", "")!!
 
         //Configuro adapter
-        adapter = ContactAdapter(this, users)
+        adapter = ContactAdapter(this, users, token)
         new_contact_list.adapter = adapter
 
         configSearch()
@@ -80,7 +80,7 @@ class NewContactActivity : AppCompatActivity() {
     private fun agregarUsuario(user: JSONObject) {
         val map = HashMap<String, String>()
 
-        map["idRequest"] = user.getInt("id").toString()
+        map["id"] = user.getInt("id").toString()
         map["name"] = user.getString("first_name") + " " + user.getString("last_name")
         map["username"] = user.getString("username")
         map["email"] = user.getString("email")

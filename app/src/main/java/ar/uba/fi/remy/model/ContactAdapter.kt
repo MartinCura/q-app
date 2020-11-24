@@ -8,11 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import ar.uba.fi.remy.NewContactActivity
+import ar.uba.fi.remy.ContactsActivity
 import ar.uba.fi.remy.R
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
 
-class ContactAdapter(private val context: Activity?, private var dataList: ArrayList<HashMap<String, String>>) : BaseAdapter(), Filterable {
+class ContactAdapter(private val context: Activity?, private var dataList: ArrayList<HashMap<String, String>>, private var token: String) : BaseAdapter(), Filterable {
 
     private val inflater: LayoutInflater = this.context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     override fun getCount(): Int { return dataList.size }
@@ -39,13 +44,41 @@ class ContactAdapter(private val context: Activity?, private var dataList: Array
             val contactadd = rowView.findViewById<ImageButton>(R.id.contact_add)
             if(contactadd != null) {
                 contactadd.setOnClickListener {
-                    Log.i("API", "Click" + dataitem.get("username"))
+                    requestFriendship(dataitem.get("id"))
                 }
             }
         }
 
         rowView.tag = position
         return rowView
+    }
+
+    private fun requestFriendship(id: String?) {
+        val queue = Volley.newRequestQueue(context)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/friendship/"
+
+        val body = JSONObject()
+        body.put("profile_requested_id", id?.toInt())
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.POST, url, body,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     fun addData(data: HashMap<String, String>) {
