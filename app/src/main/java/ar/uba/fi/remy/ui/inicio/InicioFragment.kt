@@ -117,7 +117,7 @@ class InicioFragment : Fragment() {
         {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
-                headers["Authorization"] = "Token 758fedb9f337fe54019228dbbf9b46f828fbc945"
+                headers["Authorization"] = "Token " + token
                 return headers
             }
         }
