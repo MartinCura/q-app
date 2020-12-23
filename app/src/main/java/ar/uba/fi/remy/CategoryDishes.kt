@@ -12,7 +12,6 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import java.lang.Math.round
 
 class CategoryDishes : AppCompatActivity() {
 
@@ -79,7 +78,8 @@ class CategoryDishes : AppCompatActivity() {
                     var id = recomendacion.getInt("id")
                     /*var score = round(recomendacion.getString("score").toDouble() / 2)*/
                     var score = 3
-                    recomendaciones.add(RecommendedItem(id, title, score.toInt(), 15,  20, 1))
+                    /*var img = recomendacion.getString("image")*/
+                    recomendaciones.add(RecommendedItem(id, title, score.toInt(), 15,  20, ""))
                     rvAdapter.notifyDataSetChanged()
                 }
             },

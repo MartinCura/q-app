@@ -105,7 +105,9 @@ class InicioFragment : Fragment() {
                     var title = recomendacion.getString("recipe_title")
                     var id = recomendacion.getInt("recipe_id")
                     var score = round(recomendacion.getString("score").toDouble() / 2)
-                    recomendaciones.add(RecommendedItem(id, title, score.toInt(), 15,  20, 1))
+                    var img = recomendacion.getString("recipe_description").split('\'')[3]
+                    /*Log.i("API", "Response: %s".format(img.split('\'')[3]))*/
+                    recomendaciones.add(RecommendedItem(id, title, score.toInt(), 15,  20, img))
                     rvAdapter.notifyDataSetChanged()
                 }
             },

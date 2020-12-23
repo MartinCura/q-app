@@ -1,6 +1,7 @@
 package ar.uba.fi.remy.model
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.DetailRecipeActivity
 import ar.uba.fi.remy.R
+import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
+
 
 class  RecommendedItemAdapter(var listaRecetas:ArrayList<RecommendedItem>):RecyclerView.Adapter<RecommendedItemAdapter.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,11 +34,18 @@ class  RecommendedItemAdapter(var listaRecetas:ArrayList<RecommendedItem>):Recyc
             val nombre:TextView = itemView.findViewById(R.id.title)
             val duracion:TextView = itemView.findViewById(R.id.minutos)
             /*val calorias:TextView = itemView.findViewById(R.id.calorias)*/
-/*            val foto:ImageView = itemView.findViewById(R.id.foto)*/
+            val ivFoto:ImageView = itemView.findViewById(R.id.foto)
 
             nombre.text = data.nombre
             duracion.text = data.tiempo.toString()
             /*calorias.text = data.calorias.toString()*/
+
+            if(data.foto.isNotEmpty()) {
+                Picasso.get()
+                    .load(data.foto.replace("http", "https"))
+                    .transform(RoundedCornersTransformation(60,0))
+                    .resize(200, 200).into(ivFoto)
+            }
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailRecipeActivity::class.java)
