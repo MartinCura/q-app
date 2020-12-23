@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -33,6 +34,41 @@ class DetailRecipeActivity : AppCompatActivity() {
         loadRecipe(idRecipe)
 
         configCookBtn()
+
+        configAddCartBtn()
+    }
+
+    private fun configAddCartBtn() {
+        detail_recipe_add_cart.setOnClickListener {
+            addIngredients()
+        }
+    }
+
+    private fun addIngredients() {
+        val queue = Volley.newRequestQueue(this)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/cart/add_recipe/?recipe=" + idRecipe
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.POST, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: $response")
+                Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show()
+                finish()
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en POST")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     private fun configCookBtn() {
