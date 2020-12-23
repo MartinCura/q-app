@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".CategoryDishes">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_explore"
+        android:paddingBottom="70dp"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
