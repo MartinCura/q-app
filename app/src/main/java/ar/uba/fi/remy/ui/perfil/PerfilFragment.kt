@@ -10,10 +10,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import ar.uba.fi.remy.ContactsActivity
-import ar.uba.fi.remy.EventsActivity
-import ar.uba.fi.remy.LoginActivity
-import ar.uba.fi.remy.R
+import ar.uba.fi.remy.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
@@ -43,6 +40,11 @@ class PerfilFragment : Fragment() {
         btnContacts.setOnClickListener(View.OnClickListener {
             goContacts()
         })
+
+        val btnRecipesCooked: Button = root.findViewById(R.id.perfil_btn_recetas_cocinadas)
+        btnRecipesCooked.setOnClickListener {
+            goRecipesCooked()
+        }
 
         chipGroup = root.findViewById(R.id.perfil_chipgroup)
         cargarIngredientesProhibidos()
@@ -108,6 +110,11 @@ class PerfilFragment : Fragment() {
 
     private fun goContacts() {
         val intent = Intent(activity, ContactsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goRecipesCooked() {
+        val intent = Intent(activity, RecipesCookedActivity::class.java)
         startActivity(intent)
     }
 }
