@@ -38,8 +38,6 @@ class EventsActivity : AppCompatActivity() {
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
 
-        cargarEventos()
-
         configAddBtn()
     }
 
