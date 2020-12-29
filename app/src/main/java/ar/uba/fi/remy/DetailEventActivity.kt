@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.dialog_list_friends.*
 class DetailEventActivity : AppCompatActivity() {
     lateinit var token: String
     lateinit var adapter: FriendAdapter
-    lateinit var idInvitados: Array<Int>
+    lateinit var idInvitados: MutableList<Int>
     var idEvento: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +52,11 @@ class DetailEventActivity : AppCompatActivity() {
                 Log.i("API", "Response: $response")
                 var attendees =  response.getJSONArray("attendees")
                 Log.i("API", "Response: $attendees")
+                idInvitados = mutableListOf()
                 for(i in 0 until attendees.length()) {
                     val attendee = attendees.getJSONObject(i)
                     Log.i("API", "Response: " + attendee.getString("id") + " " + attendee.getString("name"))
+                    idInvitados.add(attendee.getString("id").toInt())
                 }
 
                 event_detail_title.text = response.getString("name")
@@ -82,9 +84,6 @@ class DetailEventActivity : AppCompatActivity() {
 
 
         val amigos = ArrayList<Friend>()
-        amigos.add(Friend(1,"Franco","Etcheverri","franverri", "fran@mail.com", false))
-        amigos.add(Friend(2,"Franco2","Etcheverri2","franverri2", "fran2@mail.com", false))
-
 
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/friends/"
@@ -96,13 +95,16 @@ class DetailEventActivity : AppCompatActivity() {
 
                 for (i in 0 until response.length()) {
                     val item = response.getJSONObject(i)
-                    val amigo = Friend(item.getInt("id"),
-                        item.getString("first_name"),
-                        item.getString("last_name"),
-                        item.getString("username"),
-                        item.getString("email"),
-                        false)
-                    amigos.add(amigo)
+                    val invited = idInvitados.indexOf(item.getInt("id")) != -1
+                    if(!invited) {
+                        val amigo = Friend(item.getInt("id"),
+                            item.getString("first_name"),
+                            item.getString("last_name"),
+                            item.getString("username"),
+                            item.getString("email"),
+                            invited)
+                        amigos.add(amigo)
+                    }
                 }
                 showDialog(amigos)
             },
@@ -130,8 +132,8 @@ class DetailEventActivity : AppCompatActivity() {
         dialog.add_friend_floating_add.setOnClickListener(View.OnClickListener {
             var array = adapter.getFriends()
             for (i in array.indices) {
-                Log.i("API",  "Checked: " + array[i].first_name + " " + array[i].checked)
-                //addPerson(idEvento, array[i].id)
+                Log.i("API",  "Checked: " + array[i].first_name + " " + array[i].checked + " " + array[i].id)
+                addPerson(idEvento, array[i].id)
             }
         })
 
