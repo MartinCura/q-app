@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/perfil_forbidden"
                 android:layout_width="0dp"
                 android:layout_weight="90"

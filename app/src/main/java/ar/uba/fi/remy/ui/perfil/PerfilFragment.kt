@@ -3,6 +3,7 @@ package ar.uba.fi.remy.ui.perfil
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,21 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.*
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.fragment_perfil.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 class PerfilFragment : Fragment() {
     lateinit var chipGroup:ChipGroup
+    var forbiddenProducts:MutableList<String> = ArrayList()
+    lateinit var token: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +34,11 @@ class PerfilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_perfil, container, false)
+
+        //Obtener token
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.preference_file), Context.MODE_PRIVATE)
+        token = sharedPref?.getString("TOKEN", "")!!
 
         val btnSalir: TextView = root.findViewById(R.id.perfil_salir)
         btnSalir.setOnClickListener(View.OnClickListener {
@@ -46,12 +60,45 @@ class PerfilFragment : Fragment() {
             goRecipesCooked()
         }
 
+        cargarPerfil()
+
         chipGroup = root.findViewById(R.id.perfil_chipgroup)
-        cargarIngredientesProhibidos()
 
         configAddForbidden(root)
 
         return root
+    }
+
+    private fun cargarPerfil() {
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/3/"
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                var response_forbidden = response.getJSONArray("forbidden_products")
+                for(i in 0 until response_forbidden.length()) {
+                    val ingrediente = response_forbidden.getString(i)
+                    forbiddenProducts.add(ingrediente)
+                    addChip(ingrediente)
+                }
+
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     private fun configAddForbidden(root: View) {
@@ -59,7 +106,7 @@ class PerfilFragment : Fragment() {
         btnAddForbidden.setOnClickListener {
             var txtIngredient = perfil_forbidden.text
             if(!txtIngredient.isNullOrEmpty()) {
-                addChip(txtIngredient.toString())
+                requestForbidden(txtIngredient.toString())
             }
         }
     }
@@ -71,18 +118,51 @@ class PerfilFragment : Fragment() {
         drawable?.let { chip.setChipDrawable(it) }
         chip.chipEndPadding = 20F
         chipGroup.addView(chip)
-        chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
+        chip.setOnCloseIconClickListener { removeChip(chip, ingredient) }
     }
 
-    private fun cargarIngredientesProhibidos() {
-        // TO-DO: hacer llamada a la api
+    private fun removeChip(chip: Chip, ingredient: String) {
+        chipGroup.removeView(chip as View)
+        forbiddenProducts.remove(ingredient)
+        requestForbidden(null)
+    }
 
-        // Respuesta simulada:
-        val ingredientes = arrayOf("Dulce de leche", "Azucar", "Harina")
-
-        for (ingrediente in ingredientes) {
-            addChip(ingrediente)
+    private fun requestForbidden(ingrediente: String?) {
+        val body = JSONObject()
+        if(!ingrediente.isNullOrEmpty()) {
+            forbiddenProducts.add(ingrediente)
         }
+        val jsonForbidden = JSONArray(forbiddenProducts)
+        body.put("forbidden_products", jsonForbidden)
+
+        Log.i("API", "Nuevo prohibido: %s".format(body.toString()))
+
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/3/"
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.PATCH, url, body,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                if(!ingrediente.isNullOrEmpty()) {
+                    addChip(ingrediente)
+                }
+                perfil_forbidden.setText("")
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     private fun cerrarSesion() {
