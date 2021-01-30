@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_detail_recipe.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -40,14 +42,25 @@ class DetailRecipeActivity : AppCompatActivity() {
 
     private fun configAddCartBtn() {
         detail_recipe_add_cart.setOnClickListener {
-            addIngredients()
+            AlertDialog.Builder(this)
+                .setTitle("Ingredientes")
+                .setMessage("Indique si desea agregar todos los ingredientes o solo los faltantes")
+                .setNegativeButton("SOLO FALTANTES") { dialog, which ->
+                    Log.i("API", "Solo faltantes")
+                    addIngredients(true)
+                }
+                .setPositiveButton("TODOS") { dialog, which ->
+                    Log.i("API", "Todos")
+                    addIngredients(false)
+                }
+                .show()
         }
     }
 
-    private fun addIngredients() {
+    private fun addIngredients(todos: Boolean) {
         val queue = Volley.newRequestQueue(this)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/cart/add_recipe/?recipe=" + idRecipe
-
+        val url = "https://tpp-remy.herokuapp.com/api/v1/cart/add_recipe/?recipe=" + idRecipe + "&only_missing=" + todos
+        Log.i("API", url)
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.POST, url, null,
             Response.Listener { response ->

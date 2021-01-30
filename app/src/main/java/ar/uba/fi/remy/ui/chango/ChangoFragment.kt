@@ -67,7 +67,7 @@ class ChangoFragment : Fragment() {
 
     private fun obtenerChango() {
         val queue = Volley.newRequestQueue(activity)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/cart/"
+        val url = "https://tpp-remy.herokuapp.com/api/v1/cart/?page_size=1000"
 
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
