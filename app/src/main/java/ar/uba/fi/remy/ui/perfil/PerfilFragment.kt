@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ import org.json.JSONObject
 class PerfilFragment : Fragment() {
     lateinit var chipGroup:ChipGroup
     var forbiddenProducts:MutableList<String> = ArrayList()
+    var responseProfileTypes:MutableList<String> = ArrayList()
     lateinit var token: String
 
     override fun onCreateView(
@@ -60,7 +62,9 @@ class PerfilFragment : Fragment() {
             goRecipesCooked()
         }
 
-        cargarPerfil()
+
+        cargarPerfil(root)
+        /*configCheckboxListener(root)*/
 
         chipGroup = root.findViewById(R.id.perfil_chipgroup)
 
@@ -69,7 +73,53 @@ class PerfilFragment : Fragment() {
         return root
     }
 
-    private fun cargarPerfil() {
+    private fun configCheckboxListener(root: View) {
+        val checkVegetariano: CheckBox = root.findViewById(R.id.Vegetariano)
+        checkVegetariano.setOnCheckedChangeListener { compoundButton, isChecked ->
+            Log.i("API", "Check Vegetariano: " + isChecked)
+            if(isChecked && !responseProfileTypes.contains("Vegetariano")) {
+                responseProfileTypes.add("Vegetariano")
+            } else {
+                responseProfileTypes.remove("Vegetariano")
+            }
+            requestProfileTypes()
+        }
+
+        val checkVegano: CheckBox = root.findViewById(R.id.Vegano)
+        checkVegano.setOnCheckedChangeListener { compoundButton, isChecked ->
+            Log.i("API", "Check Vegano: " + isChecked)
+            if(isChecked && !responseProfileTypes.contains("Vegano")) {
+                responseProfileTypes.add("Vegano")
+            } else {
+                responseProfileTypes.remove("Vegano")
+            }
+            requestProfileTypes()
+        }
+
+        val checkCeliaco: CheckBox = root.findViewById(R.id.Celiaco)
+        checkCeliaco.setOnCheckedChangeListener { compoundButton, isChecked ->
+            Log.i("API", "Check Celiaco: " + isChecked)
+            if(isChecked && !responseProfileTypes.contains("Celiaco")) {
+                responseProfileTypes.add("Celiaco")
+            } else {
+                responseProfileTypes.remove("Celiaco")
+            }
+            requestProfileTypes()
+        }
+
+        val checkDiabetico: CheckBox = root.findViewById(R.id.Diabetico)
+        checkDiabetico.setOnCheckedChangeListener { compoundButton, isChecked ->
+            Log.i("API", "Check Diabetico: " + isChecked)
+            if(isChecked && !responseProfileTypes.contains("Diabetico")) {
+                responseProfileTypes.add("Diabetico")
+            } else {
+                responseProfileTypes.remove("Diabetico")
+            }
+            requestProfileTypes()
+        }
+    }
+
+    private fun cargarPerfil(root: View) {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/3/"
 
@@ -85,6 +135,7 @@ class PerfilFragment : Fragment() {
                 }
                 var response_profile_types = response.getJSONArray("profiletypes")
                 configProfileTypes(response_profile_types)
+                configCheckboxListener(root)
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -102,10 +153,10 @@ class PerfilFragment : Fragment() {
         queue.add(jsonObjectRequest)
     }
 
-    private fun configProfileTypes(responseProfileTypes: JSONArray) {
-        for(i in 0 until responseProfileTypes.length()) {
-            val type = responseProfileTypes.getString(i)
-            /*Log.i("API", "Type: " + type)*/
+    private fun configProfileTypes(response_profile_types: JSONArray) {
+        for(i in 0 until response_profile_types.length()) {
+            val type = response_profile_types.getString(i)
+            responseProfileTypes.add(type)
 
             if(type == "Vegetariano") {
                 Vegetariano.isChecked = true
@@ -123,6 +174,36 @@ class PerfilFragment : Fragment() {
                 Diabetico.isChecked = true
             }
         }
+    }
+
+    private fun requestProfileTypes() {
+        val jsonTypes = JSONArray(responseProfileTypes)
+        val body = JSONObject()
+        body.put("profiletypes", jsonTypes)
+        Log.i("API", "Final types: " + body.toString())
+
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/3/"
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.PATCH, url, body,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     private fun configAddForbidden(root: View) {
