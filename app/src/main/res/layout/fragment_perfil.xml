@@ -40,26 +40,34 @@
             />
 
         <CheckBox
+            android:id="@+id/Vegetariano"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:text="Vegetariano"
             />
 
         <CheckBox
+            android:id="@+id/Vegano"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:text="Vegano"
             />
 
         <CheckBox
+            android:id="@+id/Celiaco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:text="Celiaco"
             />
 
         <CheckBox
+            android:id="@+id/Diabetico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="false"
             android:text="Diabético"
             />
 

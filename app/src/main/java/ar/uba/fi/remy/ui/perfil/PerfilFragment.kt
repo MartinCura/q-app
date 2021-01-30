@@ -83,7 +83,8 @@ class PerfilFragment : Fragment() {
                     forbiddenProducts.add(ingrediente)
                     addChip(ingrediente)
                 }
-
+                var response_profile_types = response.getJSONArray("profiletypes")
+                configProfileTypes(response_profile_types)
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -99,6 +100,29 @@ class PerfilFragment : Fragment() {
         }
 
         queue.add(jsonObjectRequest)
+    }
+
+    private fun configProfileTypes(responseProfileTypes: JSONArray) {
+        for(i in 0 until responseProfileTypes.length()) {
+            val type = responseProfileTypes.getString(i)
+            /*Log.i("API", "Type: " + type)*/
+
+            if(type == "Vegetariano") {
+                Vegetariano.isChecked = true
+            }
+
+            if(type == "Vegano") {
+                Vegano.isChecked = true
+            }
+
+            if(type == "Celiaco") {
+                Celiaco.isChecked = true
+            }
+
+            if(type == "Diabetico") {
+                Diabetico.isChecked = true
+            }
+        }
     }
 
     private fun configAddForbidden(root: View) {
