@@ -1,12 +1,15 @@
 package ar.uba.fi.remy.model
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.R
+import ar.uba.fi.remy.RecipesCookedActivity
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 
@@ -40,6 +43,13 @@ class ReviewItemAdapter(var listaRecetas:ArrayList<ReviewItem>):RecyclerView.Ada
                     .resize(200, 200).into(ivFoto)
             }
 
+            val ratingbar:RatingBar = itemView.findViewById(R.id.ratingbar)
+            ratingbar.onRatingBarChangeListener =
+                RatingBar.OnRatingBarChangeListener { p0, rating, p2 ->
+                    /*Log.i("API", "Rating " + data.nombre + ": " + rating)*/
+                    addReview(data.id, rating)
+            }
+
             /*itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailRecipeActivity::class.java)
                 intent.putExtra("id_receta", data.id)
@@ -55,6 +65,10 @@ class ReviewItemAdapter(var listaRecetas:ArrayList<ReviewItem>):RecyclerView.Ada
             if(data.dificultad < 4) starFour.visibility = View.GONE
             if(data.dificultad < 3) starThree.visibility = View.GONE
             if(data.dificultad < 2) starTwo.visibility = View.GONE*/
+
+        }
+
+        private fun addReview(id: Int, rating: Float) {
 
         }
 
