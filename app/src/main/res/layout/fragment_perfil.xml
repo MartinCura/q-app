@@ -120,39 +120,6 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/perfil_btn_contactos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/f_perfil_Contactos"
-            />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/perfil_btn_eventos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/f_perfil_eventos"
-            />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/perfil_btn_recetas_cocinadas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recetas cocinadas"
-            />
-
-
-        <TextView
-            android:layout_marginTop="50px"
-            android:id="@+id/perfil_salir"
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:text="@string/cerrar_sesion"
-            android:textColor="@color/white"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:background="@drawable/button_background"/>
-
     </LinearLayout>
 </ScrollView>
 

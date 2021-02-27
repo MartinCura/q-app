@@ -42,26 +42,6 @@ class PerfilFragment : Fragment() {
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
 
-        val btnSalir: TextView = root.findViewById(R.id.perfil_salir)
-        btnSalir.setOnClickListener(View.OnClickListener {
-            cerrarSesion()
-        })
-
-        val btnEventos: Button = root.findViewById(R.id.perfil_btn_eventos)
-        btnEventos.setOnClickListener(View.OnClickListener {
-            goEvents()
-        })
-
-        val btnContacts: Button = root.findViewById(R.id.perfil_btn_contactos)
-        btnContacts.setOnClickListener(View.OnClickListener {
-            goContacts()
-        })
-
-        val btnRecipesCooked: Button = root.findViewById(R.id.perfil_btn_recetas_cocinadas)
-        btnRecipesCooked.setOnClickListener {
-            goRecipesCooked()
-        }
-
 
         cargarPerfil(root)
         /*configCheckboxListener(root)*/
@@ -268,38 +248,5 @@ class PerfilFragment : Fragment() {
         }
 
         queue.add(jsonObjectRequest)
-    }
-
-    private fun cerrarSesion() {
-        //Access sharedPreferences
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.preference_file), Context.MODE_PRIVATE)
-        val editor = sharedPref?.edit()
-        editor?.clear()
-        editor?.apply()
-
-        goLogin()
-    }
-
-    private fun goLogin() {
-        val intent = Intent(activity, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        getActivity()?.finish()
-    }
-
-    private fun goEvents() {
-        val intent = Intent(activity, EventsActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun goContacts() {
-        val intent = Intent(activity, ContactsActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun goRecipesCooked() {
-        val intent = Intent(activity, RecipesCookedActivity::class.java)
-        startActivity(intent)
     }
 }

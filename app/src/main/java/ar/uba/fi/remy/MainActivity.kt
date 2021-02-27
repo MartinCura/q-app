@@ -1,5 +1,7 @@
 package ar.uba.fi.remy
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -23,8 +25,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     private lateinit var adapter: NavigationRVAdapter
     private var items = arrayListOf(
-        NavigationItemModel(R.drawable.ic_home, "Home"),
-        NavigationItemModel(R.drawable.ic_shopping_cart, "Carrito")
+        NavigationItemModel(R.drawable.ic_user, "Contactos"),
+        NavigationItemModel(R.drawable.ic_event, "Eventos"),
+        NavigationItemModel(R.drawable.ic_history, "Historial"),
+        NavigationItemModel(R.drawable.ic_cancel, "Cerrar Sesión")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,12 +57,16 @@ class MainActivity : AppCompatActivity() {
             override fun onClick(view: View, position: Int) {
                 when (position) {
                     0 -> {
-                        // # Home Fragment
-                        Log.i("API", "Home")
+                        goContacts()
                     }
                     1 -> {
-                        // # Changuito Fragment
-                        Log.i("API", "Changuito")
+                        goEvents()
+                    }
+                    2 -> {
+                        goRecipesCooked()
+                    }
+                    3 -> {
+                        cerrarSesion()
                     }
                 }
                 Handler().postDelayed({
@@ -105,5 +113,37 @@ class MainActivity : AppCompatActivity() {
                 super.onBackPressed()
             }
         }
+    }
+
+    private fun goLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        this.finish()
+    }
+
+    private fun goEvents() {
+        val intent = Intent(this, EventsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goContacts() {
+        val intent = Intent(this, ContactsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goRecipesCooked() {
+        val intent = Intent(this, RecipesCookedActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun cerrarSesion() {
+        //Access sharedPreferences
+        val sharedPref = this.getSharedPreferences(
+            getString(R.string.preference_file), Context.MODE_PRIVATE)
+        val editor = sharedPref?.edit()
+        editor?.clear()
+        editor?.apply()
+        goLogin()
     }
 }

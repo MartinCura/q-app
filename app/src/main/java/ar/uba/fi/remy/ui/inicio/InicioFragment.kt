@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.RecommendedItem
 import ar.uba.fi.remy.model.RecommendedItemAdapter
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import java.lang.Math.round
-
 
 class InicioFragment : Fragment() {
     var urlNext:String = ""
@@ -44,7 +44,7 @@ class InicioFragment : Fragment() {
         configSwitch(root)
 
         //Obtengo las recetas desde la API y las inserto en el RecyclerView
-        cargarRecetas()
+        //cargarRecetas()
 
         return root
     }
@@ -91,7 +91,7 @@ class InicioFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         var url = urlNext
         if(url.isBlank()) {
-            url = "https://tpp-remy.herokuapp.com/api/v1/my_recommendations/?all_ingredients=" + allIngredients
+            url = "https://tpp-remy.herokuapp.com/api/v1/recommend/recipes/me/?need_all_ingredients=" + allIngredients
         }
         Log.i("API", url)
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
@@ -124,6 +124,8 @@ class InicioFragment : Fragment() {
             }
         }
 
+        jsonObjectRequest.retryPolicy =
+            DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
         queue.add(jsonObjectRequest)
     }

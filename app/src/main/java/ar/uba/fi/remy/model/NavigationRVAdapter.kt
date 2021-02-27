@@ -30,11 +30,11 @@ class NavigationRVAdapter(private var items: ArrayList<NavigationItemModel>, pri
 
     override fun onBindViewHolder(holder: NavigationItemViewHolder, position: Int) {
         // To highlight the selected item, show different background color
-        if (position == currentPos) {
+/*        if (position == currentPos) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
         } else {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
-        }
+        }*/
         holder.itemView.navigation_icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
         holder.itemView.navigation_title.setTextColor(Color.WHITE)
         //val font = ResourcesCompat.getFont(context, R.font.mycustomfont)
