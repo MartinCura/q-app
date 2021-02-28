@@ -37,7 +37,7 @@ class RecipesCookedActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = rv_reviews
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        rvAdapter = ReviewItemAdapter(recipesCooked)
+        rvAdapter = ReviewItemAdapter(this, recipesCooked, token)
         recyclerView.adapter = rvAdapter
 
         /*recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -66,13 +66,13 @@ class RecipesCookedActivity : AppCompatActivity() {
                     var recipe = element.getJSONObject("recipe")
                     var nombre = recipe.getString("title")
                     var puntaje = element.get("rating").toString()
-                    var id = element.getInt("id")
+                    var id = recipe.getInt("id")
                     var img = recipe.getString("image")
-                    var puntajeInt = -1
+                    var puntajeFloat:Float = (-1).toFloat()
                     if(puntaje != "null") {
-                        puntajeInt = puntaje.toInt()
+                        puntajeFloat = puntaje.toFloat()
                     }
-                    recipesCooked.add(ReviewItem(id, nombre, puntajeInt, img))
+                    recipesCooked.add(ReviewItem(id, nombre, puntajeFloat, img))
                 }
                 rvAdapter.notifyDataSetChanged()
             },

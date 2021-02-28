@@ -1,5 +1,6 @@
 package ar.uba.fi.remy.model
 
+import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,23 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.RecipesCookedActivity
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
+import org.json.JSONObject
+import android.content.Context
 
 
-class ReviewItemAdapter(var listaRecetas:ArrayList<ReviewItem>):RecyclerView.Adapter<ReviewItemAdapter.ViewHolder>(){
+private var contextGlobal: Context? = null
+private var tokenGlobal: String? = null
+class ReviewItemAdapter(private val context: Activity?, var listaRecetas:ArrayList<ReviewItem>, private var token: String):RecyclerView.Adapter<ReviewItemAdapter.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.review_item, parent, false)
+        contextGlobal = context
+        tokenGlobal = token
         return ViewHolder(v)
     }
 
@@ -50,26 +61,39 @@ class ReviewItemAdapter(var listaRecetas:ArrayList<ReviewItem>):RecyclerView.Ada
                     addReview(data.id, rating)
             }
 
-            /*itemView.setOnClickListener {
-                val intent = Intent(itemView.context, DetailRecipeActivity::class.java)
-                intent.putExtra("id_receta", data.id)
-                itemView.context.startActivity(intent)
-            }
-
-            // Ocultar estrellas de difucultad de forma dinamica
-            val starTwo:ImageView = itemView.findViewById(R.id.starTwo)
-            val starThree:ImageView = itemView.findViewById(R.id.starThree)
-            val starFour:ImageView = itemView.findViewById(R.id.starFour)
-            val starFive:ImageView = itemView.findViewById(R.id.starFive)
-            if(data.dificultad < 5) starFive.visibility = View.GONE
-            if(data.dificultad < 4) starFour.visibility = View.GONE
-            if(data.dificultad < 3) starThree.visibility = View.GONE
-            if(data.dificultad < 2) starTwo.visibility = View.GONE*/
+            /*ratingbar.setStepSize(0.5f);*/
+            ratingbar.rating = data.puntaje
 
         }
 
         private fun addReview(id: Int, rating: Float) {
+            val queue = Volley.newRequestQueue(contextGlobal)
+            val url = "https://tpp-remy.herokuapp.com/api/v1/recipes/rate"
 
+            val body = JSONObject()
+            body.put("recipe_id", id)
+            body.put("rating", rating)
+            Log.i("API", "ID: " + id + " Rating: " + rating)
+
+            val jsonObjectRequest = object: JsonObjectRequest(
+                Request.Method.PUT, url, body,
+                Response.Listener { response ->
+                    Log.i("API", "Response: %s".format(response.toString()))
+                },
+                Response.ErrorListener { error ->
+                    Log.e("API", "Error en GET")
+                    Log.e("API", "Response: %s".format(error.toString()))
+                }
+            )
+            {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Authorization"] = "Token " + tokenGlobal
+                    return headers
+                }
+            }
+
+            queue.add(jsonObjectRequest)
         }
 
     }
