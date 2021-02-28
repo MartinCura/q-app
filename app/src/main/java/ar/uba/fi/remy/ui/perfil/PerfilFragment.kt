@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.*
 import com.android.volley.Request
@@ -23,12 +21,16 @@ import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.fragment_perfil.*
 import org.json.JSONArray
 import org.json.JSONObject
+import android.widget.AdapterView
 
 class PerfilFragment : Fragment() {
     lateinit var chipGroup:ChipGroup
     var forbiddenProducts:MutableList<String> = ArrayList()
     var responseProfileTypes:MutableList<String> = ArrayList()
     lateinit var token: String
+    lateinit var spinner: Spinner
+    var arrayIDPlaces:MutableList<Int> = ArrayList()
+    var arrayNamePlaces:MutableList<String> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,10 +49,107 @@ class PerfilFragment : Fragment() {
         /*configCheckboxListener(root)*/
 
         chipGroup = root.findViewById(R.id.perfil_chipgroup)
-
         configAddForbidden(root)
 
+        spinner = root.findViewById(R.id.places_spinner)
+        loadPlaces()
+
+
         return root
+    }
+
+    private fun loadPlaces() {
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/places/"
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                var places = response.getJSONArray("results")
+                configSpinner(places)
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
+    }
+
+    private fun configSpinner(places: JSONArray?) {
+        // [{"id":1,"name":"string","members":[3]},{"id":2,"name":"string","members":[3]}]
+        if (places != null) {
+            for (i in 0 until places.length()) {
+                val item = places?.getJSONObject(i)
+                arrayNamePlaces.add(item.getString("name"))
+                arrayIDPlaces.add(item.getInt("id"))
+            }
+        }
+
+        var aa = ArrayAdapter(context, android.R.layout.simple_spinner_item, arrayNamePlaces)
+
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        with(spinner)
+        {
+            adapter = aa
+            setSelection(0, false)
+            prompt = "Selecciona tu inventario"
+            gravity = Gravity.CENTER
+
+        }
+
+        spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                var CapturaSpinner = parent.getItemAtPosition(position) as String
+                var index = position
+                Log.i("API","Indice:$index")
+                Log.i("API","ID:" + arrayIDPlaces[index])
+                setDefaultPlace(arrayIDPlaces[index])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        })
+    }
+
+    private fun setDefaultPlace(id: Int) {
+        //https://tpp-remy.herokuapp.com/api/v1/default_place?place_id=5
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/default_place?place_id=" + id
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.POST, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     private fun configCheckboxListener(root: View) {
