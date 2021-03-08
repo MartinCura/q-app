@@ -59,7 +59,7 @@ class InventoryFragment : Fragment() {
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
 
-        adapter = InventoryAdapter(activity, dataList)
+        adapter = InventoryAdapter(activity, dataList, 1, token)
 
         /*showLoading()*/
         inventoryList = root.inventory_list

@@ -39,7 +39,7 @@ class ChangoFragment : Fragment() {
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
 
-        adapter = InventoryAdapter(activity, dataList)
+        adapter = InventoryAdapter(activity, dataList, 2, token)
         inventoryList = root.chango_list
 
         //Cambiar por llamada a la API
@@ -98,14 +98,15 @@ class ChangoFragment : Fragment() {
         dataList.clear()
         for (i in 0 until ingredientes.length()) {
             val ingrediente = ingredientes.getJSONObject(i)
-            agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"))
+            agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"), ingrediente.getInt("id").toString())
         }
     }
 
-    private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String) {
+    private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String, id:  String) {
         inventoryList.adapter = adapter
 
         val map = HashMap<String, String>()
+        map["id"] = id
         map["ingrediente"] = ingrediente
         map["cantidad"] = cantidad + unidad
         adapter.addData(map)

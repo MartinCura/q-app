@@ -2,19 +2,22 @@ package ar.uba.fi.remy.model
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import ar.uba.fi.remy.R
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 import java.text.Normalizer
 
 
-class InventoryAdapter(private val context: FragmentActivity?, private var dataList: ArrayList<HashMap<String, String>>) : BaseAdapter(), Filterable {
+class InventoryAdapter(private val context: FragmentActivity?, private var dataList: ArrayList<HashMap<String, String>>, private val flag:Int, private var token: String) : BaseAdapter(), Filterable {
 
     private val inflater: LayoutInflater = this.context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     override fun getCount(): Int { return dataList.size }
@@ -26,12 +29,53 @@ class InventoryAdapter(private val context: FragmentActivity?, private var dataL
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var dataitem = dataList[position]
 
-        val rowView = inflater.inflate(R.layout.inventory_row, parent, false)
+        var rowView: View
+        rowView = if(flag == 1) {
+            inflater.inflate(R.layout.inventory_row, parent, false)
+        } else {
+            inflater.inflate(R.layout.chango_row, parent, false)
+        }
+
         rowView.findViewById<TextView>(R.id.row_name).text = dataitem.get("ingrediente")
         rowView.findViewById<TextView>(R.id.row_age).text = dataitem.get("cantidad")
 
+        if(flag == 2) {
+            val ingredient_remove = rowView.findViewById<ImageButton>(R.id.chango_remove)
+            if(ingredient_remove != null) {
+                ingredient_remove.setOnClickListener {
+                    removeItem(dataitem.get("id"))
+                }
+            }
+        }
+
         rowView.tag = position
         return rowView
+    }
+
+    private fun removeItem(id: String?) {
+        val queue = Volley.newRequestQueue(context)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/cart/" + id + "/"
+        Log.i("API", url)
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.DELETE, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Ingrediente borrado")
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en DELETE")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     fun addData(data: HashMap<String, String>) {
