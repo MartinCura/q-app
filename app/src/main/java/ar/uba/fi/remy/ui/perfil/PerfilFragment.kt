@@ -90,8 +90,13 @@ class PerfilFragment : Fragment() {
         if (places != null) {
             for (i in 0 until places.length()) {
                 val item = places?.getJSONObject(i)
-                arrayNamePlaces.add(item.getString("name"))
-                arrayIDPlaces.add(item.getInt("id"))
+                if(item.getBoolean("is_the_default_one")) {
+                    arrayNamePlaces.add(0, item.getString("name"))
+                    arrayIDPlaces.add(0, item.getInt("id"))
+                } else {
+                    arrayNamePlaces.add(item.getString("name"))
+                    arrayIDPlaces.add(item.getInt("id"))
+                }
             }
         }
 
