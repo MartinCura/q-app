@@ -18,6 +18,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
+import ar.uba.fi.remy.model.Product
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -40,6 +41,7 @@ class InventoryFragment : Fragment() {
     lateinit var adapter: InventoryAdapter
     lateinit var adapterIngredientes: ArrayAdapter<String>
     lateinit var dropdownIngredientes: AutoCompleteTextView
+    var listProducts: MutableList<Product> = mutableListOf<Product>()
 
     override fun onResume() {
         super.onResume()
@@ -201,9 +203,11 @@ class InventoryFragment : Fragment() {
                 Log.i("API", "Response: %s".format(response.toString()))
                 val ingredientes = response.getJSONArray("results")
                 adapterIngredientes.clear()
+                listProducts.clear()
                 for(i in 0 until ingredientes.length()) {
                     val ingrediente = ingredientes.getJSONObject(i)
                     adapterIngredientes.add(ingrediente.getString("name"))
+                    listProducts.add(Product(ingrediente.getInt("id"), ingrediente.getString("name")))
                 }
                 adapterIngredientes.notifyDataSetChanged()
             },
@@ -269,7 +273,7 @@ class InventoryFragment : Fragment() {
             }
 
             if(!error) {
-                agregarIngrediente(txtIngrediente, txtCantidad, txtUnidad)
+                agregarIngrediente(txtIngrediente, txtCantidad, txtUnidad, true)
                 dialog.dismiss()
             }
         }
@@ -285,6 +289,13 @@ class InventoryFragment : Fragment() {
         adapterIngredientes = ArrayAdapter(activity, R.layout.list_item)
         dropdownIngredientes = dialog.findViewById(R.id.dialog_add_ingredient_dropdown) as AutoCompleteTextView
         dropdownIngredientes.setAdapter(adapterIngredientes)
+
+        dropdownIngredientes.onItemClickListener = AdapterView.OnItemClickListener{
+                parent,view,position,id->
+            val selectedItem = parent.getItemAtPosition(position).toString()
+            /*Log.i("API", "Selected 1: " + selectedItem)
+            Log.i("API", "Selected 2: " + listProducts[position].name)*/
+        }
 
         dropdownIngredientes.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -338,19 +349,60 @@ class InventoryFragment : Fragment() {
         for (i in 0 until ingredientes.length()) {
             val ingrediente = ingredientes.getJSONObject(i)
 
-            agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"))
+            agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"), false)
         }
 
         dialogLoading.dismiss()
     }
 
-    private fun agregarIngrediente(ingrediente: String, cantidad: String, unidad: String) {
+    private fun agregarIngrediente(
+        ingrediente: String,
+        cantidad: String,
+        unidad: String,
+        persist: Boolean
+    ) {
         inventoryList.adapter = adapter
 
         val map = HashMap<String, String>()
         map["ingrediente"] = ingrediente
         map["cantidad"] = cantidad + unidad
         adapter.addData(map)
+
+        if(persist) {
+            addProductToInventory(ingrediente, cantidad, unidad)
+        }
+    }
+
+    private fun addProductToInventory(product: String, cantidad: String, unidad: String) {
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/"
+
+        val body = JSONObject()
+        body.put("unit", "kilogram")
+        body.put("quantity", cantidad)
+        body.put("product", product)
+        Log.i("API", unidad)
+        Log.i("API", cantidad)
+        Log.i("API", product)
+
+        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.POST, url, body,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
 }
