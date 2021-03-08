@@ -62,7 +62,7 @@ class CategoryDishes : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         var url = urlNext
         if(url.isBlank()) {
-            url = "https://tpp-remy.herokuapp.com/api/v1/dishes/?labels=" + id
+            url = "https://tpp-remy.herokuapp.com/api/v1/recipes/?dish__labels=" + id
         }
 
         val jsonObjectRequest = object: JsonObjectRequest(
@@ -74,7 +74,7 @@ class CategoryDishes : AppCompatActivity() {
                 urlNext = response.getString("next")
                 for (i in 0 until recomendacionesArray.length()) {
                     var recomendacion = recomendacionesArray.getJSONObject(i)
-                    var title = recomendacion.getString("name")
+                    var title = recomendacion.getString("title")
                     var id = recomendacion.getInt("id")
                     /*var score = round(recomendacion.getString("score").toDouble() / 2)*/
                     var score = 3
