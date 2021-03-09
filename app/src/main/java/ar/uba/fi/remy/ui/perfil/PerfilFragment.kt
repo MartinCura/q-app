@@ -1,8 +1,9 @@
 package ar.uba.fi.remy.ui.perfil
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -22,6 +23,10 @@ import kotlinx.android.synthetic.main.fragment_perfil.*
 import org.json.JSONArray
 import org.json.JSONObject
 import android.widget.AdapterView
+import android.widget.AutoCompleteTextView
+import android.widget.ArrayAdapter
+
+
 
 class PerfilFragment : Fragment() {
     lateinit var chipGroup:ChipGroup
@@ -32,6 +37,7 @@ class PerfilFragment : Fragment() {
     lateinit var spinner: Spinner
     var arrayIDPlaces:MutableList<Int> = ArrayList()
     var arrayNamePlaces:MutableList<String> = ArrayList()
+    lateinit var dropdownIngredientes: AutoCompleteTextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,8 +62,71 @@ class PerfilFragment : Fragment() {
         spinner = root.findViewById(R.id.places_spinner)
         loadPlaces()
 
+        dropdownIngredientes = root.findViewById(R.id.perfil_forbidden)
+        configAutoCompleteText()
 
         return root
+    }
+
+    private fun configAutoCompleteText() {
+        dropdownIngredientes.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                /*Log.i("API", s.toString())
+                Log.i("API", s.toString().length.toString())*/
+                var count = s.toString().length
+                if(count > 2) {
+                    getIngredientes(s.toString())
+                }
+            }
+        })
+    }
+
+    private fun getIngredientes(ingrediente: String) {
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/products/?search=" + ingrediente
+
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                var results = response.getJSONArray("results")
+                var ingredientes = mutableListOf<String>()
+                for (i in 0 until results.length()) {
+                    var item = results.getJSONObject(i)
+                    Log.i("API", item.getString("name"))
+                    ingredientes.add(item.getString("name"))
+                    if(i == 4) {
+                        break
+                    }
+                }
+                Log.i("API", ingredientes.toString())
+                val adapter = ArrayAdapter(context, R.layout.list_item, ingredientes)
+                dropdownIngredientes.setAdapter<ArrayAdapter<String>>(adapter)
+                dropdownIngredientes.showDropDown()
+
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     private fun loadPlaces() {
