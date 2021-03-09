@@ -74,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
                         getString(R.string.preference_file), Context.MODE_PRIVATE)
                     val editor = sharedPref.edit()
                     editor.putString("TOKEN", response["key"].toString())
+                    editor.putString("ID_LOGGED", response.getJSONObject("profile").getInt("id").toString())
                     editor.apply()
 
                     iniciarMain()

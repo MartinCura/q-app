@@ -28,6 +28,7 @@ class PerfilFragment : Fragment() {
     var forbiddenProducts:MutableList<String> = ArrayList()
     var responseProfileTypes:MutableList<String> = ArrayList()
     lateinit var token: String
+    lateinit var id_logged: String
     lateinit var spinner: Spinner
     var arrayIDPlaces:MutableList<Int> = ArrayList()
     var arrayNamePlaces:MutableList<String> = ArrayList()
@@ -43,6 +44,7 @@ class PerfilFragment : Fragment() {
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
+        id_logged = sharedPref?.getString("ID_LOGGED", "")!!
 
 
         cargarPerfil(root)
@@ -205,7 +207,7 @@ class PerfilFragment : Fragment() {
 
     private fun cargarPerfil(root: View) {
         val queue = Volley.newRequestQueue(activity)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/3/"
+        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/" + id_logged + "/"
 
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -267,7 +269,7 @@ class PerfilFragment : Fragment() {
         Log.i("API", "Final types: " + body.toString())
 
         val queue = Volley.newRequestQueue(activity)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/3/"
+        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/" + id_logged + "/"
 
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.PATCH, url, body,
@@ -327,7 +329,7 @@ class PerfilFragment : Fragment() {
         Log.i("API", "Nuevo prohibido: %s".format(body.toString()))
 
         val queue = Volley.newRequestQueue(activity)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/3/"
+        val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/" + id_logged + "/"
 
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.PATCH, url, body,
