@@ -2,6 +2,7 @@ package ar.uba.fi.remy
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -82,6 +83,13 @@ class DetailEventActivity : AppCompatActivity() {
                             .transform(RoundedCornersTransformation(60,0))
                             .resize(200, 200).into(ivFoto)
                     }
+
+                    wizardView.setOnClickListener {
+                        val intent = Intent(this, DetailRecipeActivity::class.java)
+                        intent.putExtra("id_receta", recommendation.getJSONObject("recipe").getInt("id"))
+                        startActivity(intent)
+                    }
+
                     dynamicContent.addView(wizardView)
                 }
             },
