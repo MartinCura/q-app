@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
@@ -12,6 +13,8 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.activity_detail_recipe.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -138,5 +141,13 @@ class DetailRecipeActivity : AppCompatActivity() {
 
         steps = recipe?.getJSONArray("instructions")
         Log.i("API", steps.toString())
+
+        var img = recipe?.getString("description")?.split('\'')?.get(3)
+        if(img?.isNotEmpty()!!) {
+            Picasso.get()
+                .load(img.replace("http", "https"))
+                .transform(RoundedCornersTransformation(60,0))
+                .resize(200, 200).into(detail_recipe_image)
+        }
     }
 }
