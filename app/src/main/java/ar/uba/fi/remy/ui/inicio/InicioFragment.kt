@@ -105,7 +105,7 @@ class InicioFragment : Fragment() {
                     var recipe = recomendacion.getJSONObject("recipe")
                     var title = recipe.getString("title")
                     var id = recipe.getInt("id")
-                    var score = round(recomendacion.getString("rating").toDouble() / 2)
+                    var score = round(recomendacion.getString("rating").toDouble())
                     var img = recipe.getString("description").split('\'')[3]
                     /*Log.i("API", "Response: %s".format(img.split('\'')[3]))*/
                     recomendaciones.add(RecommendedItem(id, title, score.toInt(), 15,  20, img))
