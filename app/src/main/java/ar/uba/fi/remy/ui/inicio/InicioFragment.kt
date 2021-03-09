@@ -44,7 +44,7 @@ class InicioFragment : Fragment() {
         configSwitch(root)
 
         //Obtengo las recetas desde la API y las inserto en el RecyclerView
-        //cargarRecetas()
+        cargarRecetas()
 
         return root
     }
@@ -102,10 +102,11 @@ class InicioFragment : Fragment() {
                 urlNext = response.getString("next")
                 for (i in 0 until recomendacionesArray.length()) {
                     var recomendacion = recomendacionesArray.getJSONObject(i)
-                    var title = recomendacion.getString("recipe_title")
-                    var id = recomendacion.getInt("recipe_id")
-                    var score = round(recomendacion.getString("score").toDouble() / 2)
-                    var img = recomendacion.getString("recipe_description").split('\'')[3]
+                    var recipe = recomendacion.getJSONObject("recipe")
+                    var title = recipe.getString("title")
+                    var id = recipe.getInt("id")
+                    var score = round(recomendacion.getString("rating").toDouble() / 2)
+                    var img = recipe.getString("description").split('\'')[3]
                     /*Log.i("API", "Response: %s".format(img.split('\'')[3]))*/
                     recomendaciones.add(RecommendedItem(id, title, score.toInt(), 15,  20, img))
                     rvAdapter.notifyDataSetChanged()
