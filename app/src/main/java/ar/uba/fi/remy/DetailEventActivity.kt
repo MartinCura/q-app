@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.model.Friend
@@ -17,6 +18,10 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_detail_event.*
 import kotlinx.android.synthetic.main.dialog_list_friends.*
+import android.widget.LinearLayout
+import android.widget.TextView
+import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 
 class DetailEventActivity : AppCompatActivity() {
     lateinit var token: String
@@ -37,9 +42,63 @@ class DetailEventActivity : AppCompatActivity() {
 
         loadEventData()
 
+        loadReommendedRecipes()
+
         event_add_person_btn.setOnClickListener(View.OnClickListener {
             loadFriends()
         })
+    }
+
+    private fun loadReommendedRecipes() {
+        val queue = Volley.newRequestQueue(this)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/recommend/recipes/event/?id=" + idEvento + "&need_all_ingredients=false"
+        val dynamicContent = findViewById<View>(R.id.dynamic_recommendations) as LinearLayout
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.GET, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: $response")
+                var recommendations = response.getJSONArray("results")
+                for (i in 0 until recommendations.length()) {
+                    var recommendation = recommendations.getJSONObject(i)
+                    var wizardView = layoutInflater.inflate(R.layout.recommended_item, dynamicContent, false)
+                    val textView = wizardView.findViewById(R.id.title) as TextView
+                    textView.text = recommendation.getJSONObject("recipe").getString("title")
+                    // Ocultar estrellas de difucultad de forma dinamica
+                    val score = recommendation.getString("rating").toDouble()
+                    val starTwo: ImageView = wizardView.findViewById(R.id.starTwo)
+                    val starThree: ImageView = wizardView.findViewById(R.id.starThree)
+                    val starFour: ImageView = wizardView.findViewById(R.id.starFour)
+                    val starFive: ImageView = wizardView.findViewById(R.id.starFive)
+                    if(score < 5) starFive.visibility = View.GONE
+                    if(score < 4) starFour.visibility = View.GONE
+                    if(score < 3) starThree.visibility = View.GONE
+                    if(score < 2) starTwo.visibility = View.GONE
+
+                    val ivFoto:ImageView = wizardView.findViewById(R.id.foto)
+                    var img = recommendation.getJSONObject("recipe").getString("description").split('\'')[3]
+                    if(img.isNotEmpty()) {
+                        Picasso.get()
+                            .load(img.replace("http", "https"))
+                            .transform(RoundedCornersTransformation(60,0))
+                            .resize(200, 200).into(ivFoto)
+                    }
+                    dynamicContent.addView(wizardView)
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
     }
 
     private fun loadEventData() {

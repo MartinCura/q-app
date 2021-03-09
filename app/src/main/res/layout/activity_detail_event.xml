@@ -104,6 +104,16 @@
 
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/event_add_person_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="-100px"
+        android:layout_marginRight="40px"
+        android:src="@drawable/ic_add"
+        />
+
     <TextView
         android:layout_marginTop="30px"
         android:layout_marginLeft="25px"
@@ -114,35 +124,17 @@
         android:layout_height="wrap_content"
         android:text="Posibles comidas"/>
 
-    <androidx.cardview.widget.CardView
-        android:layout_margin="25px"
-        app:cardCornerRadius="8dp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/dynamic_recommendations"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:paddingTop="30px"
-            android:paddingBottom="30px"
-            android:layout_marginTop="15px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="\t1. Comida numero 1 \n\t2. Comida numero 2 \n\t3. Comida numero 3\n\t..."/>
+    </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    <!--<include layout="@layout/recommended_item" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/event_add_person_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="20px"
-        android:layout_marginRight="40px"
-        android:src="@drawable/ic_add"
-        />
-
-    <include layout="@layout/recommended_item" />
-
-    <include layout="@layout/recommended_item" />
+    <include layout="@layout/recommended_item" />-->
 
 
 </LinearLayout>
