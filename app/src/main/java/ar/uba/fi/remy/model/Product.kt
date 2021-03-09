@@ -1,4 +1,6 @@
 package ar.uba.fi.remy.model
 
-class Product(var id: Int, var name: String) {
+import org.json.JSONArray
+
+class Product(var id: Int, var name: String, var units: JSONArray) {
 }

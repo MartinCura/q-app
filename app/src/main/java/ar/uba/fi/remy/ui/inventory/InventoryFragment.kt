@@ -42,6 +42,8 @@ class InventoryFragment : Fragment() {
     lateinit var adapterIngredientes: ArrayAdapter<String>
     lateinit var dropdownIngredientes: AutoCompleteTextView
     var listProducts: MutableList<Product> = mutableListOf<Product>()
+    var items: MutableList<String> = mutableListOf<String>()
+    lateinit var adapterUnits: ArrayAdapter<String>
 
     override fun onResume() {
         super.onResume()
@@ -207,7 +209,7 @@ class InventoryFragment : Fragment() {
                 for(i in 0 until ingredientes.length()) {
                     val ingrediente = ingredientes.getJSONObject(i)
                     adapterIngredientes.add(ingrediente.getString("name"))
-                    listProducts.add(Product(ingrediente.getInt("id"), ingrediente.getString("name")))
+                    listProducts.add(Product(ingrediente.getInt("id"), ingrediente.getString("name"), ingrediente.getJSONArray("available_units")))
                 }
                 adapterIngredientes.notifyDataSetChanged()
             },
@@ -279,10 +281,10 @@ class InventoryFragment : Fragment() {
         }
         cancelBtn.setOnClickListener { dialog.dismiss() }
         //Sete unidades
-        val items = listOf("g", "kg", "u", "l")
-        val adapter = ArrayAdapter(activity, R.layout.list_item, items)
+        items = mutableListOf<String>("g", "kg", "u", "l")
+        adapterUnits = ArrayAdapter(activity, R.layout.list_item, items)
         val dropdown = dialog.findViewById(R.id.dialog_add_ingredient_unit_dropdown) as AutoCompleteTextView
-        dropdown.setAdapter(adapter)
+        dropdown.setAdapter(adapterUnits)
         dropdown.keyListener = null
 
         //Seteo ingredientes
@@ -293,8 +295,10 @@ class InventoryFragment : Fragment() {
         dropdownIngredientes.onItemClickListener = AdapterView.OnItemClickListener{
                 parent,view,position,id->
             val selectedItem = parent.getItemAtPosition(position).toString()
-            /*Log.i("API", "Selected 1: " + selectedItem)
-            Log.i("API", "Selected 2: " + listProducts[position].name)*/
+            Log.i("API", "Selected 1: " + selectedItem)
+            Log.i("API", "Selected 2: " + listProducts[position].name)
+            Log.i("API", "Selected 2: " + listProducts[position].id)
+            loadUnits(listProducts[position].units)
         }
 
         dropdownIngredientes.addTextChangedListener(object: TextWatcher {
@@ -317,6 +321,16 @@ class InventoryFragment : Fragment() {
 
         dialog.show()
         dialog.window?.setLayout(1000,950)
+    }
+
+    private fun loadUnits(units: JSONArray) {
+        Log.i("API", "Units: " + units)
+        items.clear()
+        for (i in 0 until units.length()) {
+            val unit = units.getJSONObject(i)
+            items.add(unit.getString("name"))
+        }
+        adapterUnits.notifyDataSetChanged()
     }
 
     private fun goScanner() {
