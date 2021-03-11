@@ -13,7 +13,6 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONObject
 import java.text.Normalizer
 
 
@@ -43,7 +42,7 @@ class InventoryAdapter(private val context: FragmentActivity?, private var dataL
             val ingredient_remove = rowView.findViewById<ImageButton>(R.id.chango_remove)
             if(ingredient_remove != null) {
                 ingredient_remove.setOnClickListener {
-                    removeItem(dataitem.get("id"))
+                    removeItem(dataitem)
                 }
             }
         }
@@ -52,10 +51,15 @@ class InventoryAdapter(private val context: FragmentActivity?, private var dataL
         return rowView
     }
 
-    private fun removeItem(id: String?) {
+    private fun removeItem(element: java.util.HashMap<String, String>) {
         val queue = Volley.newRequestQueue(context)
+        val id = element.get("id")
         val url = "https://tpp-remy.herokuapp.com/api/v1/cart/" + id + "/"
         Log.i("API", url)
+
+        // Pasarlo adentro del response OK cunado cambie la respuesta
+        dataList.remove(element)
+        notifyDataSetChanged()
 
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.DELETE, url, null,
