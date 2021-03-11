@@ -38,6 +38,7 @@ class PerfilFragment : Fragment() {
     var arrayIDPlaces:MutableList<Int> = ArrayList()
     var arrayNamePlaces:MutableList<String> = ArrayList()
     lateinit var dropdownIngredientes: AutoCompleteTextView
+    lateinit var addBtn: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +58,7 @@ class PerfilFragment : Fragment() {
         /*configCheckboxListener(root)*/
 
         chipGroup = root.findViewById(R.id.perfil_chipgroup)
+        addBtn = root.findViewById(R.id.perfil_add_forbidden)
         configAddForbidden(root)
 
         spinner = root.findViewById(R.id.places_spinner)
@@ -82,11 +84,17 @@ class PerfilFragment : Fragment() {
                 /*Log.i("API", s.toString())
                 Log.i("API", s.toString().length.toString())*/
                 var count = s.toString().length
+                addBtn.visibility = View.GONE
                 if(count > 2) {
                     getIngredientes(s.toString())
                 }
             }
         })
+
+        dropdownIngredientes.onItemClickListener = AdapterView.OnItemClickListener{
+                parent,view,position,id->
+            addBtn.visibility = View.VISIBLE
+        }
     }
 
     private fun getIngredientes(ingrediente: String) {
@@ -362,8 +370,7 @@ class PerfilFragment : Fragment() {
     }
 
     private fun configAddForbidden(root: View) {
-        var btnAddForbidden = root.findViewById<ImageButton>(R.id.perfil_add_forbidden)
-        btnAddForbidden.setOnClickListener {
+        addBtn.setOnClickListener {
             var txtIngredient = perfil_forbidden.text
             if(!txtIngredient.isNullOrEmpty()) {
                 requestForbidden(txtIngredient.toString())
