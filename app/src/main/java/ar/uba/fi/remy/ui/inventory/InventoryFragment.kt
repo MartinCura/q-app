@@ -39,7 +39,7 @@ class InventoryFragment : Fragment() {
     lateinit var inventoryList: ListView
     lateinit var token: String
     lateinit var adapter: InventoryAdapter
-    lateinit var adapterIngredientes: ArrayAdapter<String>
+    /*lateinit var adapterIngredientes: ArrayAdapter<String>*/
     lateinit var dropdownIngredientes: AutoCompleteTextView
     var listProducts: MutableList<Product> = mutableListOf<Product>()
     var items: MutableList<String> = mutableListOf<String>()
@@ -203,15 +203,17 @@ class InventoryFragment : Fragment() {
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
-                val ingredientes = response.getJSONArray("results")
-                adapterIngredientes.clear()
+                val results = response.getJSONArray("results")
+                var ingredientes = mutableListOf<String>()
                 listProducts.clear()
-                for(i in 0 until ingredientes.length()) {
-                    val ingrediente = ingredientes.getJSONObject(i)
-                    adapterIngredientes.add(ingrediente.getString("name"))
+                for(i in 0 until results.length()) {
+                    val ingrediente = results.getJSONObject(i)
+                    ingredientes.add(ingrediente.getString("name"))
                     listProducts.add(Product(ingrediente.getInt("id"), ingrediente.getString("name"), ingrediente.getJSONArray("available_units")))
                 }
-                adapterIngredientes.notifyDataSetChanged()
+                val adapter = ArrayAdapter(context, R.layout.list_item, ingredientes)
+                dropdownIngredientes.setAdapter<ArrayAdapter<String>>(adapter)
+                dropdownIngredientes.showDropDown()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
@@ -267,10 +269,10 @@ class InventoryFragment : Fragment() {
             if(txtIngrediente.isBlank()) {
                 textIngrediente.error = "Indicar ingrediente"
                 error = true
-            } else if(adapterIngredientes.getPosition(txtIngrediente) < 0) {
+            } /*else if(adapterIngredientes.getPosition(txtIngrediente) < 0) {
                 textIngrediente.error = "Ingrediente no existente"
                 error = true
-            } else {
+            }*/ else {
                 textIngrediente.error = ""
             }
 
@@ -288,9 +290,9 @@ class InventoryFragment : Fragment() {
         dropdown.keyListener = null
 
         //Seteo ingredientes
-        adapterIngredientes = ArrayAdapter(activity, R.layout.list_item)
+        /*adapterIngredientes = ArrayAdapter(activity, R.layout.list_item)*/
         dropdownIngredientes = dialog.findViewById(R.id.dialog_add_ingredient_dropdown) as AutoCompleteTextView
-        dropdownIngredientes.setAdapter(adapterIngredientes)
+        /*dropdownIngredientes.setAdapter(adapterIngredientes)*/
 
         dropdownIngredientes.onItemClickListener = AdapterView.OnItemClickListener{
                 parent,view,position,id->
@@ -311,9 +313,10 @@ class InventoryFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.i("API", count.toString())
-                Log.i("API", textIngrediente.editText?.text.toString())
-                if(count >= 2) {
+                /*Log.i("API", count.toString())
+                Log.i("API", textIngrediente.editText?.text.toString())*/
+                var numChars = s.toString().length
+                if(numChars > 2) {
                     getIngredientes(textIngrediente.editText?.text.toString())
                 }
             }
