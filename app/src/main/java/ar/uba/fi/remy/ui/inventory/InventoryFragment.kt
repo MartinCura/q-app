@@ -352,7 +352,12 @@ class InventoryFragment : Fragment() {
                 } else {
                     Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
                     Log.e("API", "Scanned: " + result.contents)
-                    getQR(result.contents.toString())
+                    if(result.contents.startsWith("http")) {
+                        Log.e("API", "QR")
+                        getQR(result.contents.toString())
+                    } else {
+                        Log.e("API", "BARRAS")
+                    }
                 }
             } else {
                 super.onActivityResult(requestCode, resultCode, data)
