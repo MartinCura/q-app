@@ -44,6 +44,7 @@ class InventoryFragment : Fragment() {
     var listProducts: MutableList<Product> = mutableListOf<Product>()
     var items: MutableList<String> = mutableListOf<String>()
     lateinit var adapterUnits: ArrayAdapter<String>
+    var idManual: Int = -1
 
     override fun onResume() {
         super.onResume()
@@ -277,7 +278,7 @@ class InventoryFragment : Fragment() {
             }
 
             if(!error) {
-                agregarIngrediente(txtIngrediente, txtCantidad, txtUnidad, true)
+                agregarIngrediente(txtIngrediente, txtCantidad, txtUnidad, idManual.toString(), true)
                 dialog.dismiss()
             }
         }
@@ -300,6 +301,7 @@ class InventoryFragment : Fragment() {
             Log.i("API", "Selected 1: " + selectedItem)
             Log.i("API", "Selected 2: " + listProducts[position].name)
             Log.i("API", "Selected 2: " + listProducts[position].id)
+            idManual = listProducts[position].id
             loadUnits(listProducts[position].units)
         }
 
@@ -366,7 +368,7 @@ class InventoryFragment : Fragment() {
         for (i in 0 until ingredientes.length()) {
             val ingrediente = ingredientes.getJSONObject(i)
 
-            agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"), false)
+            agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"), ingrediente.getInt("id").toString(),false)
         }
 
         dialogLoading.dismiss()
@@ -376,11 +378,13 @@ class InventoryFragment : Fragment() {
         ingrediente: String,
         cantidad: String,
         unidad: String,
+        id: String,
         persist: Boolean
     ) {
         inventoryList.adapter = adapter
 
         val map = HashMap<String, String>()
+        map["id"] = id
         map["ingrediente"] = ingrediente
         map["cantidad"] = cantidad + unidad
         adapter.addData(map)

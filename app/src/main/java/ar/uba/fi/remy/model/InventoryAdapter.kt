@@ -28,33 +28,36 @@ class InventoryAdapter(private val context: FragmentActivity?, private var dataL
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var dataitem = dataList[position]
 
-        var rowView: View
-        rowView = if(flag == 1) {
-            inflater.inflate(R.layout.inventory_row, parent, false)
-        } else {
-            inflater.inflate(R.layout.chango_row, parent, false)
-        }
+        var rowView: View = inflater.inflate(R.layout.inventory_row, parent, false)
 
         rowView.findViewById<TextView>(R.id.row_name).text = dataitem.get("ingrediente")
         rowView.findViewById<TextView>(R.id.row_age).text = dataitem.get("cantidad")
 
-        if(flag == 2) {
-            val ingredient_remove = rowView.findViewById<ImageButton>(R.id.chango_remove)
-            if(ingredient_remove != null) {
-                ingredient_remove.setOnClickListener {
-                    removeItem(dataitem)
-                }
+        val ingredient_remove = rowView.findViewById<ImageButton>(R.id.row_remove)
+        if(ingredient_remove != null) {
+            ingredient_remove.setOnClickListener {
+                removeItem(dataitem, flag)
             }
         }
+
 
         rowView.tag = position
         return rowView
     }
 
-    private fun removeItem(element: java.util.HashMap<String, String>) {
+    private fun removeItem(
+        element: java.util.HashMap<String, String>,
+        flag: Int
+    ) {
         val queue = Volley.newRequestQueue(context)
         val id = element.get("id")
-        val url = "https://tpp-remy.herokuapp.com/api/v1/cart/" + id + "/"
+        var url = ""
+        if(flag === 1) {
+            url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/" + id + "/"
+        } else {
+            url = "https://tpp-remy.herokuapp.com/api/v1/cart/" + id + "/"
+        }
+
         Log.i("API", url)
 
         // Pasarlo adentro del response OK cunado cambie la respuesta
