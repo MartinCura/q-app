@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.widget.SearchView
 import ar.uba.fi.remy.model.ContactAdapter
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -51,6 +52,7 @@ class NewContactActivity : AppCompatActivity() {
 
         users.clear()
         adapter.notifyDataSetChanged()
+        LoadingIndicatorFragment.show(this)
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -60,10 +62,12 @@ class NewContactActivity : AppCompatActivity() {
                     val user = results.getJSONObject(i)
                     agregarUsuario(user)
                 }
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {

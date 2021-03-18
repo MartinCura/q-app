@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.model.EventItem
 import ar.uba.fi.remy.model.EventItemAdapter
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -57,6 +58,7 @@ class EventsActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/events/"
 
+        LoadingIndicatorFragment.show(this)
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -67,12 +69,14 @@ class EventsActivity : AppCompatActivity() {
                     var fecha = evento.getString("starting_datetime")
                     eventos.add(EventItem(evento.getInt("id"), evento.getString("name"), evento.getJSONArray("attendees").length(), 10, formatDate(fecha)))
                 }
+                LoadingIndicatorFragment.hide()
                 val adapter = EventItemAdapter(eventos)
                 recyclerView.adapter = adapter
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {

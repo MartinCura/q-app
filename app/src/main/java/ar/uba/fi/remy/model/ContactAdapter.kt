@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import ar.uba.fi.remy.ContactsActivity
 import ar.uba.fi.remy.R
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest

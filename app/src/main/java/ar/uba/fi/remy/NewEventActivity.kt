@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import ar.uba.fi.remy.model.DatePickerFragment
 import ar.uba.fi.remy.model.TimePicker
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -84,15 +85,18 @@ class NewEventActivity : AppCompatActivity() {
 
             Log.i("API", body.toString())
 
+            LoadingIndicatorFragment.show(this)
             val jsonObjectRequest = object: JsonObjectRequest(
                 Request.Method.POST, url, body,
                 Response.Listener { response ->
                     Log.i("API", "Response: %s".format(response.toString()))
                     finish()
+                    LoadingIndicatorFragment.hide()
                 },
                 Response.ErrorListener { error ->
                     Log.e("API", "Error en POST")
                     Log.e("API", "Response: %s".format(error.toString()))
+                    LoadingIndicatorFragment.hide()
                 }
             )
             {

@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -64,16 +65,19 @@ class DetailRecipeActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/cart/add_recipe/?recipe=" + idRecipe + "&only_missing=" + todos
         Log.i("API", url)
+        LoadingIndicatorFragment.show(this)
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.POST, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: $response")
                 Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show()
+                LoadingIndicatorFragment.hide()
                 finish()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en POST")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -100,15 +104,18 @@ class DetailRecipeActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/recipes/" + idRecipe + "/"
 
+        LoadingIndicatorFragment.show(this)
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: $response")
                 fillData(response)
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {

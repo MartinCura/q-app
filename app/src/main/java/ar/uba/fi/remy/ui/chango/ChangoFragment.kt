@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
 import ar.uba.fi.remy.model.Product
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -188,6 +189,7 @@ class ChangoFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/products/?search=" + query
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
@@ -200,12 +202,14 @@ class ChangoFragment : Fragment() {
                     listProducts.add(Product(ingrediente.getInt("id"), ingrediente.getString("name"), ingrediente.getJSONArray("available_units")))
                 }
                 val adapter = ArrayAdapter(context, R.layout.list_item, ingredientes)
+                LoadingIndicatorFragment.hide()
                 dropdownIngredientes.setAdapter<ArrayAdapter<String>>(adapter)
                 dropdownIngredientes.showDropDown()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -223,15 +227,18 @@ class ChangoFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/cart/?page_size=1000"
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
                 var chango = response.toString()
+                LoadingIndicatorFragment.hide()
                 cargarChango(chango)
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -282,13 +289,16 @@ class ChangoFragment : Fragment() {
         Log.i("API", cantidad)
         Log.i("API", product)
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.POST, url, body,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {

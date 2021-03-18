@@ -16,6 +16,7 @@ import org.json.JSONObject
 import android.view.MotionEvent
 import android.view.View
 import ar.uba.fi.remy.model.ContactRequestAdapter
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.toolbox.JsonObjectRequest
 
 
@@ -47,9 +48,11 @@ class ContactsActivity : AppCompatActivity() {
         //Configuro filtro de contactos
         setFilter()
 
+        LoadingIndicatorFragment.show(this)
         cargarContactos()
 
         cargarInvites()
+
 
         configHideInvites()
 
@@ -82,6 +85,7 @@ class ContactsActivity : AppCompatActivity() {
 
         pendingInvites.clear()
         adapterInvites.notifyDataSetChanged()
+
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -94,10 +98,12 @@ class ContactsActivity : AppCompatActivity() {
                     }
 
                 }
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -147,6 +153,7 @@ class ContactsActivity : AppCompatActivity() {
 
         dataList.clear()
         adapter.notifyDataSetChanged()
+
         val jsonArrayRequest = object: JsonArrayRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -156,10 +163,12 @@ class ContactsActivity : AppCompatActivity() {
                     val contacto = response.getJSONObject(i)
                     agregarContacto(contacto)
                 }
+
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+
             }
         )
         {

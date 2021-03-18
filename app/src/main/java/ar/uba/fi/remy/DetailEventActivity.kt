@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_detail_event.*
 import kotlinx.android.synthetic.main.dialog_list_friends.*
 import android.widget.LinearLayout
 import android.widget.TextView
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 
@@ -41,6 +42,7 @@ class DetailEventActivity : AppCompatActivity() {
 
         idEvento = intent.getIntExtra("id_evento", 0)
 
+        LoadingIndicatorFragment.show(this)
         loadEventData()
 
         loadReommendedRecipes()
@@ -54,6 +56,8 @@ class DetailEventActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/recommend/recipes/event/?id=" + idEvento + "&need_all_ingredients=false"
         val dynamicContent = findViewById<View>(R.id.dynamic_recommendations) as LinearLayout
+
+
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -92,10 +96,12 @@ class DetailEventActivity : AppCompatActivity() {
 
                     dynamicContent.addView(wizardView)
                 }
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -155,6 +161,7 @@ class DetailEventActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/friends/"
 
+        LoadingIndicatorFragment.show(this)
         val jsonArrayRequest = object: JsonArrayRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -219,10 +226,12 @@ class DetailEventActivity : AppCompatActivity() {
             Request.Method.POST, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {

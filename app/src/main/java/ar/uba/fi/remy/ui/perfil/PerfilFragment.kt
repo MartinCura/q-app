@@ -25,7 +25,7 @@ import org.json.JSONObject
 import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ArrayAdapter
-
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 
 
 class PerfilFragment : Fragment() {
@@ -101,6 +101,7 @@ class PerfilFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/products/?search=" + ingrediente
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -117,6 +118,7 @@ class PerfilFragment : Fragment() {
                 }
                 Log.i("API", ingredientes.toString())
                 val adapter = ArrayAdapter(context, R.layout.list_item, ingredientes)
+                LoadingIndicatorFragment.hide()
                 dropdownIngredientes.setAdapter<ArrayAdapter<String>>(adapter)
                 dropdownIngredientes.showDropDown()
 
@@ -124,6 +126,7 @@ class PerfilFragment : Fragment() {
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -141,16 +144,19 @@ class PerfilFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/places/"
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
                 var places = response.getJSONArray("results")
                 configSpinner(places)
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -215,14 +221,17 @@ class PerfilFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/default_place?place_id=" + id
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.POST, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -286,6 +295,7 @@ class PerfilFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/" + id_logged + "/"
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -303,6 +313,7 @@ class PerfilFragment : Fragment() {
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+
             }
         )
         {
@@ -312,7 +323,7 @@ class PerfilFragment : Fragment() {
                 return headers
             }
         }
-
+        LoadingIndicatorFragment.hide()
         queue.add(jsonObjectRequest)
     }
 
@@ -348,14 +359,17 @@ class PerfilFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/" + id_logged + "/"
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.PATCH, url, body,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -407,6 +421,7 @@ class PerfilFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/profiles/" + id_logged + "/"
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.PATCH, url, body,
             Response.Listener { response ->
@@ -415,10 +430,12 @@ class PerfilFragment : Fragment() {
                     addChip(ingrediente)
                 }
                 perfil_forbidden.setText("")
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {

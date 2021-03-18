@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.uba.fi.remy.model.ReviewItem
 import ar.uba.fi.remy.model.ReviewItemAdapter
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -57,6 +58,7 @@ class RecipesCookedActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         var url = "https://tpp-remy.herokuapp.com/api/v1/profiles/cooked_recipes/"
 
+        LoadingIndicatorFragment.show(this)
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
@@ -75,10 +77,12 @@ class RecipesCookedActivity : AppCompatActivity() {
                     recipesCooked.add(ReviewItem(id, nombre, puntajeFloat, img))
                 }
                 rvAdapter.notifyDataSetChanged()
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {

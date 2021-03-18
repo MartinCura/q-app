@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ListView
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.ConfirmItemAdapter
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -64,15 +65,18 @@ class InventoryConfirmActivity : AppCompatActivity() {
         val queue = Volley.newRequestQueue(this)
         val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/add_items/"
 
+        LoadingIndicatorFragment.show(this)
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.POST, url, body,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
                 finish()
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {

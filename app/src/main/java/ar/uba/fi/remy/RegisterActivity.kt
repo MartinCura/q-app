@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import ar.uba.fi.remy.model.VolleySingleton
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -43,14 +44,17 @@ class RegisterActivity : AppCompatActivity() {
             params["password2"] = register_txt_psw2.text.toString()
             val jsonObject = JSONObject(params)
 
+            LoadingIndicatorFragment.show(this)
             val request = JsonObjectRequest(Request.Method.POST,url,jsonObject,
                 Response.Listener { response ->
                     // Process the json
                     Log.i("API", "Response: %s".format(response.toString()))
+                    LoadingIndicatorFragment.hide()
                     goLogin()
                 }, Response.ErrorListener{error ->
                     // Error in request
                     Log.e("API", "Response: %s".format(error.toString()))
+                    LoadingIndicatorFragment.hide()
                 })
 
             VolleySingleton.getInstance(this).addToRequestQueue(request)

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import ar.uba.fi.remy.model.VolleySingleton
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -64,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
             params["password"] = login_txt_psw.text.toString()
             val jsonObject = JSONObject(params)
 
+            LoadingIndicatorFragment.show(this)
             val request = JsonObjectRequest(Request.Method.POST,url,jsonObject,
                 Response.Listener { response ->
                     // Process the json
@@ -76,11 +78,12 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString("TOKEN", response["key"].toString())
                     editor.putString("ID_LOGGED", response.getJSONObject("profile").getInt("id").toString())
                     editor.apply()
-
+                    LoadingIndicatorFragment.hide()
                     iniciarMain()
                 }, Response.ErrorListener{error ->
                     // Error in request
                     Log.e("API", "Response: %s".format(error.toString()))
+                    LoadingIndicatorFragment.hide()
                 })
 
             VolleySingleton.getInstance(this).addToRequestQueue(request)

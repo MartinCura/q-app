@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.InventoryAdapter
 import ar.uba.fi.remy.model.Product
+import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -35,7 +36,7 @@ import kotlin.collections.HashMap
 class InventoryFragment : Fragment() {
 
     var dataList = ArrayList<HashMap<String, String>>()
-    private lateinit var dialogLoading: Dialog
+
     lateinit var inventoryList: ListView
     lateinit var token: String
     lateinit var adapter: InventoryAdapter
@@ -48,7 +49,6 @@ class InventoryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showLoading()
         obtenerInventario()
     }
 
@@ -96,27 +96,22 @@ class InventoryFragment : Fragment() {
         return root
     }
 
-    private fun showLoading() {
-        dialogLoading = Dialog(activity)
-        dialogLoading.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialogLoading.setCancelable(false)
-        dialogLoading.setContentView(R.layout.custom_loading)
-        dialogLoading.show()
-    }
-
     private fun obtenerInventario() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/?page_size=1000"
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
                 var inventario = response.toString()
                 cargarInventario(inventario)
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -138,13 +133,16 @@ class InventoryFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/add_items/"
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.POST, url, body,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -161,12 +159,14 @@ class InventoryFragment : Fragment() {
     private fun getQR(url: String) {
         val queue = Volley.newRequestQueue(activity)
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
 
                 val intent = Intent(context, InventoryConfirmActivity::class.java)
                 intent.putExtra("Ingredients", response.toString())
+                LoadingIndicatorFragment.hide()
                 startActivity(intent)
 
                 /*val jsonObj = JSONObject(response.toString())
@@ -184,6 +184,7 @@ class InventoryFragment : Fragment() {
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -201,6 +202,7 @@ class InventoryFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/products/?search=" + query
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
@@ -213,12 +215,14 @@ class InventoryFragment : Fragment() {
                     listProducts.add(Product(ingrediente.getInt("id"), ingrediente.getString("name"), ingrediente.getJSONArray("available_units")))
                 }
                 val adapter = ArrayAdapter(context, R.layout.list_item, ingredientes)
+                LoadingIndicatorFragment.hide()
                 dropdownIngredientes.setAdapter<ArrayAdapter<String>>(adapter)
                 dropdownIngredientes.showDropDown()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
@@ -375,8 +379,6 @@ class InventoryFragment : Fragment() {
 
             agregarIngrediente(ingrediente.getString("product"), ingrediente.getString("quantity"), ingrediente.getString("unit"), ingrediente.getInt("id").toString(),false)
         }
-
-        dialogLoading.dismiss()
     }
 
     private fun agregarIngrediente(
@@ -411,13 +413,16 @@ class InventoryFragment : Fragment() {
         Log.i("API", cantidad)
         Log.i("API", product)
 
+        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.POST, url, body,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
