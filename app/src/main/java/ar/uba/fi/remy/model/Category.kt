@@ -1,4 +1,4 @@
 package ar.uba.fi.remy.model
 
-class Category(var nombre: String, var id: Int) {
+class Category(var nombre: String, var id: Int, var foto: String) {
 }

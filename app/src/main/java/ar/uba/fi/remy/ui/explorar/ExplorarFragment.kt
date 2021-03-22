@@ -57,7 +57,8 @@ class ExplorarFragment : Fragment() {
                 for (i in 0 until categoriasArray.length()) {
                     val nombre = categoriasArray.getJSONObject(i).getString("name")
                     val id = categoriasArray.getJSONObject(i).getString("id")
-                    val categoriaNueva = Category(nombre, id.toInt())
+                    val foto = categoriasArray.getJSONObject(i).getString("image")
+                    val categoriaNueva = Category(nombre, id.toInt(), foto)
                     categorias = append(categorias, categoriaNueva)
                 }
                 val adapter = CategoryItemAdapter(categorias)

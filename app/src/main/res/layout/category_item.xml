@@ -8,9 +8,10 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/category_item_foto"
         android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400px"
+        android:layout_height="400px"
         android:src="@drawable/food1" />
 
     <TextView
