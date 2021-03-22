@@ -33,5 +33,9 @@ public class LoadingIndicatorFragment : Fragment() {
         fun hide() {
             dialogLoading.dismiss()
         }
+
+        fun isShowing(): Boolean {
+            return dialogLoading.isShowing
+        }
     }
 }

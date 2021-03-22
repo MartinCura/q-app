@@ -100,6 +100,10 @@ class InventoryFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/?page_size=1000"
 
+        if(LoadingIndicatorFragment.isShowing()) {
+            LoadingIndicatorFragment.hide()
+        }
+
         LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -195,6 +199,32 @@ class InventoryFragment : Fragment() {
             }
         }
 
+        queue.add(jsonObjectRequest)
+    }
+
+    private fun getBarCode(codebar: String) {
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/barcode/" + codebar + "/add_item/"
+
+        LoadingIndicatorFragment.show(requireContext())
+        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.POST, url, null,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                LoadingIndicatorFragment.hide()
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en POST")
+                Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
         queue.add(jsonObjectRequest)
     }
 
@@ -348,6 +378,9 @@ class InventoryFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(LoadingIndicatorFragment.isShowing()) {
+            LoadingIndicatorFragment.hide()
+        }
         if(resultCode == Activity.RESULT_OK){
             val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
             if (result != null) {
@@ -361,6 +394,7 @@ class InventoryFragment : Fragment() {
                         getQR(result.contents.toString())
                     } else {
                         Log.e("API", "BARRAS")
+                        getBarCode(result.contents.toString())
                     }
                 }
             } else {
