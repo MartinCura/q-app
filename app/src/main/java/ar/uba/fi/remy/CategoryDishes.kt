@@ -80,8 +80,9 @@ class CategoryDishes : AppCompatActivity() {
                     var id = recomendacion.getInt("id")
                     /*var score = round(recomendacion.getString("score").toDouble() / 2)*/
                     var score = 3
-                    /*var img = recomendacion.getString("image")*/
-                    recomendaciones.add(RecommendedItem(id, title, score.toInt(), 15,  20, ""))
+                    var img = recomendacion.getString("description").split('\'')[3]
+                    var duration = recomendacion.getString("duration")
+                    recomendaciones.add(RecommendedItem(id, title, score.toInt(), duration.toInt(),  20, img))
                     rvAdapter.notifyDataSetChanged()
                 }
                 LoadingIndicatorFragment.hide()

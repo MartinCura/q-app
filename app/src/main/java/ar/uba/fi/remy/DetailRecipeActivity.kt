@@ -156,5 +156,7 @@ class DetailRecipeActivity : AppCompatActivity() {
                 .transform(RoundedCornersTransformation(60,0))
                 .resize(200, 200).into(detail_recipe_image)
         }
+
+        detail_recipe_duration.text = recipe?.getString("duration") + " minutos"
     }
 }
