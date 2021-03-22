@@ -58,16 +58,12 @@ class InventoryAdapter(private val context: FragmentActivity?, private var dataL
             url = "https://tpp-remy.herokuapp.com/api/v1/cart/" + id + "/"
         }
 
-        Log.i("API", url)
-
-        // Pasarlo adentro del response OK cunado cambie la respuesta
-        dataList.remove(element)
-        notifyDataSetChanged()
-
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.DELETE, url, null,
             Response.Listener { response ->
                 Log.i("API", "Ingrediente borrado")
+                dataList.remove(element)
+                notifyDataSetChanged()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en DELETE")
