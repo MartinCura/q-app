@@ -180,11 +180,13 @@ class DetailEventActivity : AppCompatActivity() {
                         amigos.add(amigo)
                     }
                 }
+                LoadingIndicatorFragment.hide()
                 showDialog(amigos)
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
             }
         )
         {
