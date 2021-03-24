@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fillViewport="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_categorias"
-        android:paddingBottom="70dp"
-        android:clipToPadding="false"
+    <SearchView
+        android:id="@+id/explorar_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:queryHint="Buscar receta..."
+        android:layoutDirection="rtl"
+        />
 
-</GridLayout>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_categorias"
+            android:paddingBottom="70dp"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </GridLayout>
+
+
+
+</LinearLayout>

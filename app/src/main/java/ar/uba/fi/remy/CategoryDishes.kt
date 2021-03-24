@@ -23,6 +23,7 @@ class CategoryDishes : AppCompatActivity() {
     val recomendaciones = ArrayList<RecommendedItem>()
     lateinit var rvAdapter: RecommendedItemAdapter
     var id = 0
+    var query = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,7 @@ class CategoryDishes : AppCompatActivity() {
         token = sharedPref?.getString("TOKEN", "")!!
 
         id =  intent.getIntExtra("idCategory", 0)
+        query = intent.getStringExtra("query")
         setupRecycler()
         loadDishes()
     }
@@ -71,8 +73,10 @@ class CategoryDishes : AppCompatActivity() {
         loadingMore = true
         val queue = Volley.newRequestQueue(this)
         var url = urlNext
-        if(url.isBlank()) {
+        if(url.isBlank() && id != 0) {
             url = "https://tpp-remy.herokuapp.com/api/v1/recipes/?dish__labels=" + id
+        } else {
+            url = "https://tpp-remy.herokuapp.com/api/v1/recipes/?search=" + query
         }
 
         LoadingIndicatorFragment.show(this)

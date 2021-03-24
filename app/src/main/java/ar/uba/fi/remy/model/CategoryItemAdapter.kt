@@ -46,6 +46,7 @@ class CategoryItemAdapter(var listaCategorias:Array<Category>): RecyclerView.Ada
                 val intent = Intent(itemView.context, CategoryDishes::class.java)
                 Log.i("API", "ID: " + data.id)
                 intent.putExtra("idCategory", data.id)
+                intent.putExtra("query", "")
                 itemView.context.startActivity(intent)
             }
         }

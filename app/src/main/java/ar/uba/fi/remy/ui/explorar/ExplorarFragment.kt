@@ -1,14 +1,17 @@
 package ar.uba.fi.remy.ui.explorar
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ar.uba.fi.remy.CategoryDishes
 import ar.uba.fi.remy.R
 import ar.uba.fi.remy.model.Category
 import ar.uba.fi.remy.model.CategoryItemAdapter
@@ -17,6 +20,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.fragment_explorar.view.*
 
 class ExplorarFragment : Fragment() {
 
@@ -33,6 +37,21 @@ class ExplorarFragment : Fragment() {
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
+
+        root.explorar_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.i("API", "Buscando " + query)
+                val intent = Intent(context, CategoryDishes::class.java)
+                intent.putExtra("query", query)
+                startActivity(intent)
+                return false
+            }
+        })
 
         //Obtengo las categorias de la API
         cargarCategorias(root)
