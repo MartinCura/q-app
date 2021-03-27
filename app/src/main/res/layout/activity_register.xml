@@ -21,6 +21,38 @@
             android:src="@drawable/logo1"/>
 
         <EditText
+            android:id="@+id/register_txt_nombre"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/ic_user"
+            android:background="@drawable/input_background"
+            android:textColorHint="@color/white"
+            android:drawablePadding="15dp"
+            android:hint="Ingrese su nombre"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:padding="10dp"/>
+
+        <EditText
+            android:id="@+id/register_txt_apellido"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/ic_user"
+            android:background="@drawable/input_background"
+            android:textColorHint="@color/white"
+            android:drawablePadding="15dp"
+            android:hint="Ingrese su apellido"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:padding="10dp"/>
+
+        <EditText
             android:id="@+id/register_txt_usuario"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"

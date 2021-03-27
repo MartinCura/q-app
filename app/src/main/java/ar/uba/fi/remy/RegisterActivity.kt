@@ -10,6 +10,7 @@ import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
 
@@ -49,6 +50,7 @@ class RegisterActivity : AppCompatActivity() {
                 Response.Listener { response ->
                     // Process the json
                     Log.i("API", "Response: %s".format(response.toString()))
+                    registerName(response.getString("key"), response.getJSONObject("profile").getInt("id"))
                     LoadingIndicatorFragment.hide()
                     goLogin()
                 }, Response.ErrorListener{error ->
@@ -61,7 +63,47 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private fun registerName(key: String, id: Int) {
+        val name = JSONObject()
+        name.put("first_name", register_txt_nombre.text.toString())
+        name.put("last_name", register_txt_apellido.text.toString())
+
+        val queue = Volley.newRequestQueue(this)
+        var url = "https://tpp-remy.herokuapp.com/api/v1/profiles/" + id + "/"
+
+        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.PATCH, url, name,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en PATCH")
+                Log.e("API", "Response: %s".format(error.toString()))
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + key
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
+    }
+
     private fun validarCampos(): Boolean {
+        if(register_txt_nombre.text.isNullOrEmpty()){
+            register_txt_nombre.error = "Este campo es obligatorio"
+            register_txt_nombre.requestFocus()
+            return false
+        }
+
+        if(register_txt_apellido.text.isNullOrEmpty()){
+            register_txt_apellido.error = "Este campo es obligatorio"
+            register_txt_apellido.requestFocus()
+            return false
+        }
+
         if(register_txt_usuario.text.isNullOrEmpty()){
             register_txt_usuario.error = "Este campo es obligatorio"
             register_txt_usuario.requestFocus()
