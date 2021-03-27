@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@drawable/main_background2">
+    android:background="@drawable/main_background2_2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,74 +15,86 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="110dp"
+            android:layout_width="228dp"
+            android:layout_height="135dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/logo1"/>
 
         <EditText
             android:id="@+id/register_txt_usuario"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:drawableStart="@drawable/ic_user"
-            android:background="@drawable/input_background"
-            android:textColorHint="@color/white"
-            android:drawablePadding="15dp"
-            android:hint="@string/ac_register_usuario"
-            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/input_background"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="15dp"
+            android:hint="@string/ac_register_usuario"
+            android:textSize="18sp"
+            android:textColorHint="@color/grey"
             android:inputType="textNoSuggestions"
-            android:padding="10dp"/>
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:padding="8dp"
+            />
 
         <EditText
             android:id="@+id/register_txt_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
-            android:drawableStart="@drawable/ic_email"
             android:background="@drawable/input_background"
-            android:textColorHint="@color/white"
+            android:drawableStart="@drawable/ic_email"
             android:drawablePadding="15dp"
             android:hint="@string/ac_register_email"
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColorHint="@color/grey"
             android:inputType="textEmailAddress"
-            android:padding="10dp"/>
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:padding="8dp"
+            />
 
         <EditText
             android:id="@+id/register_txt_psw1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
             android:drawableStart="@drawable/ic_lock"
             android:background="@drawable/input_background"
-            android:textColorHint="@color/white"
             android:inputType="textPassword"
             android:drawablePadding="15dp"
             android:hint="@string/ac_register_password"
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            android:textColorHint="@color/grey"
+            android:textSize="18sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:padding="8dp"
+            />
 
         <EditText
             android:id="@+id/register_txt_psw2"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:drawableStart="@drawable/ic_lock"
-            android:background="@drawable/input_background"
-            android:textColorHint="@color/white"
-            android:inputType="textPassword"
-            android:drawablePadding="15dp"
-            android:hint="@string/ac_register_password_2"
-            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/ic_lock"
+            android:background="@drawable/input_background"
+            android:inputType="textPassword"
+            android:hint="@string/ac_register_password_2"
+            android:textColorHint="@color/grey"
+            android:drawablePadding="15dp"
+            android:textSize="18sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:padding="10dp"
+            />
 
         <Button
             android:id="@+id/register_btn_crear"
@@ -92,7 +104,8 @@
             android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="@string/ac_register_crear_cuenta"/>
+            android:text="@string/ac_register_crear_cuenta"
+            />
 
     </LinearLayout>
 

@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <rotate
-            android:drawable="@drawable/logo2"
+            android:drawable="@mipmap/ic_launcher_round"
             android:fillAfter="true"
             android:fromDegrees="0"
             android:pivotX="50%"
