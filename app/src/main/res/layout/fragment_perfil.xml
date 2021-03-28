@@ -143,6 +143,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/perfil_new_place"
+                android:layout_width="0dp"
+                android:layout_weight="90"
+                android:layout_height="wrap_content"
+                android:completionThreshold="3"
+                android:dropDownHeight="100dp"
+                android:hint="Ingresar nuevo inventario"
+                />
+
+            <ImageButton
+                android:id="@+id/perfil_add_place"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add"
+                />
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </ScrollView>

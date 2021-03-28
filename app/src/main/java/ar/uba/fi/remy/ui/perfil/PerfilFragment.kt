@@ -39,6 +39,7 @@ class PerfilFragment : Fragment() {
     var arrayNamePlaces:MutableList<String> = ArrayList()
     lateinit var dropdownIngredientes: AutoCompleteTextView
     lateinit var addBtn: ImageButton
+    lateinit var addPlace: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +61,9 @@ class PerfilFragment : Fragment() {
         chipGroup = root.findViewById(R.id.perfil_chipgroup)
         addBtn = root.findViewById(R.id.perfil_add_forbidden)
         configAddForbidden(root)
+
+        addPlace = root.findViewById(R.id.perfil_add_place)
+        configAddPlace(root)
 
         spinner = root.findViewById(R.id.places_spinner)
         loadPlaces()
@@ -392,6 +396,15 @@ class PerfilFragment : Fragment() {
         }
     }
 
+    private fun configAddPlace(root: View) {
+        addPlace.setOnClickListener {
+            var txtPlace = perfil_new_place.text
+            if(!txtPlace.isNullOrEmpty()) {
+                requestPlace(txtPlace.toString())
+            }
+        }
+    }
+
     private fun addChip(ingredient: String) {
         val chip = Chip(context)
         chip.text = ingredient
@@ -430,6 +443,40 @@ class PerfilFragment : Fragment() {
                     addChip(ingrediente)
                 }
                 perfil_forbidden.setText("")
+                LoadingIndicatorFragment.hide()
+            },
+            Response.ErrorListener { error ->
+                Log.e("API", "Error en GET")
+                Log.e("API", "Response: %s".format(error.toString()))
+                LoadingIndicatorFragment.hide()
+            }
+        )
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Token " + token
+                return headers
+            }
+        }
+
+        queue.add(jsonObjectRequest)
+    }
+
+    private fun requestPlace(place: String?) {
+        val body = JSONObject()
+        body.put("name", place)
+
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://tpp-remy.herokuapp.com/api/v1/places/"
+
+        LoadingIndicatorFragment.show(requireContext())
+        val jsonObjectRequest = object: JsonObjectRequest(
+            Request.Method.POST, url, body,
+            Response.Listener { response ->
+                Log.i("API", "Response: %s".format(response.toString()))
+                perfil_new_place.setText("")
+                arrayNamePlaces.add(response.getString("name"))
+                arrayIDPlaces.add(response.getInt("id"))
                 LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
