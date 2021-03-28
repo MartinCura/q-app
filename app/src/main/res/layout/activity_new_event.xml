@@ -10,89 +10,114 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:focusableInTouchMode="true"
         android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:paddingHorizontal="20dp"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="30dp"
+            android:fontFamily="sans-serif-light"
+            android:lineSpacingExtra="4sp"
+            android:text="@string/ac_new_event_intro"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="@color/ginsboro"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/new_event_title"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/input_background"
-            android:textColorHint="@color/white"
-            android:drawablePadding="15dp"
-            android:hint="Nombre de evento"
-            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textNoSuggestions"
-            android:padding="10dp"/>
+            android:layout_marginVertical="10dp"
+            android:padding="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@drawable/input_background"
+            android:drawablePadding="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:hint="@string/ac_new_event_name_hint"
+            android:textColorHint="@color/dimgrey"
+            android:inputType="textNoSuggestions" />
 
-        <EditText
-            android:id="@+id/new_event_date"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/input_background"
-            android:textColorHint="@color/white"
-            android:drawablePadding="15dp"
-            android:drawableEnd="@drawable/ic_date"
-            android:inputType="date"
-            android:focusable="false"
-            android:clickable="true"
-            android:maxLines="1"
-            android:hint="Fecha del evento"
-            android:textSize="20dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            android:orientation="horizontal"
+            android:layout_marginVertical="8dp">
 
-        <EditText
-            android:id="@+id/new_event_time"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/input_background"
-            android:textColorHint="@color/white"
-            android:drawablePadding="15dp"
-            android:drawableEnd="@drawable/ic_clock"
-            android:inputType="date"
-            android:focusable="false"
-            android:clickable="true"
-            android:maxLines="1"
-            android:hint="Hora del evento"
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            <EditText
+                android:id="@+id/new_event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/input_background"
+                android:drawableEnd="@drawable/ic_date"
+                android:inputType="date"
+                android:focusable="true"
+                android:clickable="true"
+                android:maxLines="1"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:hint="@string/ac_new_event_date_hint"
+                android:textColorHint="@color/dimgrey" />
+
+            <EditText
+                android:id="@+id/new_event_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="14dp"
+                android:padding="10dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/input_background"
+                android:drawablePadding="15dp"
+                android:drawableEnd="@drawable/ic_clock"
+                android:inputType="date"
+                android:focusable="true"
+                android:clickable="true"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:hint="@string/ac_new_event_time_hint"
+                android:textColorHint="@color/dimgrey"
+                />
+
+        </LinearLayout>
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/new_event_shared_inventory"
-            android:background="@drawable/input_background"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:button="@null"
-            android:textSize="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="5dp"
-            android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-            android:text="Inventario compartido"
+            android:textSize="18sp"
+            android:textColor="@color/ginsboro"
+            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+            android:text="@string/ac_new_event_shared_inventory_selector"
             />
 
         <Button
             android:id="@+id/new_event_btn_crear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_height="60dp"
+            android:layout_marginVertical="25dp"
+            android:paddingVertical="5dp"
             android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="Crear evento"/>
+            android:text="@string/ac_new_event_create_btn"
+            />
 
     </LinearLayout>
 

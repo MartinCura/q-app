@@ -4,24 +4,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:weightSum="100"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="100">
 
     <ListView
+        android:id="@+id/inventory_list_confirm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="90"
-        android:id="@+id/inventory_list_confirm"
-        xmlns:android="http://schemas.android.com/apk/res/android" />
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_confirm_add_inventory"
-        android:layout_gravity="right"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirmar"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="25dp"
+        android:text="@string/ac_inventory_confirm_btn"
         />
 
 </LinearLayout>
