@@ -132,12 +132,18 @@
         android:text="@string/ac_event_detail_recipe_recommendations"
         />
 
-    <LinearLayout
-        android:id="@+id/dynamic_recommendations"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/dynamic_recommendations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
+    
 
     <!--<include layout="@layout/recommended_item" />
 
