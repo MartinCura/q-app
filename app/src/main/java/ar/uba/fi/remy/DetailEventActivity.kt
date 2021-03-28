@@ -76,10 +76,14 @@ class DetailEventActivity : AppCompatActivity() {
                     val starThree: ImageView = wizardView.findViewById(R.id.starThree)
                     val starFour: ImageView = wizardView.findViewById(R.id.starFour)
                     val starFive: ImageView = wizardView.findViewById(R.id.starFive)
-                    if(score < 5) starFive.visibility = View.GONE
-                    if(score < 4) starFour.visibility = View.GONE
-                    if(score < 3) starThree.visibility = View.GONE
-                    if(score < 2) starTwo.visibility = View.GONE
+                    if(score < 5) starFive.visibility = View.INVISIBLE
+                    if(score < 4) starFour.visibility = View.INVISIBLE
+                    if(score < 3) starThree.visibility = View.INVISIBLE
+                    if(score < 2) starTwo.visibility = View.INVISIBLE
+
+                    val minutes = recommendation.getJSONObject("recipe").getInt("duration")
+                    val tvMinutes = wizardView.findViewById(R.id.minutos) as TextView
+                    tvMinutes.text = minutes.toString()
 
                     val ivFoto:ImageView = wizardView.findViewById(R.id.foto)
                     var img = recommendation.getJSONObject("recipe").getString("description").split('\'')[3]
