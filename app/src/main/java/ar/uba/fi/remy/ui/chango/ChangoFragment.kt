@@ -269,7 +269,7 @@ class ChangoFragment : Fragment() {
         val map = HashMap<String, String>()
         map["id"] = id
         map["ingrediente"] = ingrediente
-        map["cantidad"] = cantidad + unidad
+        map["cantidad"] = "$cantidad $unidad"
         adapter.addData(map)
 
         if(persist) {

@@ -15,7 +15,7 @@
         android:layout_gravity="center_vertical"
         android:scaleType="centerInside"
         android:src="@android:drawable/btn_star_big_on"
-        tools:ignore="ContentDescription" />
+        />
 
     <TextView
         android:id="@+id/navigation_title"

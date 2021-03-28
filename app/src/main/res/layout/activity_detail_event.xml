@@ -10,65 +10,70 @@
 
     <TextView
         android:id="@+id/event_detail_title"
-        android:layout_marginTop="50px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/ginsboro"
         android:textAlignment="center"
-        android:text="Nombre del evento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:text="@string/ac_event_detail_nombre_del_evento"
+        />
 
     <TextView
         android:id="@+id/event_detail_fecha"
-        android:paddingBottom="40px"
-        android:layout_marginTop="15px"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Fecha"/>
+        android:text="@string/ac_event_detail_fecha"
+        />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
         android:weightSum="2">
 
         <androidx.cardview.widget.CardView
-            android:layout_margin="25px"
-            app:cardCornerRadius="8dp"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="1">
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="8dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:paddingTop="40px"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Anfitrion"/>
+                    android:layout_margin="5dp"
+                    android:textColor="@color/ginsboro"
+                    android:textStyle="bold"
+                    android:text="@string/ac_event_detail_anfitrion"
+                    />
 
                 <TextView
                     android:id="@+id/event_detail_host"
-                    android:paddingBottom="40px"
-                    android:layout_marginTop="15px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="..."/>
+                    android:layout_margin="5dp"
+                    android:text="@string/unloaded_text"
+                    />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_margin="25px"
+            android:layout_marginHorizontal="10dp"
             app:cardCornerRadius="8dp"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
@@ -77,28 +82,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center">
 
                 <TextView
-                    android:paddingTop="40px"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Invitados"/>
+                    android:layout_margin="5dp"
+                    android:textColor="@color/ginsboro"
+                    android:textStyle="bold"
+                    android:text="@string/ac_event_detail_invitados"
+                    />
 
                 <TextView
                     android:id="@+id/event_detail_number_attendees"
-                    android:paddingBottom="40px"
-                    android:layout_marginTop="15px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="..."/>
+                    android:layout_margin="5dp"
+                    android:text="@string/unloaded_text"
+                    />
 
             </LinearLayout>
-
-
 
         </androidx.cardview.widget.CardView>
 
@@ -108,28 +113,30 @@
         android:id="@+id/event_add_person_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginTop="-100px"
-        android:layout_marginRight="40px"
+        android:layout_marginHorizontal="20dp"
         android:src="@drawable/ic_add"
+        android:backgroundTint="@color/primary"
+        android:contentDescription="@string/ac_event_detail_add_btn"
         />
 
     <TextView
-        android:layout_marginTop="30px"
-        android:layout_marginLeft="25px"
-        android:textColor="@color/colorAccent"
-        android:textSize="15sp"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Posibles comidas"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="15dp"
+        android:textColor="@color/ginsboro"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="@string/ac_event_detail_recipe_recommendations"
+        />
 
     <LinearLayout
-        android:orientation="vertical"
         android:id="@+id/dynamic_recommendations"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     </LinearLayout>
 
     <!--<include layout="@layout/recommended_item" />

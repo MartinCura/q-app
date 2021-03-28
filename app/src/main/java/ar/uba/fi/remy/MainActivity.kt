@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     private lateinit var adapter: NavigationRVAdapter
     private var items = arrayListOf(
-        NavigationItemModel(R.drawable.ic_user, "Contactos"),
+        NavigationItemModel(R.drawable.ic_baseline_group_24, "Contactos"),
         NavigationItemModel(R.drawable.ic_event, "Eventos"),
         NavigationItemModel(R.drawable.ic_history, "Historial"),
         NavigationItemModel(R.drawable.ic_cancel, "Cerrar Sesión")

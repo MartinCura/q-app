@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:weightSum="100"
-    >
+    android:paddingVertical="15dp"
+    android:paddingHorizontal="3dp">
 
     <ImageView
-        android:layout_weight="20"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:src="@drawable/food1"
+        android:layout_height="70dp"
+        android:layout_weight="20"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_user"
+        android:tint="@color/darkgrey"
         />
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_weight="65"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="65"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="5dp">
 
         <TextView
             android:id="@+id/contact_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre Apellido"
-            android:textStyle="bold"
             android:textSize="20sp"
+            android:textStyle="bold"
             />
 
         <TextView
@@ -35,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Username"
+            android:textSize="16sp"
             android:textStyle="italic"
             />
 
@@ -43,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email"
+            android:textColor="@color/grey"
             />
 
 
@@ -50,10 +56,11 @@
 
     <ImageButton
         android:id="@+id/contact_add"
-        android:layout_gravity="center"
-        android:layout_weight="10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_gravity="center"
+        android:layout_weight="10"
         android:src="@drawable/ic_add"
         />
 </LinearLayout>
