@@ -58,10 +58,26 @@ class  RecommendedItemAdapter(var listaRecetas:ArrayList<RecommendedItem>):Recyc
             val starThree:ImageView = itemView.findViewById(R.id.starThree)
             val starFour:ImageView = itemView.findViewById(R.id.starFour)
             val starFive:ImageView = itemView.findViewById(R.id.starFive)
-            if(data.dificultad < 5) starFive.visibility = View.GONE
-            if(data.dificultad < 4) starFour.visibility = View.GONE
-            if(data.dificultad < 3) starThree.visibility = View.GONE
-            if(data.dificultad < 2) starTwo.visibility = View.GONE
+            val starTwoEmpty:ImageView = itemView.findViewById((R.id.starTwoEmpty))
+            val starThreeEmpty:ImageView = itemView.findViewById((R.id.starThreeEmpty))
+            val starFourEmpty:ImageView = itemView.findViewById((R.id.starFourEmpty))
+            val starFiveEmpty:ImageView = itemView.findViewById((R.id.starFiveEmpty))
+            if(data.dificultad < 5) {
+                starFive.visibility = View.GONE
+                starFiveEmpty.visibility = View.VISIBLE
+            }
+            if(data.dificultad < 4) {
+                starFour.visibility = View.GONE
+                starFourEmpty.visibility = View.VISIBLE
+            }
+            if(data.dificultad < 3) {
+                starThree.visibility = View.GONE
+                starThreeEmpty.visibility = View.VISIBLE
+            }
+            if(data.dificultad < 2) {
+                starTwo.visibility = View.GONE
+                starTwoEmpty.visibility = View.VISIBLE
+            }
 
         }
 

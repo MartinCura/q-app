@@ -9,7 +9,7 @@
     <string name="loading">Cargando...</string>
 
     <!--  Pantalla Home  -->
-    <string name="home_title">Ingredientes disponibles</string>
+    <string name="home_title">Solo ingredientes disponibles</string>
 
     <!--  Pantalla Explorar  -->
 
@@ -23,10 +23,14 @@
     <string name="ac_contacts_buscar_contacto">Buscar contacto...</string>
 
     <!-- activity_detail_recipe -->
+    <string name="recipe_detail_nombre_default">Nombre de la comida</string>
     <string name="ac_d_recipe_categoria">Categoria</string>
+    <string name="ac_d_recipe_rating">Calificación</string>
     <string name="ac_d_recipe_tiempo">Tiempo</string>
     <string name="ac_d_recipe_ingredientes">Ingredientes</string>
-    <string name="ac_d_recipe_cocinar">COCINAR</string>
+    <string name="ac_d_recipe_cocinar">Cocinar</string>
+
+    <string name="recipe_detail_tiempo_default">20 minutos</string>
 
     <!-- activity_login -->
     <string name="ac_login_usuario">Usuario</string>
@@ -37,9 +41,9 @@
 
 
     <!-- activity_register -->
-    <string name="ac_register_usuario">Ingrese su usuario</string>
-    <string name="ac_register_email">Ingrese su email</string>
-    <string name="ac_register_password">Ingresar contraseña</string>
+    <string name="ac_register_usuario">Ingrese un usuario</string>
+    <string name="ac_register_email">Ingrese un email</string>
+    <string name="ac_register_password">Ingrese una contraseña</string>
     <string name="ac_register_password_2">Repetir contraseña</string>
     <string name="ac_register_crear_cuenta">CREAR CUENTA</string>
 
@@ -58,8 +62,8 @@
     <string name="f_buscar_ingrediente">Buscar ingrediente...</string>
 
     <!-- fragment_inicio -->
-    <string name="f_inicio_si">SI</string>
-    <string name="f_inicio_no">NO</string>
+    <string name="f_inicio_si"> </string>
+    <string name="f_inicio_no"> </string>
 
     <!-- fragment_perfil -->
     <string name="f_perfil_alimenticio">Perfil alimenticio</string>
@@ -68,9 +72,10 @@
     <string name="cerrar_sesion">CERRAR SESIÓN</string>
 
     <!-- recommended_item -->
-    <string name="i_recommended_minutos">Minutos</string>
+    <string name="i_recommended_minutos">min</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo">Logo</string>
 
 
 </resources>

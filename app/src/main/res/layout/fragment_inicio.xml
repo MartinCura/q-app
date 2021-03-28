@@ -19,9 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="2dp"
             android:textAlignment="textEnd"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:layout_width="0dp" />
 
         <androidx.appcompat.widget.SwitchCompat
@@ -29,18 +29,18 @@
             android:layout_weight="15"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="10dp"
             android:layout_width="0dp"
             android:textOff="@string/f_inicio_no"
             android:textOn="@string/f_inicio_si"
+            android:textSize="12sp"
             app:showText="true">
 
         </androidx.appcompat.widget.SwitchCompat>
 
     </LinearLayout>
-
 
 
     <androidx.recyclerview.widget.RecyclerView
