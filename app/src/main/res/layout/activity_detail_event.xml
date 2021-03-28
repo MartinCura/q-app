@@ -73,6 +73,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/event_invitados"
             android:layout_marginHorizontal="10dp"
             app:cardCornerRadius="8dp"
             android:layout_height="wrap_content"
@@ -143,7 +144,7 @@
             android:orientation="vertical">
         </LinearLayout>
     </ScrollView>
-    
+
 
     <!--<include layout="@layout/recommended_item" />
 

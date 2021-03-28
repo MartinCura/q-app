@@ -3,6 +3,7 @@ package ar.uba.fi.remy
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_detail_event.*
 import kotlinx.android.synthetic.main.dialog_list_friends.*
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
@@ -126,10 +128,18 @@ class DetailEventActivity : AppCompatActivity() {
                 var attendees =  response.getJSONArray("attendees")
                 Log.i("API", "Response: $attendees")
                 idInvitados = mutableListOf()
+                val eventinvitados = findViewById<CardView>(R.id.event_invitados)
                 for(i in 0 until attendees.length()) {
                     val attendee = attendees.getJSONObject(i)
                     Log.i("API", "Response: " + attendee.getString("id") + " " + attendee.getString("name"))
                     idInvitados.add(attendee.getString("id").toInt())
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        if(eventinvitados.tooltipText.isNullOrEmpty()) {
+                            eventinvitados.tooltipText = attendee.getString("name") + " \n"
+                        } else {
+                            eventinvitados.tooltipText = event_invitados.tooltipText?.toString() + attendee.getString("name") + " \n"
+                        }
+                    }
                 }
 
                 event_detail_title.text = response.getString("name")
