@@ -14,6 +14,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import java.lang.Math.round
 
 class CategoryDishes : AppCompatActivity() {
 
@@ -91,8 +92,7 @@ class CategoryDishes : AppCompatActivity() {
                     var recomendacion = recomendacionesArray.getJSONObject(i)
                     var title = recomendacion.getString("title")
                     var id = recomendacion.getInt("id")
-                    /*var score = round(recomendacion.getString("score").toDouble() / 2)*/
-                    var score = 3
+                    var score = round(recomendacion.getJSONObject("rating").getDouble("score"))
                     var img = recomendacion.getString("description").split('\'')[3]
                     var duration = recomendacion.getString("duration")
                     recomendaciones.add(RecommendedItem(id, title, score.toInt(), duration.toInt(),  20, img))
