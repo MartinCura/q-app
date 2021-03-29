@@ -105,7 +105,7 @@ class PerfilFragment : Fragment() {
         val queue = Volley.newRequestQueue(activity)
         val url = "https://tpp-remy.herokuapp.com/api/v1/products/?search=" + ingrediente
 
-        LoadingIndicatorFragment.show(requireContext())
+//        LoadingIndicatorFragment.show(requireContext())
         val jsonObjectRequest = object: JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -122,7 +122,7 @@ class PerfilFragment : Fragment() {
                 }
                 Log.i("API", ingredientes.toString())
                 val adapter = ArrayAdapter(context, R.layout.list_item, ingredientes)
-                LoadingIndicatorFragment.hide()
+//                LoadingIndicatorFragment.hide()
                 dropdownIngredientes.setAdapter<ArrayAdapter<String>>(adapter)
                 dropdownIngredientes.showDropDown()
 
@@ -130,7 +130,7 @@ class PerfilFragment : Fragment() {
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
-                LoadingIndicatorFragment.hide()
+//                LoadingIndicatorFragment.hide()
             }
         )
         {
