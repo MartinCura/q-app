@@ -52,12 +52,12 @@
     <string name="d_ingredient_ingrediente_agregar">Elegir ingrediente</string>
     <string name="d_ingredient_cantidad">Cantidad</string>
     <string name="d_ingredient_unidad">Unidad</string>
-    <string name="d_ingredient_titulo">Agregar un ingrediente al inventario</string>
+    <string name="d_ingredient_titulo">Agregar ingrediente al inventario</string>
     <string name="d_ingredient_cancelar">Cancelar</string>
     <string name="d_ingredient_confirmar">Agregar</string>
 
     <!-- event_item -->
-    <string name="i_event_asistentes">Asistentes</string>
+    <string name="i_event_asistentes">Asistentes:</string>
 
     <!-- fragment_chango | fragment_inventoru-->
     <string name="f_buscar_ingrediente">Buscar ingrediente...</string>
@@ -94,6 +94,23 @@
     <string name="ac_new_event_create_btn">Crear evento</string>
     <string name="ac_new_event_shared_inventory_selector">Inventario compartido</string>
     <string name="ac_new_event_intro">Crea un evento con amigos y obtengan recomendaciones de recetas para su próxima juntada.</string>
+    <string name="ac_contacts_add_contact_fab">Add contact FAB</string>
+    <string name="ac_events_create_event_fab">Create new event</string>
+    <string name="ac_new_contact_search_hint">Ingrese el nombre del contacto...</string>
+    <string name="d_list_friends_title">Amigos</string>
+    <string name="d_list_friend_add_friend_fab">Add friend fab</string>
+    <string name="i_event_fecha_title">Fecha:</string>
+    <string name="ac_events_title">Sus eventos</string>
+    <string name="f_chango_agregar_al_chango_fab">Agregar al chango fab</string>
+    <string name="f_inventory_add_to_inventory_fab">Add to inventory fab</string>
+    <string name="f_inventory_escanear_producto_para_inventario_fab">Escanear producto para inventario fab</string>
+    <string name="f_perfil_alimentos_prohibidos">Alimentos prohibidos</string>
+    <string name="f_perfil_agregar_alimento_prohibido_btn">Agregar alimento prohibido seleccionado</string>
+    <string name="f_perfil_inventario_seleccionado_title">Inventario seleccionado</string>
+    <string name="f_perfil_ingresar_forbidden_hint">Ingresar nuevo alimento prohibido</string>
+    <string name="f_perfil_crear_inventario_hint">Nombre para inventario nuevo</string>
+    <string name="f_perfil_title">Su perfil</string>
+    <string name="f_perfil_agregar_inventario_nuevo_btn">Agregar inventario nuevo btn</string>
 
     <!--    TODO: Ordenar strings-->
 </resources>

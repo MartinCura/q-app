@@ -2,15 +2,15 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:layout_height="wrap_content">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/category_item_foto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_alignParentRight="true"
         android:src="@drawable/food1"
         />
@@ -19,8 +19,8 @@
         android:id="@+id/category_item_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:text="Categoría"
+        android:textAlignment="center"
         />
 
 </LinearLayout>
