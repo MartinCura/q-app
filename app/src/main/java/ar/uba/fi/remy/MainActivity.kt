@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         NavigationItemModel(R.drawable.ic_baseline_group_24, "Contactos"),
         NavigationItemModel(R.drawable.ic_event, "Eventos"),
         NavigationItemModel(R.drawable.ic_history, "Historial"),
+        NavigationItemModel(R.drawable.ic_home, "Lugar"),
         NavigationItemModel(R.drawable.ic_cancel, "Cerrar Sesión")
     )
 
@@ -66,6 +67,9 @@ class MainActivity : AppCompatActivity() {
                         goRecipesCooked()
                     }
                     3 -> {
+                        goPlaces()
+                    }
+                    4 -> {
                         cerrarSesion()
                     }
                 }
@@ -134,6 +138,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun goRecipesCooked() {
         val intent = Intent(this, RecipesCookedActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goPlaces() {
+        val intent = Intent(this, PlacesActivity::class.java)
         startActivity(intent)
     }
 

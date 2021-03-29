@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".PlacesActivity"></activity>
         <activity
             android:name=".RecipesCookedActivity"
-            android:theme="@style/LoginPage"
-            />
+            android:theme="@style/LoginPage" />
         <activity android:name=".StepsActivity" />
         <activity android:name=".NewContactActivity" />
         <activity android:name=".NewEventActivity" />
