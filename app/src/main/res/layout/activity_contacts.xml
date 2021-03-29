@@ -8,58 +8,62 @@
         android:id="@+id/contact_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="@string/ac_contacts_buscar_contacto"
         android:layoutDirection="rtl"
+        android:queryHint="@string/ac_contacts_buscar_contacto"
         />
 
     <TextView
-        android:text="Solicitudes de amistad"
-        android:textColor="@color/white"
         android:id="@+id/contact_title_invites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/contact_search"
+        android:padding="10dp"
+        android:text="Solicitudes de amistad"
+        android:textColor="@color/white"
         />
 
     <ListView
         android:id="@+id/contact_pending_invites"
-        android:layout_below="@+id/contact_title_invites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_below="@+id/contact_title_invites"
         />
 
     <TableRow
         android:id="@+id/hr"
-        android:layout_below="@+id/contact_pending_invites"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#444"></TableRow>
+        android:layout_below="@+id/contact_pending_invites"
+        android:background="#444">
+
+    </TableRow>
 
     <TextView
-        android:text="Contactos"
-        android:textColor="@color/white"
         android:id="@+id/contact_title_contacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/hr"
+        android:text="Contactos"
+        android:textColor="@color/white"
         />
 
     <ListView
-        android:layout_below="@+id/contact_title_contacts"
+        android:id="@+id/contact_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/contact_list"
+        android:layout_below="@+id/contact_title_contacts"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:id="@+id/contact_floating_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
         android:src="@drawable/ic_add"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp" />
+        android:contentDescription="@string/ac_contacts_add_contact_fab"
+        />
 
 </RelativeLayout>

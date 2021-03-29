@@ -8,36 +8,39 @@
     tools:context=".NewContactActivity">
 
     <LinearLayout
-        android:padding="10sp"
-        android:weightSum="100"
         android:id="@+id/new_contact_ll"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10sp"
+        android:weightSum="100">
 
         <EditText
             android:id="@+id/new_contact_edit_text"
-            android:hint="Ingrese el nombre del contacto..."
-            android:layout_weight="90"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:paddingHorizontal="8dp"
+            android:hint="@string/ac_new_contact_search_hint"
+            />
 
         <ImageButton
             android:id="@+id/new_contact_btn_search"
-            android:layout_weight="10"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="10"
             android:src="@drawable/ic_search"
-            android:layout_height="wrap_content" />
-
+            android:backgroundTint="@color/grey"
+            />
 
     </LinearLayout>
 
     <ListView
-        android:layout_below="@+id/new_contact_ll"
         android:id="@+id/new_contact_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_below="@+id/new_contact_ll"
         />
 
 </RelativeLayout>

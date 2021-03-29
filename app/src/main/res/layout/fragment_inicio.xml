@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,25 +14,27 @@
 
         <TextView
             android:id="@+id/text_home"
-            android:textColor="#FFFFFF"
-            android:layout_weight="85"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_weight="85"
             android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="2dp"
             android:textAlignment="textEnd"
+            android:text="@string/home_title"
             android:textSize="17sp"
-            android:layout_width="0dp" />
+            android:textColor="@color/ginsboro"
+            />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_ingredients"
-            android:layout_weight="15"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="10dp"
+            android:checked="true"
             android:textOff="@string/f_inicio_no"
             android:textOn="@string/f_inicio_si"
             android:textSize="12sp"
@@ -42,12 +44,12 @@
 
     </LinearLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recomendados"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingBottom="70dp"
         android:clipToPadding="false"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        />
 
 </LinearLayout>

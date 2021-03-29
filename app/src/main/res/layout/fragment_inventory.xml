@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,10 +14,10 @@
         />
 
     <ListView
-        android:layout_below="@+id/inventory_search"
+        android:id="@+id/inventory_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/inventory_list"
+        android:layout_below="@+id/inventory_search"
         />
 
     <LinearLayout
@@ -23,25 +25,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="65dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" >
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/inventory_floating_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            app:borderWidth="0dp"
             android:src="@drawable/ic_add"
-            android:layout_marginBottom="15dp" />
-
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="@string/f_inventory_add_to_inventory_fab"
+            />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/inventory_floating_scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_camera" />
+            app:borderWidth="0dp"
+            android:src="@drawable/ic_camera"
+            app:tint="@color/white"
+            android:backgroundTint="@color/primary2"
+            android:contentDescription="@string/f_inventory_escanear_producto_para_inventario_fab"
+            />
 
     </LinearLayout>
-
 
 </RelativeLayout>

@@ -1,176 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
-    <LinearLayout
-
+    <TextView
+        android:id="@+id/text_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="25px"
-        android:weightSum="10">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="15dp"
+        android:background="@color/darkgrey"
+        android:text="@string/f_perfil_title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        />
 
-
-        <TextView
-            android:layout_weight="1"
-            android:id="@+id/text_home"
-            android:text="PERFIL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/f_perfil_alimenticio"
-            android:layout_marginBottom="20px"
-            android:textSize="18sp"
-            />
-
-        <CheckBox
-            android:id="@+id/Vegetariano"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Vegetariano"
-            />
-
-        <CheckBox
-            android:id="@+id/Vegano"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Vegano"
-            />
-
-        <CheckBox
-            android:id="@+id/Celiaco"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Celiaco"
-            />
-
-        <CheckBox
-            android:id="@+id/Diabetico"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Diabético"
-            />
-
-
-        <View
-            android:layout_marginTop="20px"
-            android:layout_marginBottom="20px"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Alimentos prohibidos"
-            android:layout_marginBottom="20px"
-            android:textSize="18sp"
-            />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:weightSum="100"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <AutoCompleteTextView
-                android:id="@+id/perfil_forbidden"
-                android:layout_width="0dp"
-                android:layout_weight="90"
-                android:layout_height="wrap_content"
-                android:completionThreshold="3"
-                android:dropDownHeight="100dp"
-                android:hint="Ingresar nuevo alumento prohibido"
-                />
-
-            <ImageButton
-                android:id="@+id/perfil_add_forbidden"
-                android:layout_width="0dp"
-                android:layout_weight="10"
-                android:gravity="center_horizontal"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add"
-                android:visibility="gone"
-                />
-        </LinearLayout>
-
-
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/perfil_chipgroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <View
-            android:layout_marginTop="20px"
-            android:layout_marginBottom="20px"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Invetario seleccionado"
-            android:layout_marginBottom="20px"
-            android:textSize="18sp"
-            />
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:paddingVertical="25dp"
+            android:paddingHorizontal="10dp">
 
-        <Spinner
-            android:id="@+id/places_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:weightSum="100"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/perfil_new_place"
-                android:layout_width="0dp"
-                android:layout_weight="90"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:completionThreshold="3"
-                android:dropDownHeight="100dp"
-                android:hint="Ingresar nuevo inventario"
+                android:layout_marginBottom="5dp"
+                android:paddingHorizontal="8dp"
+                android:text="@string/f_perfil_alimenticio"
+                android:textSize="18sp"
                 />
 
-            <ImageButton
-                android:id="@+id/perfil_add_place"
-                android:layout_width="0dp"
-                android:layout_weight="10"
-                android:gravity="center_horizontal"
+            <GridLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add"
+                android:paddingHorizontal="8dp"
+                android:columnCount="2">
+
+                <CheckBox
+                    android:id="@+id/Vegetariano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:checked="false"
+                    android:text="Vegetariano"
+                    />
+
+                <CheckBox
+                    android:id="@+id/Vegano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:checked="false"
+                    android:text="Vegano"
+                    />
+
+                <CheckBox
+                    android:id="@+id/Celiaco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:checked="false"
+                    android:text="Celíaco"
+                    />
+
+                <CheckBox
+                    android:id="@+id/Diabetico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:checked="false"
+                    android:text="Diabético"
+                    />
+
+            </GridLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="25dp"
+                android:background="@color/dimgrey"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:paddingHorizontal="8dp"
+                android:text="@string/f_perfil_alimentos_prohibidos"
+                android:textSize="18sp"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:paddingHorizontal="6dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/perfil_forbidden"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="90"
+                    android:paddingHorizontal="8dp"
+                    android:completionThreshold="3"
+                    android:dropDownHeight="120dp"
+                    android:hint="@string/f_perfil_ingresar_forbidden_hint"
+                    android:textSize="16sp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/perfil_add_forbidden"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:layout_marginHorizontal="8dp"
+                    android:padding="8dp"
+                    android:gravity="center_horizontal"
+                    android:src="@drawable/ic_add"
+                    android:contentDescription="@string/f_perfil_agregar_alimento_prohibido_btn"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/perfil_chipgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="25dp"
+                android:background="@color/dimgrey"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:text="@string/f_perfil_inventario_seleccionado_title"
+                android:textSize="18sp"
+                />
+
+<!--            <Spinner-->
+<!--                android:id="@+id/places_spinner"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                android:layout_marginHorizontal="5dp"-->
+<!--                android:paddingHorizontal="5dp"-->
+<!--                android:paddingVertical="8dp"-->
+<!--                android:background="@color/darkgrey"-->
+<!--                android:dropDownSelector="@color/primary2"-->
+<!--                />-->
+            <Spinner
+                android:id="@+id/places_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="64dp"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/white"
+                android:background="@drawable/spinner_bg"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:paddingHorizontal="8dp">
+
+                <EditText
+                    android:id="@+id/perfil_new_place"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="90"
+                    android:paddingHorizontal="8dp"
+                    android:completionThreshold="3"
+                    android:dropDownHeight="120dp"
+                    android:inputType="text|textCapWords"
+                    android:hint="@string/f_perfil_crear_inventario_hint"
+                    android:textSize="16sp"
+                    android:autofillHints="" />
+
+                <ImageButton
+                    android:id="@+id/perfil_add_place"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="8dp"
+                    android:gravity="center_horizontal"
+                    android:src="@drawable/ic_add"
+                    android:contentDescription="@string/f_perfil_agregar_inventario_nuevo_btn"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginVertical="25dp"
+                android:background="@color/dimgrey"/>
+
         </LinearLayout>
 
+    </ScrollView>
 
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
 
