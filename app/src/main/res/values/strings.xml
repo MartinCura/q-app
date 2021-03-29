@@ -57,7 +57,7 @@
     <string name="d_ingredient_confirmar">Agregar</string>
 
     <!-- event_item -->
-    <string name="i_event_asistentes">Asistentes:</string>
+    <string name="i_event_asistentes">Invitados:</string>
 
     <!-- fragment_chango | fragment_inventoru-->
     <string name="f_buscar_ingrediente">Buscar ingrediente...</string>
