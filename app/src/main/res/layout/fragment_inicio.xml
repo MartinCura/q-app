@@ -44,6 +44,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/img_nofood"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:src="@drawable/nofood2"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recomendados"
         android:layout_width="match_parent"

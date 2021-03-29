@@ -20,6 +20,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.fragment_inicio.*
 import java.lang.Math.round
 
 class InicioFragment : Fragment() {
@@ -100,19 +101,24 @@ class InicioFragment : Fragment() {
         val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
-                var recomendacionesArray = response.getJSONArray("results")
-                loadingMore = false
-                urlNext = response.getString("next")
-                for (i in 0 until recomendacionesArray.length()) {
-                    var recomendacion = recomendacionesArray.getJSONObject(i)
-                    var recipe = recomendacion.getJSONObject("recipe")
-                    var title = recipe.getString("title")
-                    var id = recipe.getInt("id")
-                    var score = round(recomendacion.getString("rating").toDouble())
-                    var img = recipe.getString("description").split('\'')[3]
-                    var duration = recipe.getInt("duration")
-                    recomendaciones.add(RecommendedItem(id, title, score.toInt(), duration,  20, img))
-                    rvAdapter.notifyDataSetChanged()
+                if(response.getInt("count") == 0) {
+                    img_nofood.visibility = View.VISIBLE
+                } else {
+                    img_nofood.visibility = View.GONE
+                    var recomendacionesArray = response.getJSONArray("results")
+                    loadingMore = false
+                    urlNext = response.getString("next")
+                    for (i in 0 until recomendacionesArray.length()) {
+                        var recomendacion = recomendacionesArray.getJSONObject(i)
+                        var recipe = recomendacion.getJSONObject("recipe")
+                        var title = recipe.getString("title")
+                        var id = recipe.getInt("id")
+                        var score = round(recomendacion.getString("rating").toDouble())
+                        var img = recipe.getString("description").split('\'')[3]
+                        var duration = recipe.getInt("duration")
+                        recomendaciones.add(RecommendedItem(id, title, score.toInt(), duration,  20, img))
+                        rvAdapter.notifyDataSetChanged()
+                    }
                 }
                 LoadingIndicatorFragment.hide()
             },
