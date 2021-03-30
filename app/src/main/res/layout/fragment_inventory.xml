@@ -36,6 +36,7 @@
             android:layout_marginBottom="15dp"
             app:borderWidth="0dp"
             android:src="@drawable/ic_add"
+            app:tint="@color/white"
             android:backgroundTint="@color/colorPrimary"
             android:contentDescription="@string/f_inventory_add_to_inventory_fab"
             />

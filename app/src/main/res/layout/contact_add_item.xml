@@ -15,6 +15,7 @@
         android:layout_gravity="center"
         android:src="@drawable/ic_user"
         android:tint="@color/darkgrey"
+        android:contentDescription="Contact avatar"
         />
 
     <LinearLayout
@@ -51,7 +52,6 @@
             android:textColor="@color/grey"
             />
 
-
     </LinearLayout>
 
     <ImageButton
@@ -62,5 +62,7 @@
         android:layout_gravity="center"
         android:layout_weight="10"
         android:src="@drawable/ic_add"
+        android:contentDescription="Add contact button"
         />
+
 </LinearLayout>

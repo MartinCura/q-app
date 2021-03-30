@@ -4,6 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- TODO: add/replace with LinearLayout to make this much easier -->
+
+<!--    <TextView-->
+<!--        android:id="@+id/contacts_title"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="7dp"-->
+<!--        android:padding="15dp"-->
+<!--        android:background="@color/darkgrey"-->
+<!--        android:text="@string/ac_contacts_contactos_section_title"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textAlignment="center"-->
+<!--        />-->
+<!--    android:layout_below="@id/contacts_title"-->
+
     <SearchView
         android:id="@+id/contact_search"
         android:layout_width="match_parent"
@@ -18,8 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/contact_search"
         android:padding="10dp"
-        android:text="Solicitudes de amistad"
+        android:text="@string/ac_contacts_solicitudes_section_title"
         android:textColor="@color/white"
+        android:visibility="gone"
         />
 
     <ListView
@@ -43,7 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/hr"
-        android:text="Contactos"
+        android:padding="10dp"
+        android:text="@string/ac_contacts_contactos_section_title"
         android:textColor="@color/white"
         />
 
