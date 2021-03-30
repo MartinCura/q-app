@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
-    android:layout_margin="15dp">
+    android:layout_margin="15dp"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
-        android:padding="12dp"
-        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_weight="0.9"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_weight="0.9">
 
                 <TextView
                     android:id="@+id/title"
-                    android:textSize="24sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="FOOD MENU 1"
+                    android:textColor="@color/ginsboro"
+                    android:textSize="24sp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="FOOD MENU 1">
-
-                </TextView>
+                    />
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="25dp">
 
                     <RatingBar
                         android:id="@+id/ratingbar"
@@ -46,21 +48,20 @@
                         android:layout_height="match_parent"
                         style="?android:attr/ratingBarStyleIndicator"
                         android:isIndicator="false"
-                    />
-
+                        />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-
             <ImageView
                 android:id="@+id/foto"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="115dp"
                 android:layout_weight="0.1"
-                android:src="@drawable/food1">
+                android:layout_gravity="center"
+                android:src="@drawable/food1"
+                android:contentDescription="Recipe image">
 
             </ImageView>
 

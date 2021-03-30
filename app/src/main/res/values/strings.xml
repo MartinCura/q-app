@@ -74,12 +74,15 @@
 
     <!-- recommended_item -->
     <string name="i_recommended_minutos">min</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Sort in their Hogwarts houses -->
     <string name="logo">Logo</string>
     <string name="ac_event_detail_invitados">Invitados</string>
     <string name="ac_event_detail_anfitrion">Anfitrión</string>
-    <string name="ac_event_detail_recipe_recommendations">Posibles comidas</string>
+    <string name="ac_event_detail_recipe_recommendations">Sugerencias de recetas</string>
     <string name="ac_event_detail_add_btn">Agregar invitados</string>
     <string name="unloaded_text">...</string>
     <string name="ac_event_detail_nombre_del_evento">Nombre del evento</string>
@@ -111,6 +114,11 @@
     <string name="f_perfil_crear_inventario_hint">Nombre para inventario nuevo</string>
     <string name="f_perfil_title">Su perfil</string>
     <string name="f_perfil_agregar_inventario_nuevo_btn">Agregar inventario nuevo btn</string>
+    <string name="ac_contacts_solicitudes_section_title">Solicitudes de amistad</string>
+    <string name="ac_contacts_contactos_section_title">Contactos</string>
+    <string name="ac_new_contact_header">Buscar contactos</string>
+    <string name="ac_recipes_cooked_header">Recetas cocinadas</string>
+    <string name="ac_places_header">Su lugar</string>
 
     <!--    TODO: Ordenar strings-->
 </resources>

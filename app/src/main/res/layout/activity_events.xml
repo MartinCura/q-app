@@ -8,20 +8,24 @@
     android:orientation="vertical"
     tools:context=".EventsActivity">
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginVertical="10dp"-->
-<!--        android:paddingHorizontal="8dp"-->
-<!--        android:text="@string/ac_events_title"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textSize="18sp"-->
-<!--        />-->
+    <TextView
+        android:id="@+id/events_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:padding="15dp"
+        android:background="@color/darkgrey"
+        android:text="@string/ac_events_title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_eventos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/events_title"
         android:paddingBottom="70dp"
         android:clipToPadding="false"
         />
@@ -32,9 +36,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="20dp"
+        app:borderWidth="0dp"
         android:src="@drawable/ic_add"
+        android:backgroundTint="@color/primary"
         android:contentDescription="@string/ac_events_create_event_fab"
         />
 

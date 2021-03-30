@@ -2,6 +2,7 @@ package ar.uba.fi.remy
 
 import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -102,7 +103,11 @@ class ContactsActivity : AppCompatActivity() {
                     if(solicitud.getString("status") == "REQUESTED") {
                         agregarSolicitud(solicitud)
                     }
-
+                }
+                if (results.length() != 0) {
+                    contact_title_invites.visibility = View.VISIBLE
+                } else {
+                    contact_title_invites.visibility = View.GONE
                 }
                 LoadingIndicatorFragment.hide()
             },

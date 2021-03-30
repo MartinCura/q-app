@@ -2,13 +2,16 @@ package ar.uba.fi.remy
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.text.HtmlCompat
 import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.android.volley.Request
 import com.android.volley.Response
@@ -147,11 +150,20 @@ class DetailRecipeActivity : AppCompatActivity() {
             var item = ingredients.getJSONObject(i)
             var itemName = item.getJSONObject("product").getString("name")
             var itemUnit = item.getString("unit")
-            var itemQantity = item.getString("quantity")
+            var itemQuantity = item.getString("quantity")
             /*txtIngredients.add(itemName + " " + itemQantity + " " + itemUnit)*/
-            txtIngredients += (i+1).toString() + ". " + itemName + " " + itemQantity + " " + itemUnit + "\n"
+            var txtAmount:String;
+            if (itemQuantity == null || itemQuantity.isEmpty() || itemQuantity == "null") {
+                txtAmount = "";
+            } else {
+                txtAmount = "$itemQuantity ";
+                if (!(itemUnit == null || itemUnit.isEmpty() || itemUnit == "unit")) {
+                    txtAmount += "$itemUnit ";
+                }
+            }
+            txtIngredients += "- $txtAmount<b>$itemName</b><br />"
         }
-        detail_recipe_ingredients.text = txtIngredients
+        detail_recipe_ingredients.text = HtmlCompat.fromHtml(txtIngredients, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
         steps = recipe?.getJSONArray("instructions")
         Log.i("API", steps.toString())
