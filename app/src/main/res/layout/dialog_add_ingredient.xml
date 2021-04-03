@@ -19,7 +19,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:id="@+id/dialog_add_ingredient_ingrediente"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         app:endIconMode="clear_text"
         android:hint="@string/d_ingredient_ingrediente_agregar">
@@ -45,7 +45,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dialog_add_ingredient_cantidad"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_weight="50"
             app:endIconMode="clear_text"
@@ -64,7 +64,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:id="@+id/dialog_add_ingredient_unidad"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_weight="50"
             android:hint="@string/d_ingredient_unidad">
 
