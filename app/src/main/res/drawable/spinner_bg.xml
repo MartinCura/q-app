@@ -7,7 +7,7 @@
         <shape android:shape="rectangle">
 
             <solid
-                android:color="@color/darkgrey"
+                android:color="@color/dimgrey"
                 />
 
             <corners
@@ -20,7 +20,7 @@
 
     <item
         android:gravity="center_vertical|right"
-        android:right="8dp">
+        android:right="14dp">
 
         <layer-list>
 
@@ -58,7 +58,7 @@
                     android:shape="rectangle">
 
                     <solid
-                        android:color="@color/darkgrey"
+                        android:color="@color/dimgrey"
                         />
 
                 </shape>

@@ -6,7 +6,7 @@
     <string name="title_notifications">Perfil</string>
     <string name="title_chango">Carrito</string>
     <string name="title_inventory">Inventario</string>
-    <string name="loading">Cargando...</string>
+    <string name="loading">Cargando…</string>
 
     <!--  Pantalla Home  -->
     <string name="home_title">Solo ingredientes disponibles</string>
@@ -20,7 +20,7 @@
     <!-- Layout -->
 
     <!-- activity_contacts -->
-    <string name="ac_contacts_buscar_contacto">Buscar contacto...</string>
+    <string name="ac_contacts_buscar_contacto">Buscar entre contactos…</string>
 
     <!-- activity_detail_recipe -->
     <string name="recipe_detail_nombre_default">Nombre de la comida</string>
@@ -60,7 +60,7 @@
     <string name="i_event_asistentes">Invitados:</string>
 
     <!-- fragment_chango | fragment_inventoru-->
-    <string name="f_buscar_ingrediente">Buscar ingrediente...</string>
+    <string name="f_buscar_ingrediente">Buscar ingrediente…</string>
 
     <!-- fragment_inicio -->
     <string name="f_inicio_si"> </string>
@@ -75,16 +75,13 @@
     <!-- recommended_item -->
     <string name="i_recommended_minutos">min</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <!-- TODO: Sort in their Hogwarts houses -->
     <string name="logo">Logo</string>
     <string name="ac_event_detail_invitados">Invitados</string>
     <string name="ac_event_detail_anfitrion">Anfitrión</string>
     <string name="ac_event_detail_recipe_recommendations">Sugerencias de recetas</string>
     <string name="ac_event_detail_add_btn">Agregar invitados</string>
-    <string name="unloaded_text">...</string>
+    <string name="unloaded_text">…</string>
     <string name="ac_event_detail_nombre_del_evento">Nombre del evento</string>
     <string name="ac_event_detail_fecha">Fecha</string>
     <string name="ac_inventory_confirm_btn">Confirmar</string>
@@ -99,7 +96,7 @@
     <string name="ac_new_event_intro">Crea un evento con amigos y obtengan recomendaciones de recetas para su próxima juntada.</string>
     <string name="ac_contacts_add_contact_fab">Add contact FAB</string>
     <string name="ac_events_create_event_fab">Create new event</string>
-    <string name="ac_new_contact_search_hint">Ingrese el nombre del contacto...</string>
+    <string name="ac_new_contact_search_hint">Ingrese el nombre del contacto…</string>
     <string name="d_list_friends_title">Amigos</string>
     <string name="d_list_friend_add_friend_fab">Add friend fab</string>
     <string name="i_event_fecha_title">Fecha:</string>
@@ -119,6 +116,7 @@
     <string name="ac_new_contact_header">Buscar contactos</string>
     <string name="ac_recipes_cooked_header">Recetas cocinadas</string>
     <string name="ac_places_header">Su lugar</string>
+    <string name="ac_category_dishes_title">Recetas encontradas</string>
 
     <!--    TODO: Ordenar strings-->
 </resources>

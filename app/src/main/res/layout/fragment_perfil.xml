@@ -138,8 +138,8 @@
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/perfil_chipgroup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp">
             </com.google.android.material.chip.ChipGroup>
 
             <View
@@ -156,28 +156,18 @@
                 android:textSize="18sp"
                 />
 
-<!--            <Spinner-->
-<!--                android:id="@+id/places_spinner"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginVertical="10dp"-->
-<!--                android:layout_marginHorizontal="5dp"-->
-<!--                android:paddingHorizontal="5dp"-->
-<!--                android:paddingVertical="8dp"-->
-<!--                android:background="@color/darkgrey"-->
-<!--                android:dropDownSelector="@color/primary2"-->
-<!--                />-->
             <Spinner
                 android:id="@+id/places_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="64dp"
+                android:layout_marginEnd="66dp"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="8dp"
                 android:textColor="@color/white"
                 android:background="@drawable/spinner_bg"
+                android:popupBackground="@color/primary"
                 />
 
             <LinearLayout
