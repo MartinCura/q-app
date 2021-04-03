@@ -98,7 +98,7 @@ class InventoryFragment : Fragment() {
 
     private fun obtenerInventario() {
         val queue = Volley.newRequestQueue(activity)
-        val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/?page_size=1000"
+        val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/?page_size=200"
 
         if(LoadingIndicatorFragment.isShowing()) {
             LoadingIndicatorFragment.hide()
