@@ -390,8 +390,9 @@ class InventoryFragment : Fragment() {
                     Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
                     Log.e("API", "Scanned: " + result.contents)
                     if(result.contents.startsWith("http")) {
-                        Log.e("API", "QR")
-                        getQR(result.contents.toString())
+                        Log.i("API", "QR")
+                        val urlQR = result.contents.toString().replace("http", "https")
+                        getQR(urlQR)
                     } else {
                         Log.e("API", "BARRAS")
                         getBarCode(result.contents.toString())
@@ -440,7 +441,7 @@ class InventoryFragment : Fragment() {
         val url = "https://tpp-remy.herokuapp.com/api/v1/inventoryitems/"
 
         val body = JSONObject()
-        body.put("unit", "kilogram")
+        body.put("unit", unidad)
         body.put("quantity", cantidad)
         body.put("product", product)
         Log.i("API", unidad)
