@@ -98,7 +98,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="80dp"
                     android:padding="7dp"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -111,13 +111,102 @@
                         android:textStyle="bold"
                         android:text="@string/ac_d_recipe_rating"/>
 
-                    <TextView
-                        android:id="@+id/detail_recipe_rating"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="3dp"
-                        android:text="No calificada"
-                        />
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="10dp"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/stars"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/starOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_24"
+                                android:tint="@color/yellow_star"
+                                />
+                            <ImageView
+                                android:id="@+id/starOneEmpty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_24"
+                                android:tint="@color/ginsboro"
+                                android:visibility="gone"
+                                />
+
+                            <ImageView
+                                android:id="@+id/starTwo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_24"
+                                android:tint="@color/yellow_star"
+                                />
+                            <ImageView
+                                android:id="@+id/starTwoEmpty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_border_24"
+                                android:tint="@color/ginsboro"
+                                android:visibility="gone"
+                                />
+
+                            <ImageView
+                                android:id="@+id/starThree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_24"
+                                android:tint="@color/yellow_star"
+                                />
+                            <ImageView
+                                android:id="@+id/starThreeEmpty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_border_24"
+                                android:tint="@color/ginsboro"
+                                android:visibility="gone"
+                                />
+
+                            <ImageView
+                                android:id="@+id/starFour"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_24"
+                                android:tint="@color/yellow_star"
+                                />
+                            <ImageView
+                                android:id="@+id/starFourEmpty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_border_24"
+                                android:tint="@color/ginsboro"
+                                android:visibility="gone"
+                                />
+
+                            <ImageView
+                                android:id="@+id/starFive"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_24"
+                                android:tint="@color/yellow_star"
+                                />
+                            <ImageView
+                                android:id="@+id/starFiveEmpty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_star_border_24"
+                                android:tint="@color/ginsboro"
+                                android:visibility="gone"
+                                />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -132,7 +221,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="80dp"
                     android:padding="7dp"
                     android:gravity="center"
                     android:orientation="vertical">

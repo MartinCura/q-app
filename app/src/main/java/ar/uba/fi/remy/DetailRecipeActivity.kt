@@ -23,6 +23,8 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.activity_detail_recipe.*
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.math.round
+import kotlin.math.roundToInt
 
 class DetailRecipeActivity : AppCompatActivity() {
     lateinit var token: String
@@ -178,9 +180,27 @@ class DetailRecipeActivity : AppCompatActivity() {
 
         detail_recipe_duration.text = recipe?.getString("duration") + " minutos"
 
-        val rating = recipe?.getJSONObject("rating")
-        if (rating != null && rating.getBoolean("real")) {
-            detail_recipe_rating.text = rating.getString("score") + " ★"
+        val rating = recipe?.getJSONObject("rating")?.getDouble("score")
+
+        // Ocultar estrellas de difucultad de forma dinamica
+        if(rating != null) {
+            if(rating < 4.5) {
+                starFive.visibility = View.GONE
+                starFiveEmpty.visibility = View.VISIBLE
+            }
+            if(rating < 3.5) {
+                starFour.visibility = View.GONE
+                starFourEmpty.visibility = View.VISIBLE
+            }
+            if(rating < 2.5) {
+                starThree.visibility = View.GONE
+                starThreeEmpty.visibility = View.VISIBLE
+            }
+            if(rating < 1.5) {
+                starTwo.visibility = View.GONE
+                starTwoEmpty.visibility = View.VISIBLE
+            }
         }
+
     }
 }
