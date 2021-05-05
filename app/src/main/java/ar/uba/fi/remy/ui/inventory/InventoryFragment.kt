@@ -161,10 +161,11 @@ class InventoryFragment : Fragment() {
     }
 
     private fun getQR(url: String) {
+        val url2 = url.replace("http://", "https://")
         val queue = Volley.newRequestQueue(activity)
 
         LoadingIndicatorFragment.show(requireContext())
-        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url, null,
+        val jsonObjectRequest = object: JsonObjectRequest(Request.Method.GET, url2, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
 
