@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         NavigationItemModel(R.drawable.ic_baseline_group_24, "Contactos"),
         NavigationItemModel(R.drawable.ic_event, "Eventos"),
         NavigationItemModel(R.drawable.ic_history, "Historial"),
-        NavigationItemModel(R.drawable.ic_home, "Lugar"),
+//        NavigationItemModel(R.drawable.ic_home, "Lugar"),
         NavigationItemModel(R.drawable.ic_cancel, "Cerrar Sesión")
     )
 
@@ -66,10 +66,11 @@ class MainActivity : AppCompatActivity() {
                     2 -> {
                         goRecipesCooked()
                     }
+//                    3 -> {
+//                        goPlaces()
+//                    }
+//                    4 -> {
                     3 -> {
-                        goPlaces()
-                    }
-                    4 -> {
                         cerrarSesion()
                     }
                 }

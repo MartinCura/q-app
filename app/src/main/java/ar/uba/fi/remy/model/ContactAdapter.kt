@@ -65,10 +65,12 @@ class ContactAdapter(private val context: Activity?, private var dataList: Array
             Request.Method.POST, url, body,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                Toast.makeText(this.context, "Solicitud de amistad enviada", Toast.LENGTH_LONG).show()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                Toast.makeText(this.context, "Error al enviar solicitud de amistad", Toast.LENGTH_LONG).show()
             }
         )
         {

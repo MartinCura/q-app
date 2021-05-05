@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_detail_event.*
 import kotlinx.android.synthetic.main.dialog_list_friends.*
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import ar.uba.fi.remy.ui.loadingIndicator.LoadingIndicatorFragment
 import com.squareup.picasso.Picasso
@@ -242,11 +243,13 @@ class DetailEventActivity : AppCompatActivity() {
             Request.Method.POST, url, null,
             Response.Listener { response ->
                 Log.i("API", "Response: %s".format(response.toString()))
+                Toast.makeText(this, "Invitado agregado al evento", Toast.LENGTH_LONG).show()
                 LoadingIndicatorFragment.hide()
             },
             Response.ErrorListener { error ->
                 Log.e("API", "Error en GET")
                 Log.e("API", "Response: %s".format(error.toString()))
+                Toast.makeText(this, "Error al agregar invitado", Toast.LENGTH_LONG).show()
                 LoadingIndicatorFragment.hide()
             }
         )
