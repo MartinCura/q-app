@@ -28,6 +28,7 @@ class ContactsActivity : AppCompatActivity() {
     lateinit var token: String
     lateinit var adapter: ContactAdapter
     lateinit var adapterInvites: ContactRequestAdapter
+    lateinit var id_logged: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,7 @@ class ContactsActivity : AppCompatActivity() {
         val sharedPref = this.getSharedPreferences(
             getString(R.string.preference_file), Context.MODE_PRIVATE)
         token = sharedPref?.getString("TOKEN", "")!!
+        id_logged = sharedPref?.getString("ID_LOGGED", "")!!
 
         //Configuro adapter
         adapter = ContactAdapter(this, dataList, token)
@@ -100,7 +102,8 @@ class ContactsActivity : AppCompatActivity() {
                 var results = response.getJSONArray("results")
                 for (i in 0 until results.length()) {
                     val solicitud = results.getJSONObject(i)
-                    if(solicitud.getString("status") == "REQUESTED") {
+                    val idRequester = solicitud.getJSONObject("profile_requesting").getInt("id")
+                    if(solicitud.getString("status") == "REQUESTED" && id_logged.toInt() != idRequester) {
                         agregarSolicitud(solicitud)
                     }
                 }
