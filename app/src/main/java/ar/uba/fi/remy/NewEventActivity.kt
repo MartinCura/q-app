@@ -70,7 +70,7 @@ class NewEventActivity : AppCompatActivity() {
             var formattedDate: String
             formattedDate = splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0]
             var finalDate = formattedDate + "T" + hour +":00"
-            var sharedInventory = new_event_shared_inventory.isChecked
+            var sharedInventory = false // new_event_shared_inventory.isChecked
 
 
             val body = JSONObject()

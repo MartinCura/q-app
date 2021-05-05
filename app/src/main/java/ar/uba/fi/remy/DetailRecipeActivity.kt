@@ -177,5 +177,10 @@ class DetailRecipeActivity : AppCompatActivity() {
         }
 
         detail_recipe_duration.text = recipe?.getString("duration") + " minutos"
+
+        val rating = recipe?.getJSONObject("rating")
+        if (rating != null && rating.getBoolean("real")) {
+            detail_recipe_rating.text = rating.getString("score") + " ★"
+        }
     }
 }

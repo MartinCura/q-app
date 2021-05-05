@@ -61,8 +61,7 @@
                 android:background="@drawable/input_background"
                 android:drawableEnd="@drawable/ic_date"
                 android:inputType="date"
-                android:focusable="true"
-                android:clickable="true"
+                android:focusable="false"
                 android:maxLines="1"
                 android:textSize="18sp"
                 android:textColor="@color/black"
@@ -82,8 +81,7 @@
                 android:drawablePadding="15dp"
                 android:drawableEnd="@drawable/ic_clock"
                 android:inputType="date"
-                android:focusable="true"
-                android:clickable="true"
+                android:focusable="false"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -93,19 +91,19 @@
 
         </LinearLayout>
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/new_event_shared_inventory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="4dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:button="@null"
-            android:textSize="18sp"
-            android:textColor="@color/ginsboro"
-            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-            android:text="@string/ac_new_event_shared_inventory_selector"
-            />
+<!--        <com.google.android.material.checkbox.MaterialCheckBox-->
+<!--            android:id="@+id/new_event_shared_inventory"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginVertical="4dp"-->
+<!--            android:paddingStart="10dp"-->
+<!--            android:paddingEnd="10dp"-->
+<!--            android:button="@null"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="@color/ginsboro"-->
+<!--            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"-->
+<!--            android:text="@string/ac_new_event_shared_inventory_selector"-->
+<!--            />-->
 
         <Button
             android:id="@+id/new_event_btn_crear"
